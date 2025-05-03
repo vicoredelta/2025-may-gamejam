@@ -7,15 +7,14 @@
 [ext_resource type="FontFile" uid="uid://bp277mpbyjl8y" path="res://assets/Jersey25-Regular.ttf" id="5_2klcf"]
 
 [node name="Map" type="Sprite2D"]
-position = Vector2(0, -25)
 texture = ExtResource("1_4xfga")
 region_enabled = true
-region_rect = Rect2(0, 0, 340, 340)
+region_rect = Rect2(0, 0, 350, 260)
 script = ExtResource("2_0cso3")
 
 [node name="RoomsHolder" type="Node2D" parent="."]
 unique_name_in_owner = true
-position = Vector2(0, 25)
+position = Vector2(0, 67)
 
 [node name="Entrance" parent="RoomsHolder" instance=ExtResource("2_paxxb")]
 
@@ -34,7 +33,7 @@ visible = false
 position = Vector2(54, -108)
 
 [node name="PlayerMarker" parent="." instance=ExtResource("3_gldc4")]
-position = Vector2(0, 25)
+position = Vector2(0, 67)
 
 [node name="CurrentRoomText" type="RichTextLabel" parent="."]
 offset_left = -72.0

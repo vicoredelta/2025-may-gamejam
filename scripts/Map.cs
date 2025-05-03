@@ -30,19 +30,19 @@ public partial class Map : Node
 		{
 			
 			case "Entrance":
-				RoomHolder.Position =  RoomHolder.Position+Entrance.Position*(-1);
+				RoomHolder.Position = RoomHolder.Position+Entrance.Position*(-1);
 				GD.Print(Entrance.Position);
 			break;	
 			case "Hallway":
-				RoomHolder.Position =  RoomHolder.Position+Hallway.Position*(-1);
+				RoomHolder.Position = RoomHolder.Position+Hallway.Position*(-1);
 				GD.Print(RoomHolder.Position);
 			break;	
 			case "Salon":
-				RoomHolder.Position =  Salon.Position*(-1);
+				RoomHolder.Position = Salon.Position*(-1);
 				GD.Print(RoomHolder.Position);
 			break;	
 			case "south":
-				RoomHolder.Position =  new Vector2(54, 0);
+				RoomHolder.Position = new Vector2(54, 0);
 				GD.Print(RoomHolder.Position);
 			break;	
 		

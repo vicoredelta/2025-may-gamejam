@@ -27,7 +27,6 @@ public partial class Game : Node
 		world.SetCurrentRoom("Entrance");
 		
 		// Define connections between rooms
-
 		world.AddConnection("Entrance", "Hallway", Direction.North);
 		world.AddConnection("Hallway", "Salon", Direction.North);
 
