@@ -12,6 +12,7 @@ region_rect = Rect2(0, 0, 340, 340)
 script = ExtResource("2_0cso3")
 
 [node name="RoomsHolder" type="Node2D" parent="."]
+unique_name_in_owner = true
 
 [node name="Room1" parent="RoomsHolder" instance=ExtResource("2_paxxb")]
 position = Vector2(0, -54)
