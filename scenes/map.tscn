@@ -1,9 +1,28 @@
-[gd_scene load_steps=2 format=3 uid="uid://b4o68g4jvup3j"]
+[gd_scene load_steps=4 format=3 uid="uid://b4o68g4jvup3j"]
 
 [ext_resource type="Texture2D" uid="uid://bfi0cy3g13hs4" path="res://assets/map_placeholder_texture.png" id="1_4xfga"]
+[ext_resource type="PackedScene" uid="uid://bxq2piuaooe6i" path="res://scenes/room.tscn" id="2_paxxb"]
+[ext_resource type="PackedScene" uid="uid://beedews6es7ag" path="res://scenes/player_marker.tscn" id="3_gldc4"]
 
 [node name="Sprite2D" type="Sprite2D"]
-position = Vector2(170, 170)
 texture = ExtResource("1_4xfga")
 region_enabled = true
 region_rect = Rect2(0, 0, 340, 340)
+
+[node name="Room1" parent="." instance=ExtResource("2_paxxb")]
+position = Vector2(-2, -7)
+
+[node name="Room2" parent="." instance=ExtResource("2_paxxb")]
+position = Vector2(-58, -6)
+
+[node name="Room3" parent="." instance=ExtResource("2_paxxb")]
+position = Vector2(-2, -61)
+
+[node name="Room4" parent="." instance=ExtResource("2_paxxb")]
+position = Vector2(-2, 46)
+
+[node name="Room5" parent="." instance=ExtResource("2_paxxb")]
+position = Vector2(53, 46)
+
+[node name="PlayerMarker" parent="." instance=ExtResource("3_gldc4")]
+position = Vector2(-2, -6)

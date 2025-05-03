@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bxq2piuaooe6i"]
+
+[ext_resource type="Texture2D" uid="uid://c278ydlgbxv4q" path="res://assets/room_placeholder_texture.png" id="1_36trf"]
+
+[node name="Room" type="Sprite2D"]
+texture = ExtResource("1_36trf")
+region_enabled = true
+region_rect = Rect2(0, 0, 50, 50)
