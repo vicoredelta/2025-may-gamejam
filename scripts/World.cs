@@ -82,7 +82,7 @@ public class World
 		}
 		else
 		{
-			return "There is no '" + itemName + " in inventory or vicinity.";
+			return "There is no '" + itemName + "' in inventory or vicinity.";
 		}
 	}
 	

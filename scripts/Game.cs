@@ -51,11 +51,16 @@ public partial class Game : Node
 		
 		switch (words[0].ToLower())
 		{
+			case "inspect":
 			case "examine":
 			case "look":
-				if(words.Length < 2)
+				if (words.Length < 2)
 				{
 					OutputText(world.Look());
+				}
+				else if (words[1] == "at" && words.Length > 2)
+				{
+					OutputText(world.Examine(words[2]));
 				}
 				else
 				{
