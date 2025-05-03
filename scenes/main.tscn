@@ -5,3 +5,4 @@
 [node name="Main" type="Node"]
 
 [node name="UserInterface" parent="." instance=ExtResource("1_o5qli")]
+script = null
