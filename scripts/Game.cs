@@ -16,7 +16,7 @@ public partial class Game : Node
 	Game()
 	{
 
-		// Create rooms
+		// Create rooms (name, descripion)
 		world.AddRoom("Entrance", "This room is very blue");
 		world.AddRoom("Hallway", "This room is super red");
 		world.AddRoom("Salon", "This room is super red");
@@ -26,7 +26,7 @@ public partial class Game : Node
 		// Set starting room
 		world.SetCurrentRoom("Entrance");
 		
-		// Define connections between rooms
+		// Define connections between rooms (room 1, room 2, direction when moving from room 1 to room 2)
 		world.AddConnection("Entrance", "Hallway", Direction.North);
 		world.AddConnection("Hallway", "Salon", Direction.North);
 
