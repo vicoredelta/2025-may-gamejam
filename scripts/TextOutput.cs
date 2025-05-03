@@ -3,9 +3,8 @@ using System;
 
 public partial class TextOutput : TextEdit
 {
-	public void TextInputReceived(String textInput)
+	public void TextOutputReceived(String textOutput)
 	{
-		GD.Print(textInput);
-		InsertTextAtCaret(textInput + "\n");
+		InsertTextAtCaret(textOutput);
 	}
 }
