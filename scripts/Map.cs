@@ -11,6 +11,7 @@ public partial class Map : Node
 	
 	public void MapMove(String direction, String destinationRoom)
 	{
+		GD.Print("test");
 		setRoom(destinationRoom);
 	}
 	
