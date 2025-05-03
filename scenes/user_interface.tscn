@@ -51,7 +51,6 @@ offset_bottom = 832.0
 
 [node name="Map" parent="." instance=ExtResource("1_syvep")]
 position = Vector2(936, 248)
-scale = Vector2(1.03529, 0.752941)
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 position = Vector2(0, -4)
