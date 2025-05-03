@@ -5,6 +5,7 @@ public partial class TextOutput : TextEdit
 {
 	public void TextInputReceived(String textInput)
 	{
-		GD.Print("received!");
+		GD.Print(textInput);
+		InsertTextAtCaret(textInput + "\n");
 	}
 }

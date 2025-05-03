@@ -10,7 +10,7 @@ public partial class TextInput : TextEdit
 	{
 		if (Input.IsActionJustPressed("ui_accept"))
 		{
-			EmitSignal(SignalName.PlayerInput, "test");
+			EmitSignal(SignalName.PlayerInput, GetLine(0));
 			Clear();
 		}
 	}
