@@ -14,6 +14,7 @@ public enum Direction
 public class World
 {	
 	Dictionary<String, Room> rooms = new Dictionary<String, Room>();
+	Dictionary<String, Item> inventory = new Dictionary<String, Item>();
 	Room currentRoom;
 	
 	public static bool IsDirection(String text)
@@ -22,6 +23,28 @@ public class World
 			return true;
 		else
 			return false;
+	}
+	
+	public String Take(String itemName)
+	{
+		if (inventory.ContainsKey(itemName))
+		{
+			return itemName + " is already in your inventory.";
+		}
+		else if (!currentRoom.ContainsItem(itemName))
+		{
+			return "There is no '" + itemName + "' in the vicinity."; 
+		}
+		else if (!currentRoom.IsItemPossibleToTake(itemName))
+		{
+			return "You can not pick up " + itemName + ".";
+		}
+		else
+		{
+			Item pickup = currentRoom.TakeItem(itemName);
+			inventory.Add(pickup.Name, pickup);
+			return "You pick up " + itemName + ".";
+		}
 	}
 	
 	public void AddRoom(String name, String description)
@@ -93,7 +116,6 @@ public class World
 				break;
 			default:
 				throw new InvalidOperationException(direction + "is not a direction");
-				break;
 		}
 		
 		return returnValue;
@@ -147,16 +169,33 @@ public class Room
 		Items.Add(itemName, new Item(itemName, itemDescription, canBePickedUp));
 	}
 	
+	public Item TakeItem(String itemName)
+	{
+		Item returnValue = Items[itemName];
+		Items.Remove(itemName);
+		return returnValue;
+	}
+	
 	public String GetItemDescription(String itemName)
 	{
 		if (!Items.ContainsKey(itemName))
 		{
-			return "There is no " + itemName + " in inventory or in the vicinity.";
+			return "There is no '" + itemName + "' in inventory or in the vicinity.";
 		}
 		else
 		{
 			return Items[itemName].Description;
 		}
+	}
+	
+	public bool IsItemPossibleToTake(String itemName)
+	{
+		return Items[itemName].CanBePickedUp;
+	}
+	
+	public bool ContainsItem(String itemName)
+	{
+		return Items.ContainsKey(itemName);
 	}
 	
 	public String ListItems()
