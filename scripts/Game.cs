@@ -16,14 +16,16 @@ public partial class Game : Node
 	Game()
 	{
 		// Create rooms
-		world.AddRoom("West room", "This room is very blue");
-		world.AddRoom("East room", "This room is super red");
+		world.AddRoom("Entrance", "This room is very blue");
+		world.AddRoom("Hallway", "This room is super red");
+		world.AddRoom("Salon", "This room is super red");
 		
 		// Set starting room
-		world.SetCurrentRoom("West room");
+		world.SetCurrentRoom("Entrance");
 		
 		// Define connections between rooms
-		world.AddConnection("West room", "East room", Direction.East);
+		world.AddConnection("Entrance", "Hallway", Direction.North);
+		world.AddConnection("Hallway", "Salon", Direction.North);
 	}
 	
 	private void OutputText(String text)

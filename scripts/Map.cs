@@ -4,36 +4,41 @@ using System;
 public partial class Map : Node
 {
 	private Node2D RoomHolder;
+	private Sprite2D Entrance;
+	private Sprite2D Hallway;
+	private Sprite2D Salon;
+	
 	
 	public void MapMove(String direction, String destinationRoom)
 	{
-		GD.Print(direction);
-		setRoom(direction);
+		setRoom(destinationRoom);
 	}
 	
 	public override void _Ready()
 	{
 		RoomHolder = GetNode<Node2D>("RoomsHolder");
+		Entrance = GetNode<Sprite2D>("RoomsHolder/Entrance");
+		Hallway = GetNode<Sprite2D>("RoomsHolder/Entrance");
+		Salon = GetNode<Sprite2D>("RoomsHolder/Entrance");
 	}
 	
 	
 	public void setRoom (string currentRoom)
 	{
-		GD.Print("SetRoom");
-		string direction = currentRoom;
-		switch (direction)
+		
+		switch (currentRoom)
 		{
 			
-			case "west":
-				RoomHolder.Position =  new Vector2(0, 0);
+			case "Entrance":
+				RoomHolder.Position =  RoomHolder.Position+Entrance.Position*(-1);
+				GD.Print(Entrance.Position);
+			break;	
+			case "Hallway":
+				RoomHolder.Position =  RoomHolder.Position+Hallway.Position*(-1);
 				GD.Print(RoomHolder.Position);
 			break;	
-			case "east":
-				RoomHolder.Position =  new Vector2(0, 54);
-				GD.Print(RoomHolder.Position);
-			break;	
-			case "north":
-				RoomHolder.Position =  new Vector2(54, 54);
+			case "Salon":
+				RoomHolder.Position =  Salon.Position*(-1);
 				GD.Print(RoomHolder.Position);
 			break;	
 			case "south":

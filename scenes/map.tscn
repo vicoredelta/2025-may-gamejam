@@ -1,11 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://b4o68g4jvup3j"]
+[gd_scene load_steps=6 format=3 uid="uid://b4o68g4jvup3j"]
 
 [ext_resource type="Texture2D" uid="uid://bfi0cy3g13hs4" path="res://assets/map_placeholder_texture.png" id="1_4xfga"]
 [ext_resource type="Script" uid="uid://ci1jy75un2vyy" path="res://scripts/Map.cs" id="2_0cso3"]
 [ext_resource type="PackedScene" uid="uid://bpb815lf1ws17" path="res://scenes/room.tscn" id="2_paxxb"]
-[ext_resource type="PackedScene" path="res://scenes/player_marker.tscn" id="3_gldc4"]
+[ext_resource type="PackedScene" uid="uid://beedews6es7ag" path="res://scenes/player_marker.tscn" id="3_gldc4"]
+[ext_resource type="FontFile" uid="uid://bp277mpbyjl8y" path="res://assets/Jersey25-Regular.ttf" id="5_2klcf"]
 
 [node name="Map" type="Sprite2D"]
+position = Vector2(0, -25)
 texture = ExtResource("1_4xfga")
 region_enabled = true
 region_rect = Rect2(0, 0, 340, 340)
@@ -13,19 +15,33 @@ script = ExtResource("2_0cso3")
 
 [node name="RoomsHolder" type="Node2D" parent="."]
 unique_name_in_owner = true
+position = Vector2(0, 25)
 
-[node name="Room1" parent="RoomsHolder" instance=ExtResource("2_paxxb")]
+[node name="Entrance" parent="RoomsHolder" instance=ExtResource("2_paxxb")]
+
+[node name="Hallway" parent="RoomsHolder" instance=ExtResource("2_paxxb")]
 position = Vector2(0, -54)
 
-[node name="Room2" parent="RoomsHolder" instance=ExtResource("2_paxxb")]
-position = Vector2(-54, -54)
-
-[node name="Room3" parent="RoomsHolder" instance=ExtResource("2_paxxb")]
+[node name="Salon" parent="RoomsHolder" instance=ExtResource("2_paxxb")]
 position = Vector2(0, -108)
 
 [node name="Room4" parent="RoomsHolder" instance=ExtResource("2_paxxb")]
+visible = false
+position = Vector2(-54, -108)
 
 [node name="Room5" parent="RoomsHolder" instance=ExtResource("2_paxxb")]
-position = Vector2(55, -54)
+visible = false
+position = Vector2(54, -108)
 
 [node name="PlayerMarker" parent="." instance=ExtResource("3_gldc4")]
+position = Vector2(0, 25)
+
+[node name="CurrentRoomText" type="RichTextLabel" parent="."]
+offset_left = -72.0
+offset_top = -164.0
+offset_right = 71.0
+offset_bottom = -132.0
+theme_override_fonts/normal_font = ExtResource("5_2klcf")
+theme_override_font_sizes/normal_font_size = 28
+text = "Entrance"
+horizontal_alignment = 1
