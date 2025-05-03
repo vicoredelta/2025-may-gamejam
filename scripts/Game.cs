@@ -61,13 +61,12 @@ public partial class Game : Node
 					if (world.Move(direction))
 					{
 						OutputText("You move to " + world.GetCurrentRoomName());
+						EmitSignal(SignalName.MapMove, direction);
 					}
 					else
 					{
 						OutputText("There is no where to go " + direction);
 					}
-					
-					EmitSignal(SignalName.MapMove, direction);
 				}
 				else
 				{
