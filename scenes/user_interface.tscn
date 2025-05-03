@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://bmb2klssaod8n"]
 
-[ext_resource type="Script" path="res://scripts/Game.cs" id="1_jbsfc"]
+[ext_resource type="Script" uid="uid://dnjxfh5m1lg2v" path="res://scripts/Game.cs" id="1_jbsfc"]
 [ext_resource type="Script" uid="uid://ekyba86i6l0g" path="res://scripts/TextOutput.cs" id="1_l2bgj"]
 [ext_resource type="PackedScene" uid="uid://b4o68g4jvup3j" path="res://scenes/map.tscn" id="1_syvep"]
 [ext_resource type="Script" uid="uid://8vhaa23wb4xq" path="res://scripts/TextInput.cs" id="1_y1h3b"]
@@ -25,6 +25,7 @@ script = ExtResource("1_y1h3b")
 
 [node name="Sprite2D" parent="." instance=ExtResource("1_syvep")]
 position = Vector2(940, 210)
+script = null
 
 [node name="Inventory" type="ItemList" parent="."]
 offset_left = 770.0
