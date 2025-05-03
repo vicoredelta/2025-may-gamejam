@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://b4o68g4jvup3j"]
 
 [ext_resource type="Texture2D" uid="uid://bfi0cy3g13hs4" path="res://assets/map_placeholder_texture.png" id="1_4xfga"]
-[ext_resource type="PackedScene" uid="uid://bxq2piuaooe6i" path="res://scenes/room.tscn" id="2_paxxb"]
-[ext_resource type="PackedScene" uid="uid://beedews6es7ag" path="res://scenes/player_marker.tscn" id="3_gldc4"]
+[ext_resource type="PackedScene" uid="uid://bpb815lf1ws17" path="res://scenes/room.tscn" id="2_paxxb"]
+[ext_resource type="PackedScene" path="res://scenes/player_marker.tscn" id="3_gldc4"]
 
 [node name="Sprite2D" type="Sprite2D"]
 texture = ExtResource("1_4xfga")
