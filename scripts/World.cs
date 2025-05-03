@@ -20,6 +20,11 @@ public class World
 		rooms.Add(name, new Room(description));
 	}
 	
+	public String GetRoomDescription(String roomName)
+	{
+		return rooms[roomName].Description;
+	}
+	
 	public void AddConnection(String roomName1, String roomName2, Direction direction)
 	{
 		switch (direction)
@@ -46,7 +51,7 @@ public class World
 
 public class Room
 {
-	String Description;
+	public String Description;
 	public String ConnectingRoomNorth;
 	public String ConnectingRoomSouth;
 	public String ConnectingRoomWest;

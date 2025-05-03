@@ -16,11 +16,12 @@ public partial class Game : Node
 	// Constructor, create the entire world here
 	Game()
 	{
-		GD.Print("Game constructor called");
-		
 		// Create rooms
 		world.AddRoom("West room", "This room is very blue");
 		world.AddRoom("East room", "This room is super red");
+		
+		// Set starting room
+		currentRoom = "West room";
 		
 		// Define connections between rooms
 		world.AddConnection("West room", "East room", Direction.East);
@@ -28,11 +29,8 @@ public partial class Game : Node
 	
 	public void TextInputReceived(String textInput)
 	{
-		// Debug message in godot to know we are receiving something
-		GD.Print("Game script received input");
-		
 		// Echo input in output window
-		EmitSignal(SignalName.TextOutput, textInput + "\n");
+		EmitSignal(SignalName.TextOutput, "> " + textInput + "\n");
 		
 		// Split line into separate words
 		string[] words = textInput.Split(' ');
@@ -40,7 +38,7 @@ public partial class Game : Node
 		switch (words[0].ToLower())
 		{
 			case "look":
-				
+				EmitSignal(SignalName.TextOutput, world.GetRoomDescription(currentRoom) + "\n");
 				break;
 				
 			case "examine":
@@ -50,21 +48,9 @@ public partial class Game : Node
 			case "move":
 				EmitSignal(SignalName.MapMove, words[1].ToLower());
 				break;
+			default:
+				EmitSignal(SignalName.TextOutput, "Invalid command\n");
+				break;
 		}
-	}
-	
-	private void Move(String destination)
-	{
-		
-	}
-	
-	private void Look()
-	{
-		
-	}
-	
-	private void Take(Item item)
-	{
-		
 	}
 }
