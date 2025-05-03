@@ -72,7 +72,18 @@ public class World
 	
 	public String Examine(String itemName)
 	{
-		return currentRoom.GetItemDescription(itemName);
+		if (currentRoom.ContainsItem(itemName))
+		{
+			return currentRoom.GetItemDescription(itemName);
+		}
+		else if (inventory.ContainsKey(itemName))
+		{
+			return inventory[itemName].Description;
+		}
+		else
+		{
+			return "There is no '" + itemName + " in inventory or vicinity.";
+		}
 	}
 	
 	public void AddItem(String itemName, String itemDescription, String roomName, bool canBePickedUp)
@@ -178,14 +189,7 @@ public class Room
 	
 	public String GetItemDescription(String itemName)
 	{
-		if (!Items.ContainsKey(itemName))
-		{
-			return "There is no '" + itemName + "' in inventory or in the vicinity.";
-		}
-		else
-		{
-			return Items[itemName].Description;
-		}
+		return Items[itemName].Description;
 	}
 	
 	public bool IsItemPossibleToTake(String itemName)

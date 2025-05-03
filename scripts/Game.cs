@@ -51,14 +51,11 @@ public partial class Game : Node
 		
 		switch (words[0].ToLower())
 		{
-			case "look":
-				OutputText(world.Look());
-				break;
-				
 			case "examine":
+			case "look":
 				if(words.Length < 2)
 				{
-					OutputText("'examine' requires an argument.");
+					OutputText(world.Look());
 				}
 				else
 				{
