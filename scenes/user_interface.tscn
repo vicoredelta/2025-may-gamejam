@@ -26,5 +26,11 @@ script = ExtResource("1_y1h3b")
 [node name="Sprite2D" parent="." instance=ExtResource("1_syvep")]
 position = Vector2(940, 210)
 
+[node name="Inventory" type="ItemList" parent="."]
+offset_left = 770.0
+offset_top = 410.0
+offset_right = 1110.0
+offset_bottom = 830.0
+
 [connection signal="TextOutput" from="." to="TextOutput" method="TextOutputReceived"]
 [connection signal="PlayerInput" from="TextInput" to="." method="TextInputReceived"]
