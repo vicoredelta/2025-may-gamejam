@@ -5,7 +5,6 @@ using System.Collections.Generic;
 public partial class Game : Node
 {
 	World world = new World();
-	String currentRoom;
 	
 	[Signal]
 	public delegate void TextOutputEventHandler();
@@ -21,7 +20,7 @@ public partial class Game : Node
 		world.AddRoom("East room", "This room is super red");
 		
 		// Set starting room
-		currentRoom = "West room";
+		world.SetCurrentRoom("West room");
 		
 		// Define connections between rooms
 		world.AddConnection("West room", "East room", Direction.East);
@@ -43,7 +42,7 @@ public partial class Game : Node
 		switch (words[0].ToLower())
 		{
 			case "look":
-				OutputText(world.GetRoomDescription(currentRoom));
+				OutputText(world.Look());
 				break;
 				
 			case "examine":

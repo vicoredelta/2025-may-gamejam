@@ -14,6 +14,7 @@ public enum Direction
 public class World
 {	
 	Dictionary<String, Room> rooms = new Dictionary<String, Room>();
+	Room currentRoom;
 	
 	public static bool IsDirection(String text)
 	{
@@ -25,33 +26,44 @@ public class World
 	
 	public void AddRoom(String name, String description)
 	{
-		rooms.Add(name, new Room(description));
+		rooms.Add(name, new Room(name, description));
 	}
 	
-	public String GetRoomDescription(String roomName)
+	public void SetCurrentRoom(String roomName)
 	{
-		return rooms[roomName].Description;
+		if (rooms.ContainsKey(roomName))
+			currentRoom = rooms[roomName];
+		else
+			throw new InvalidOperationException("Room " + roomName + "does not exist");
+	}
+	
+	public String Look()
+	{
+		return currentRoom.Description;
 	}
 	
 	public void AddConnection(String roomName1, String roomName2, Direction direction)
 	{
+		Room room1 = rooms[roomName1];
+		Room room2 = rooms[roomName2];
+		
 		switch (direction)
 		{
 			case Direction.North:
-				rooms[roomName1].ConnectingRoomNorth = roomName2;
-				rooms[roomName2].ConnectingRoomSouth = roomName1;
+				room1.ConnectingRoomNorth = room2;
+				room2.ConnectingRoomSouth = room1;
 				break;
 			case Direction.South:
-				rooms[roomName1].ConnectingRoomSouth = roomName2;
-				rooms[roomName2].ConnectingRoomNorth = roomName1;
+				room1.ConnectingRoomSouth = room2;
+				room2.ConnectingRoomNorth = room1;
 				break;
 			case Direction.East:
-				rooms[roomName1].ConnectingRoomEast = roomName2;
-				rooms[roomName2].ConnectingRoomWest = roomName1;
+				room1.ConnectingRoomEast = room2;
+				room2.ConnectingRoomWest = room1;
 				break;
 			case Direction.West:
-				rooms[roomName1].ConnectingRoomWest = roomName2;
-				rooms[roomName2].ConnectingRoomEast = roomName1;
+				room1.ConnectingRoomWest = room2;
+				room2.ConnectingRoomEast = room1;
 				break;
 		}
 	}
@@ -60,13 +72,15 @@ public class World
 public class Room
 {
 	public String Description;
-	public String ConnectingRoomNorth;
-	public String ConnectingRoomSouth;
-	public String ConnectingRoomWest;
-	public String ConnectingRoomEast;
+	public String Name;
+	public Room ConnectingRoomNorth = null;
+	public Room ConnectingRoomSouth = null;
+	public Room ConnectingRoomWest = null;
+	public Room ConnectingRoomEast = null;
 	
-	public Room(String description)
+	public Room(String name, String description)
 	{
 		Description = description;
+		Name = name;
 	}
 }
