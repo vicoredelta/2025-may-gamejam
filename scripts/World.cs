@@ -44,7 +44,15 @@ public class World
 	
 	public String Look()
 	{
-		return currentRoom.Description;
+		return currentRoom.Description + currentRoom.ListItems();
+	}
+	
+	public void AddItem(String itemName, String itemDescription, String roomName, bool canBePickedUp)
+	{
+		if (!rooms.ContainsKey(roomName))
+			throw new InvalidOperationException("Room " + roomName + "does not exist");
+			
+		rooms[roomName].AddItem(itemName, itemDescription, canBePickedUp);
 	}
 	
 	// Returns true upon a successful move
@@ -121,10 +129,35 @@ public class Room
 	public Room ConnectingRoomSouth = null;
 	public Room ConnectingRoomWest = null;
 	public Room ConnectingRoomEast = null;
+	List<Item> Items = new List<Item>();
 	
 	public Room(String name, String description)
 	{
 		Description = description;
 		Name = name;
+	}
+	
+	public void AddItem(String itemName, String itemDescription, bool canBePickedUp)
+	{
+		Items.Add(new Item(itemName, itemDescription, canBePickedUp));
+	}
+	
+	public String ListItems()
+	{
+		String returnValue = "";
+		
+		if (Items.Count > 0)
+		{
+			returnValue += "\nThere is ";
+			
+			for (int i=0; i<Items.Count-1; i++)
+			{
+				returnValue += "a " + Items[i].Description + ", ";
+			}
+			
+			returnValue += "a " + Items[0].Name + ".";
+		}
+		
+		return returnValue;
 	}
 }

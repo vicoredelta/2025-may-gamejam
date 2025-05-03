@@ -12,10 +12,10 @@ public partial class Game : Node
 	[Signal]
 	public delegate void MapMoveEventHandler();
 	
-	// Constructor, create the entire world here
+	// Constructor, instantiate world objects here
 	Game()
 	{
-		// Create rooms
+		// Create rooms (name, description)
 		world.AddRoom("West room", "This room is very blue");
 		world.AddRoom("East room", "This room is super red");
 		
@@ -24,6 +24,10 @@ public partial class Game : Node
 		
 		// Define connections between rooms
 		world.AddConnection("West room", "East room", Direction.East);
+		
+		// Add items to rooms (item name, item description, room name, can be picked up)
+		world.AddItem("Hammer", "Bretty heavy", "West room", true);
+		world.AddItem("Sofa", "Soft...", "East room", false);
 	}
 	
 	private void OutputText(String text)
