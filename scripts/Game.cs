@@ -16,7 +16,7 @@ public partial class Game : Node
 	Game()
 	{
 
-		// Create rooms
+		// Create rooms (name, descripion)
 		world.AddRoom("Entrance", "This room is very blue");
 		world.AddRoom("Hallway", "This room is super red");
 		world.AddRoom("Salon", "This room is super red");
@@ -26,15 +26,14 @@ public partial class Game : Node
 		// Set starting room
 		world.SetCurrentRoom("Entrance");
 		
-		// Define connections between rooms
+		// Define connections between rooms (room 1, room 2, direction when moving from room 1 to room 2)
 		world.AddConnection("Entrance", "Hallway", Direction.North);
 		world.AddConnection("Hallway", "Salon", Direction.North);
 
 		
 		// Add items to rooms (item name, item description, room name, can be picked up)
-		world.AddItem("Hammer", "Bretty heavy", "Entrance", true);
+		world.AddItem("Hammer", "Bretty heavy.", "Entrance", true);
 		world.AddItem("Sofa", "Soft...", "Hallway", false);
-
 	}
 	
 	private void OutputText(String text)
@@ -52,14 +51,16 @@ public partial class Game : Node
 		
 		switch (words[0].ToLower())
 		{
-			case "look":
-				OutputText(world.Look());
-				break;
-				
+			case "inspect":
 			case "examine":
-				if(words.Length < 2)
+			case "look":
+				if (words.Length < 2)
 				{
-					OutputText("'examine' requires an argument");
+					OutputText(world.Look());
+				}
+				else if (words[1] == "at" && words.Length > 2)
+				{
+					OutputText(world.Examine(words[2]));
 				}
 				else
 				{
@@ -67,10 +68,21 @@ public partial class Game : Node
 				}
 				break;
 				
+			case "take":
+				if(words.Length < 2)
+				{
+					OutputText("'take' requires an argument.");
+				}
+				else
+				{
+					OutputText(world.Take(words[1]));
+				}
+				break;
+				
 			case "move":
 				if(words.Length < 2)
 				{
-					OutputText("'Move' requires an argument");
+					OutputText("'Move' requires an argument.");
 				}
 				else if (World.IsDirection(words[1].ToLower()))
 				{
@@ -78,22 +90,22 @@ public partial class Game : Node
 					
 					if (world.Move(direction))
 					{
-						OutputText("You move to " + world.GetCurrentRoomName());
+						OutputText("You move to " + world.GetCurrentRoomName() + ".");
 						EmitSignal(SignalName.MapMove, direction, world.GetCurrentRoomName());
 					}
 					else
 					{
-						OutputText("There is no where to go " + direction);
+						OutputText("There is no where to go " + direction + ".");
 					}
 				}
 				else
 				{
-					OutputText("'" + words[1] + "'" + " is not a valid direction");
+					OutputText("'" + words[1] + "'" + " is not a valid direction.");
 				}
 				break;
 				
 			default:
-				OutputText("Invalid command");
+				OutputText("Invalid command.");
 				break;
 		}
 	}
