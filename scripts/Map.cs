@@ -8,6 +8,7 @@ public partial class Map : Node
 	public void MapMove(String direction)
 	{
 		GD.Print(direction);
+		setRoom(direction);
 	}
 	
 	public override void _Ready()
@@ -15,26 +16,34 @@ public partial class Map : Node
 		RoomHolder = GetNode<Node2D>("RoomsHolder");
 	}
 	
-	/*
+	
 	public void setRoom (string currentRoom)
 	{
-		switch (currentRoom)
+		GD.Print("SetRoom");
+		string direction = currentRoom;
+		switch (direction)
 		{
-			/*
-			case x:
+			
+			case "west":
 				RoomHolder.Position =  new Vector2(0, 0);
-				
+				GD.Print(RoomHolder.Position);
 			break;	
-			case y:
+			case "east":
 				RoomHolder.Position =  new Vector2(0, 54);
+				GD.Print(RoomHolder.Position);
 			break;	
-			case z:
+			case "north":
 				RoomHolder.Position =  new Vector2(54, 54);
+				GD.Print(RoomHolder.Position);
+			break;	
+			case "south":
+				RoomHolder.Position =  new Vector2(54, 0);
+				GD.Print(RoomHolder.Position);
 			break;	
 		
 		}
 	}
-	*/
+	
 	private void MoveMap ()
 	{
 		
