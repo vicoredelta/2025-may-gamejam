@@ -12,6 +12,7 @@ public partial class Map : Node
 	public void MapMove(String direction, String destinationRoom)
 	{
 		setRoom(destinationRoom);
+		GD.Print(Entrance.Position);
 	}
 	
 	public override void _Ready()
