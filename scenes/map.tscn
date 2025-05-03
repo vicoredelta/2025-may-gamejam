@@ -16,21 +16,16 @@ unique_name_in_owner = true
 
 [node name="Room1" parent="RoomsHolder" instance=ExtResource("2_paxxb")]
 position = Vector2(0, -54)
-script = null
 
 [node name="Room2" parent="RoomsHolder" instance=ExtResource("2_paxxb")]
 position = Vector2(-54, -54)
-script = null
 
 [node name="Room3" parent="RoomsHolder" instance=ExtResource("2_paxxb")]
 position = Vector2(0, -108)
-script = null
 
 [node name="Room4" parent="RoomsHolder" instance=ExtResource("2_paxxb")]
-script = null
 
 [node name="Room5" parent="RoomsHolder" instance=ExtResource("2_paxxb")]
 position = Vector2(55, -54)
-script = null
 
 [node name="PlayerMarker" parent="." instance=ExtResource("3_gldc4")]

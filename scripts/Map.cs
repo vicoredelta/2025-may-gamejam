@@ -5,6 +5,11 @@ public partial class Map : Node
 {
 	private Node2D RoomHolder;
 	
+	public void MapMove(String direction)
+	{
+		GD.Print(direction);
+	}
+	
 	public override void _Ready()
 	{
 		RoomHolder = GetNode<Node2D>("RoomsHolder");

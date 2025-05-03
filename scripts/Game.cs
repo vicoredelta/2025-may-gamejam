@@ -10,6 +10,9 @@ public partial class Game : Node
 	[Signal]
 	public delegate void TextOutputEventHandler();
 	
+	[Signal]
+	public delegate void MapMoveEventHandler();
+	
 	// Constructor, create the entire world here
 	Game()
 	{
@@ -36,9 +39,6 @@ public partial class Game : Node
 		
 		switch (words[0].ToLower())
 		{
-			case " ":
-				break;
-			
 			case "look":
 				
 				break;
@@ -48,7 +48,7 @@ public partial class Game : Node
 				break;
 				
 			case "move":
-				
+				EmitSignal(SignalName.MapMove, words[1].ToLower());
 				break;
 		}
 	}

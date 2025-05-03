@@ -6,4 +6,4 @@
 
 [node name="UserInterface" parent="." instance=ExtResource("1_o5qli")]
 
-[connection signal="TextOutput" from="UserInterface" to="UserInterface/TextOutput" method="TextOutputReceived"]
+[connection signal="MapMove" from="UserInterface" to="UserInterface/Map" method="MapMove"]
