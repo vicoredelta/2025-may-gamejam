@@ -11,8 +11,13 @@ config_version=5
 [application]
 
 config/name="2025-may-gamejam"
+run/main_scene="uid://dmjkevj2v08uh"
 config/features=PackedStringArray("4.4", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="res://assets/icon.svg"
+
+[display]
+
+window/size/viewport_height=864
 
 [dotnet]
 
