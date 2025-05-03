@@ -47,6 +47,11 @@ public class World
 		return currentRoom.Description + currentRoom.ListItems();
 	}
 	
+	public String Examine(String itemName)
+	{
+		return currentRoom.GetItemDescription(itemName);
+	}
+	
 	public void AddItem(String itemName, String itemDescription, String roomName, bool canBePickedUp)
 	{
 		if (!rooms.ContainsKey(roomName))
@@ -129,7 +134,7 @@ public class Room
 	public Room ConnectingRoomSouth = null;
 	public Room ConnectingRoomWest = null;
 	public Room ConnectingRoomEast = null;
-	List<Item> Items = new List<Item>();
+	Dictionary<String, Item> Items = new Dictionary<String, Item>();
 	
 	public Room(String name, String description)
 	{
@@ -139,7 +144,19 @@ public class Room
 	
 	public void AddItem(String itemName, String itemDescription, bool canBePickedUp)
 	{
-		Items.Add(new Item(itemName, itemDescription, canBePickedUp));
+		Items.Add(itemName, new Item(itemName, itemDescription, canBePickedUp));
+	}
+	
+	public String GetItemDescription(String itemName)
+	{
+		if (!Items.ContainsKey(itemName))
+		{
+			return "There is no " + itemName + " in inventory or in the vicinity.";
+		}
+		else
+		{
+			return Items[itemName].Description;
+		}
 	}
 	
 	public String ListItems()
@@ -149,13 +166,14 @@ public class Room
 		if (Items.Count > 0)
 		{
 			returnValue += "\nThere is ";
+			List<Item> arr = new List<Item>(Items.Values);
 			
-			for (int i=0; i<Items.Count-1; i++)
+			for (int i=0; i<arr.Count-1; i++)
 			{
-				returnValue += "a " + Items[i].Description + ", ";
+				returnValue += "a " + arr[i].Description + ", ";
 			}
 			
-			returnValue += "a " + Items[0].Name + ".";
+			returnValue += "a " + arr[0].Name + ".";
 		}
 		
 		return returnValue;
