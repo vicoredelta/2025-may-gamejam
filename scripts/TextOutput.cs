@@ -3,7 +3,7 @@ using System;
 
 public partial class TextOutput : TextEdit
 {
-	public void TextInputReceived()
+	public void TextInputReceived(String textInput)
 	{
 		GD.Print("received!");
 	}
