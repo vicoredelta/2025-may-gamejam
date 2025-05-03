@@ -16,11 +16,11 @@ public partial class Game : Node
 		GD.Print("Game constructor called");
 		
 		// Create rooms
-		world.AddRoom("Blue room", "This room is very blue");
-		world.AddRoom("Red room", "This room is super red");
+		world.AddRoom("West room", "This room is very blue");
+		world.AddRoom("East room", "This room is super red");
 		
 		// Define connections between rooms
-		world.AddConnection("Blue room", "Red room");
+		world.AddConnection("West room", "East room", Direction.East);
 	}
 	
 	public void TextInputReceived(String textInput)

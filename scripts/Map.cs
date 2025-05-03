@@ -15,6 +15,7 @@ public partial class Map : Node
 	{
 		switch (currentRoom)
 		{
+			/*
 			case x:
 				RoomHolder.Position =  new Vector2(0, 0);
 				
