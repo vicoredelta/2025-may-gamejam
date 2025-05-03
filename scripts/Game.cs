@@ -4,11 +4,24 @@ using System.Collections.Generic;
 
 public partial class Game : Node
 {
-	Dictionary<String, Room> World;
-	String CurrentRoom;
+	World world = new World();
+	String currentRoom;
 	
 	[Signal]
 	public delegate void TextOutputEventHandler();
+	
+	// Constructor, create the entire world here
+	Game()
+	{
+		GD.Print("Game constructor called");
+		
+		// Create rooms
+		world.AddRoom("Blue room", "This room is very blue");
+		world.AddRoom("Red room", "This room is super red");
+		
+		// Define connections between rooms
+		world.AddConnection("Blue room", "Red room");
+	}
 	
 	public void TextInputReceived(String textInput)
 	{
@@ -40,7 +53,7 @@ public partial class Game : Node
 		}
 	}
 	
-	private void Move(Room destination)
+	private void Move(String destination)
 	{
 		
 	}
