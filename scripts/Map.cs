@@ -5,7 +5,7 @@ public partial class Map : Node
 {
 	private Node2D RoomHolder;
 	
-	public void MapMove(String direction)
+	public void MapMove(String direction, String destinationRoom)
 	{
 		GD.Print(direction);
 		setRoom(direction);
