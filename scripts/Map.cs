@@ -10,6 +10,7 @@ public partial class Map : Node
 		{
 			case x:
 				$RoomsHolder.Position =  new Vector2(0, 0);
+				
 			break;	
 			case y:
 				$RoomsHolder.Position =  new Vector2(0, 54);
@@ -19,5 +20,9 @@ public partial class Map : Node
 			break;	
 		
 		}
+	}
+	private void MoveMap ()
+	{
+		
 	}
 }
