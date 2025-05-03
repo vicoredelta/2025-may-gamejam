@@ -12,28 +12,38 @@ region_enabled = true
 region_rect = Rect2(0, 0, 350, 260)
 script = ExtResource("2_0cso3")
 
-[node name="RoomsHolder" type="Node2D" parent="."]
+[node name="Boundry" type="Control" parent="."]
+clip_contents = true
+layout_mode = 3
+anchors_preset = 0
+offset_left = -175.0
+offset_top = -130.0
+offset_right = 175.0
+offset_bottom = 130.0
+
+[node name="Holder" type="Node2D" parent="Boundry"]
+position = Vector2(175, 131.11)
+
+[node name="RoomsHolder" type="Node2D" parent="Boundry/Holder"]
 unique_name_in_owner = true
-position = Vector2(0, 67)
 
-[node name="Entrance" parent="RoomsHolder" instance=ExtResource("2_paxxb")]
+[node name="Entrance" parent="Boundry/Holder/RoomsHolder" instance=ExtResource("2_paxxb")]
 
-[node name="Hallway" parent="RoomsHolder" instance=ExtResource("2_paxxb")]
+[node name="Hallway" parent="Boundry/Holder/RoomsHolder" instance=ExtResource("2_paxxb")]
 position = Vector2(0, -54)
 
-[node name="Salon" parent="RoomsHolder" instance=ExtResource("2_paxxb")]
+[node name="Salon" parent="Boundry/Holder/RoomsHolder" instance=ExtResource("2_paxxb")]
 position = Vector2(0, -108)
 
-[node name="Room4" parent="RoomsHolder" instance=ExtResource("2_paxxb")]
+[node name="Room4" parent="Boundry/Holder/RoomsHolder" instance=ExtResource("2_paxxb")]
 visible = false
 position = Vector2(-54, -108)
 
-[node name="Room5" parent="RoomsHolder" instance=ExtResource("2_paxxb")]
+[node name="Room5" parent="Boundry/Holder/RoomsHolder" instance=ExtResource("2_paxxb")]
 visible = false
 position = Vector2(54, -108)
 
-[node name="PlayerMarker" parent="." instance=ExtResource("3_gldc4")]
-position = Vector2(0, 67)
+[node name="PlayerMarker" parent="Boundry/Holder" instance=ExtResource("3_gldc4")]
 
 [node name="CurrentRoomText" type="RichTextLabel" parent="."]
 offset_left = -72.0

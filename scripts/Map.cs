@@ -7,40 +7,44 @@ public partial class Map : Node
 	private Sprite2D Entrance;
 	private Sprite2D Hallway;
 	private Sprite2D Salon;
-	
+	private RichTextLabel CurrentRoomText;
 	
 	public void MapMove(String direction, String destinationRoom)
 	{
-		GD.Print("test");
+		GD.Print(destinationRoom);
 		setRoom(destinationRoom);
-		GD.Print(Entrance.Position);
+		
 	}
 	
 	public override void _Ready()
 	{
-		RoomHolder = GetNode<Node2D>("RoomsHolder");
-		Entrance = GetNode<Sprite2D>("RoomsHolder/Entrance");
-		Hallway = GetNode<Sprite2D>("RoomsHolder/Entrance");
-		Salon = GetNode<Sprite2D>("RoomsHolder/Entrance");
+		RoomHolder = GetNode<Node2D>("Boundry/Holder/RoomsHolder");
+		Entrance = GetNode<Sprite2D>("Boundry/Holder/RoomsHolder/Entrance");
+		Hallway = GetNode<Sprite2D>("Boundry/Holder/RoomsHolder/Hallway");
+		Salon = GetNode<Sprite2D>("Boundry/Holder/RoomsHolder/Salon");
+		CurrentRoomText = GetNode<RichTextLabel>("CurrentRoomText");
 	}
-	
 	
 	public void setRoom (string currentRoom)
 	{
+		CurrentRoomText.Text = currentRoom;	
 		
 		switch (currentRoom)
 		{
 			
 			case "Entrance":
-				RoomHolder.Position = RoomHolder.Position+Entrance.Position*(-1);
+				Vector2 EntrancePos = InvertPosition(Entrance.Position);
+				RoomHolder.Position = EntrancePos;
 				GD.Print(Entrance.Position);
 			break;	
 			case "Hallway":
-				RoomHolder.Position = RoomHolder.Position+Hallway.Position*(-1);
-				GD.Print(RoomHolder.Position);
+				Vector2 HallwayPos = InvertPosition(Hallway.Position);
+				RoomHolder.Position = HallwayPos;
+				GD.Print(Hallway.Position);
 			break;	
 			case "Salon":
-				RoomHolder.Position = Salon.Position*(-1);
+				Vector2 SalonPos = InvertPosition(Salon.Position);
+				RoomHolder.Position = SalonPos;
 				GD.Print(RoomHolder.Position);
 			break;	
 			case "south":
@@ -50,9 +54,9 @@ public partial class Map : Node
 		
 		}
 	}
-	
-	private void MoveMap ()
+	private Vector2 InvertPosition(Vector2 position)
 	{
-		
+		return new Vector2(-position.X, -position.Y);
 	}
+	
 }
