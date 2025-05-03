@@ -1,28 +1,35 @@
-[gd_scene load_steps=4 format=3 uid="uid://b4o68g4jvup3j"]
+[gd_scene load_steps=5 format=3 uid="uid://b4o68g4jvup3j"]
 
 [ext_resource type="Texture2D" uid="uid://bfi0cy3g13hs4" path="res://assets/map_placeholder_texture.png" id="1_4xfga"]
+[ext_resource type="Script" uid="uid://ci1jy75un2vyy" path="res://scripts/Map.cs" id="2_0cso3"]
 [ext_resource type="PackedScene" uid="uid://bpb815lf1ws17" path="res://scenes/room.tscn" id="2_paxxb"]
-[ext_resource type="PackedScene" path="res://scenes/player_marker.tscn" id="3_gldc4"]
+[ext_resource type="PackedScene" uid="uid://beedews6es7ag" path="res://scenes/player_marker.tscn" id="3_gldc4"]
 
-[node name="Sprite2D" type="Sprite2D"]
+[node name="Map" type="Sprite2D"]
 texture = ExtResource("1_4xfga")
 region_enabled = true
 region_rect = Rect2(0, 0, 340, 340)
+script = ExtResource("2_0cso3")
 
-[node name="Room1" parent="." instance=ExtResource("2_paxxb")]
-position = Vector2(-2, -7)
+[node name="RoomsHolder" type="Node2D" parent="."]
 
-[node name="Room2" parent="." instance=ExtResource("2_paxxb")]
-position = Vector2(-58, -6)
+[node name="Room1" parent="RoomsHolder" instance=ExtResource("2_paxxb")]
+position = Vector2(0, -54)
+script = null
 
-[node name="Room3" parent="." instance=ExtResource("2_paxxb")]
-position = Vector2(-2, -61)
+[node name="Room2" parent="RoomsHolder" instance=ExtResource("2_paxxb")]
+position = Vector2(-54, -54)
+script = null
 
-[node name="Room4" parent="." instance=ExtResource("2_paxxb")]
-position = Vector2(-2, 46)
+[node name="Room3" parent="RoomsHolder" instance=ExtResource("2_paxxb")]
+position = Vector2(0, -108)
+script = null
 
-[node name="Room5" parent="." instance=ExtResource("2_paxxb")]
-position = Vector2(53, 46)
+[node name="Room4" parent="RoomsHolder" instance=ExtResource("2_paxxb")]
+script = null
+
+[node name="Room5" parent="RoomsHolder" instance=ExtResource("2_paxxb")]
+position = Vector2(55, -54)
+script = null
 
 [node name="PlayerMarker" parent="." instance=ExtResource("3_gldc4")]
-position = Vector2(-2, -6)
