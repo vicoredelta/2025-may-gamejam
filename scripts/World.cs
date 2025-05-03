@@ -12,8 +12,16 @@ public enum Direction
 
 // Class to represent the entire game world
 public class World
-{
+{	
 	Dictionary<String, Room> rooms = new Dictionary<String, Room>();
+	
+	public static bool IsDirection(String text)
+	{
+		if (text == "north" || text == "south" || text == "east" || text == "west")
+			return true;
+		else
+			return false;
+	}
 	
 	public void AddRoom(String name, String description)
 	{

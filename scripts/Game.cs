@@ -27,10 +27,15 @@ public partial class Game : Node
 		world.AddConnection("West room", "East room", Direction.East);
 	}
 	
+	private void OutputText(String text)
+	{
+		EmitSignal(SignalName.TextOutput, text + "\n");
+	}
+	
 	public void TextInputReceived(String textInput)
 	{
 		// Echo input in output window
-		EmitSignal(SignalName.TextOutput, "> " + textInput + "\n");
+		OutputText(">" + textInput);
 		
 		// Split line into separate words
 		string[] words = textInput.Split(' ');
@@ -38,7 +43,7 @@ public partial class Game : Node
 		switch (words[0].ToLower())
 		{
 			case "look":
-				EmitSignal(SignalName.TextOutput, world.GetRoomDescription(currentRoom) + "\n");
+				OutputText(world.GetRoomDescription(currentRoom));
 				break;
 				
 			case "examine":
@@ -46,10 +51,19 @@ public partial class Game : Node
 				break;
 				
 			case "move":
-				EmitSignal(SignalName.MapMove, words[1].ToLower());
+				if (World.IsDirection(words[1].ToLower()))
+				{
+					OutputText(words[1].ToLower());
+					EmitSignal(SignalName.MapMove, words[1].ToLower());
+				}
+				else
+				{
+					OutputText("'" + words[1] + "'" + " is not a valid direction");
+				}
 				break;
+				
 			default:
-				EmitSignal(SignalName.TextOutput, "Invalid command\n");
+				OutputText("Invalid command");
 				break;
 		}
 	}
