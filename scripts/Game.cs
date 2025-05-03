@@ -33,8 +33,8 @@ public partial class Game : Node
 
 		
 		// Add items to rooms (item name, item description, room name, can be picked up)
-		world.AddItem("Hammer", "Bretty heavy", "West room", true);
-		world.AddItem("Sofa", "Soft...", "East room", false);
+		world.AddItem("Hammer", "Bretty heavy", "Entrance", true);
+		world.AddItem("Sofa", "Soft...", "Hallway", false);
 
 	}
 	
@@ -43,7 +43,7 @@ public partial class Game : Node
 		EmitSignal(SignalName.TextOutput, text + "\n");
 	}
 	
-	public void TextInputReceived(String textInput)
+	public void PlayerInput(String textInput)
 	{
 		// Echo input in output window
 		OutputText(">" + textInput);

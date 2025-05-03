@@ -60,4 +60,4 @@ tile_set = SubResource("TileSet_xsrv6")
 
 [connection signal="MapMove" from="." to="." method="MapMove"]
 [connection signal="TextOutput" from="." to="TextOutput" method="TextOutputReceived"]
-[connection signal="PlayerInput" from="TextInput" to="." method="TextInputReceived"]
+[connection signal="PlayerInput" from="TextInput" to="." method="PlayerInput"]
