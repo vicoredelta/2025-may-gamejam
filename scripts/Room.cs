@@ -1,7 +1,9 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
-public partial class Room : Node
+public class Room
 {
-	
+	String Description;
+	List<Item> items;
 }
