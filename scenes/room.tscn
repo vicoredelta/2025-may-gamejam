@@ -1,12 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://bpb815lf1ws17"]
+[gd_scene load_steps=2 format=3 uid="uid://bpb815lf1ws17"]
 
 [ext_resource type="Texture2D" uid="uid://c278ydlgbxv4q" path="res://assets/room_placeholder_texture.png" id="1_36trf"]
-[ext_resource type="Script" uid="uid://45kp86pci6f3" path="res://scripts/Room.cs" id="2_ffxv4"]
 
 [node name="Room" type="Sprite2D"]
 texture = ExtResource("1_36trf")
 region_enabled = true
 region_rect = Rect2(0, 0, 50, 50)
-script = ExtResource("2_ffxv4")
 metadata/Description = ""
 metadata/Name = ""

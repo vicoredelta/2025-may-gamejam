@@ -1,14 +1,70 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 public partial class Game : Node
 {
+	World world = new World();
+	String currentRoom;
+	
 	[Signal]
 	public delegate void TextOutputEventHandler();
 	
+	// Constructor, create the entire world here
+	Game()
+	{
+		GD.Print("Game constructor called");
+		
+		// Create rooms
+		world.AddRoom("Blue room", "This room is very blue");
+		world.AddRoom("Red room", "This room is super red");
+		
+		// Define connections between rooms
+		world.AddConnection("Blue room", "Red room");
+	}
+	
 	public void TextInputReceived(String textInput)
 	{
+		// Debug message in godot to know we are receiving something
 		GD.Print("Game script received input");
+		
+		// Echo input in output window
 		EmitSignal(SignalName.TextOutput, textInput + "\n");
+		
+		// Split line into separate words
+		string[] words = textInput.Split(' ');
+		
+		switch (words[0].ToLower())
+		{
+			case " ":
+				break;
+			
+			case "look":
+				
+				break;
+				
+			case "examine":
+				
+				break;
+				
+			case "move":
+				
+				break;
+		}
+	}
+	
+	private void Move(String destination)
+	{
+		
+	}
+	
+	private void Look()
+	{
+		
+	}
+	
+	private void Take(Item item)
+	{
+		
 	}
 }
