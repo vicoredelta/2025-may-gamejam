@@ -50,7 +50,14 @@ public partial class Game : Node
 				break;
 				
 			case "examine":
-				
+				if(words.Length < 2)
+				{
+					OutputText("'examine' requires an argument");
+				}
+				else
+				{
+					OutputText(world.Examine(words[1]));
+				}
 				break;
 				
 			case "move":
