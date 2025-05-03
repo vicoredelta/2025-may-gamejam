@@ -37,9 +37,53 @@ public class World
 			throw new InvalidOperationException("Room " + roomName + "does not exist");
 	}
 	
+	public String GetCurrentRoomName()
+	{
+		return currentRoom.Name;
+	}
+	
 	public String Look()
 	{
 		return currentRoom.Description;
+	}
+	
+	// Returns true upon a successful move
+	public bool Move(String direction)
+	{
+		bool returnValue = true;
+		
+		switch (direction)
+		{
+			case "north":
+				if (currentRoom.ConnectingRoomNorth != null)
+					currentRoom = currentRoom.ConnectingRoomNorth;
+				else
+					return false;
+				break;
+			case "south":
+				if (currentRoom.ConnectingRoomSouth != null)
+					currentRoom = currentRoom.ConnectingRoomSouth;
+				else
+					return false;
+				break;
+			case "east":
+				if (currentRoom.ConnectingRoomEast != null)
+					currentRoom = currentRoom.ConnectingRoomEast;
+				else
+					return false;
+				break;
+			case "west":
+				if (currentRoom.ConnectingRoomWest != null)
+					currentRoom = currentRoom.ConnectingRoomWest;
+				else
+					return false;
+				break;
+			default:
+				throw new InvalidOperationException(direction + "is not a direction");
+				break;
+		}
+		
+		return returnValue;
 	}
 	
 	public void AddConnection(String roomName1, String roomName2, Direction direction)

@@ -50,10 +50,24 @@ public partial class Game : Node
 				break;
 				
 			case "move":
-				if (World.IsDirection(words[1].ToLower()))
+				if(words.Length < 2)
 				{
-					OutputText(words[1].ToLower());
-					EmitSignal(SignalName.MapMove, words[1].ToLower());
+					OutputText("'Move' requires an argument");
+				}
+				else if (World.IsDirection(words[1].ToLower()))
+				{
+					String direction = words[1].ToLower();
+					
+					if (world.Move(direction))
+					{
+						OutputText("You move to " + world.GetCurrentRoomName());
+					}
+					else
+					{
+						OutputText("There is no where to go " + direction);
+					}
+					
+					EmitSignal(SignalName.MapMove, direction);
 				}
 				else
 				{
