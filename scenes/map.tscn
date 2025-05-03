@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://b4o68g4jvup3j"]
+
+[ext_resource type="Texture2D" uid="uid://bfi0cy3g13hs4" path="res://assets/map_placeholder_texture.png" id="1_4xfga"]
+
+[node name="Sprite2D" type="Sprite2D"]
+position = Vector2(170, 170)
+texture = ExtResource("1_4xfga")
+region_enabled = true
+region_rect = Rect2(0, 0, 340, 340)

@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://bmb2klssaod8n"]
+[gd_scene load_steps=2 format=3 uid="uid://bmb2klssaod8n"]
+
+[ext_resource type="PackedScene" uid="uid://b4o68g4jvup3j" path="res://scenes/map.tscn" id="1_syvep"]
 
 [node name="UserInterface" type="CanvasLayer"]
 
@@ -14,3 +16,6 @@ offset_top = 120.0
 offset_right = 740.0
 offset_bottom = 660.0
 editable = false
+
+[node name="Sprite2D" parent="." instance=ExtResource("1_syvep")]
+position = Vector2(940, 210)
