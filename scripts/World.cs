@@ -44,7 +44,20 @@ public class World
 	
 	public String Look()
 	{
-		return currentRoom.Description;
+		return currentRoom.Description + currentRoom.ListItems();
+	}
+	
+	public String Examine(String itemName)
+	{
+		return currentRoom.GetItemDescription(itemName);
+	}
+	
+	public void AddItem(String itemName, String itemDescription, String roomName, bool canBePickedUp)
+	{
+		if (!rooms.ContainsKey(roomName))
+			throw new InvalidOperationException("Room " + roomName + "does not exist");
+			
+		rooms[roomName].AddItem(itemName, itemDescription, canBePickedUp);
 	}
 	
 	// Returns true upon a successful move
@@ -121,10 +134,48 @@ public class Room
 	public Room ConnectingRoomSouth = null;
 	public Room ConnectingRoomWest = null;
 	public Room ConnectingRoomEast = null;
+	Dictionary<String, Item> Items = new Dictionary<String, Item>();
 	
 	public Room(String name, String description)
 	{
 		Description = description;
 		Name = name;
+	}
+	
+	public void AddItem(String itemName, String itemDescription, bool canBePickedUp)
+	{
+		Items.Add(itemName, new Item(itemName, itemDescription, canBePickedUp));
+	}
+	
+	public String GetItemDescription(String itemName)
+	{
+		if (!Items.ContainsKey(itemName))
+		{
+			return "There is no " + itemName + " in inventory or in the vicinity.";
+		}
+		else
+		{
+			return Items[itemName].Description;
+		}
+	}
+	
+	public String ListItems()
+	{
+		String returnValue = "";
+		
+		if (Items.Count > 0)
+		{
+			returnValue += "\nThere is ";
+			List<Item> arr = new List<Item>(Items.Values);
+			
+			for (int i=0; i<arr.Count-1; i++)
+			{
+				returnValue += "a " + arr[i].Description + ", ";
+			}
+			
+			returnValue += "a " + arr[0].Name + ".";
+		}
+		
+		return returnValue;
 	}
 }

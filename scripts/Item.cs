@@ -21,7 +21,7 @@ public partial class Item : Node
 	
 	public string Description
 	{
-		get { return Description; }
+		get { return description; }
 	}
 	
 	public bool CanBePickedUp

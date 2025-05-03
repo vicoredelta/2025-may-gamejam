@@ -12,20 +12,30 @@ public partial class Game : Node
 	[Signal]
 	public delegate void MapMoveEventHandler();
 	
-	// Constructor, create the entire world here
+	// Constructor, instantiate world objects here
 	Game()
 	{
+
 		// Create rooms
 		world.AddRoom("Entrance", "This room is very blue");
 		world.AddRoom("Hallway", "This room is super red");
 		world.AddRoom("Salon", "This room is super red");
-		
+
+
+	
 		// Set starting room
 		world.SetCurrentRoom("Entrance");
 		
 		// Define connections between rooms
+
 		world.AddConnection("Entrance", "Hallway", Direction.North);
 		world.AddConnection("Hallway", "Salon", Direction.North);
+
+		
+		// Add items to rooms (item name, item description, room name, can be picked up)
+		world.AddItem("Hammer", "Bretty heavy", "West room", true);
+		world.AddItem("Sofa", "Soft...", "East room", false);
+
 	}
 	
 	private void OutputText(String text)
@@ -48,7 +58,14 @@ public partial class Game : Node
 				break;
 				
 			case "examine":
-				
+				if(words.Length < 2)
+				{
+					OutputText("'examine' requires an argument");
+				}
+				else
+				{
+					OutputText(world.Examine(words[1]));
+				}
 				break;
 				
 			case "move":
