@@ -28,7 +28,7 @@ public partial class AudioManager : Node
 		bgAmbienceLibrary["loop_3"] = GD.Load<AudioStream>("res://assets/bgs_ambience_loop_3.ogg");
 		bgAmbienceLibrary["loop_4"] = GD.Load<AudioStream>("res://assets/bgs_ambience_loop_4.ogg");
 		
-		PlaybgAmbience("loop_0");
+		PlaybgAmbience("loop_4");
 		
 	}
 	
