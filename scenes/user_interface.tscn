@@ -75,5 +75,6 @@ text = "Inventorty"
 horizontal_alignment = 1
 
 [connection signal="MapMove" from="." to="Map" method="MapMove"]
+[connection signal="ModifyInventory" from="." to="Inventory" method="ModifyInventory"]
 [connection signal="TextOutput" from="." to="TextOutput" method="TextOutputReceived"]
 [connection signal="PlayerInput" from="TextInput" to="." method="PlayerInput"]
