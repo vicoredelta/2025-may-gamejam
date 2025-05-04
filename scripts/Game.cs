@@ -42,6 +42,7 @@ public partial class Game : Node
 		"It’s a MagiWrench, a transforming multitool. It’s almost brand new.");
 		world.AddItemToPlayer("Generator",
 		"It’s a Generator.");
+		
 	}
 	
 	private void OutputText(String text)
