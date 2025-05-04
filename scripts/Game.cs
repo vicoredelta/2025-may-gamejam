@@ -33,12 +33,15 @@ public partial class Game : Node
 		world.AddConnection("Hallway", "Salon", Direction.North);
 
 		// Add items to rooms (item name, item description, room name, can be picked up)
-		world.AddItem("MagiWrench",
-		"It’s a MagiWrench, a transforming multitool. It’s almost brand new.",
-		"Salon", true);
 		world.AddItem("rubble",
 		"The rubble is sharp but not heavy. It’d be easy to remove with just your hands.",
 		"Salon", false);
+		
+		// Add player starting items here (Need to be added in InventoryScreen.cs as well!)
+		world.AddItemToPlayer("MagiWrench",
+		"It’s a MagiWrench, a transforming multitool. It’s almost brand new.");
+		world.AddItemToPlayer("Generator",
+		"It’s a Generator.");
 	}
 	
 	private void OutputText(String text)
