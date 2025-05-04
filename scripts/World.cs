@@ -87,7 +87,6 @@ public class World
 		}
 		else
 		{
-			GD.Print("ERROUNOUS CALL OF Examine()!!!");
 			return "There is no '" + itemName + "' in inventory or vicinity.";
 		}
 	}
@@ -96,7 +95,7 @@ public class World
 	{
 		if (!rooms.ContainsKey(roomName))
 		{
-			
+			GD.Print("ERROUNOUS CALL OF AddItem()!!!");
 			throw new InvalidOperationException("Room " + roomName + "does not exist");
 		}
 			
