@@ -105,6 +105,7 @@ public partial class Game : Node
 					{
 						OutputText("You move to " + world.GetCurrentRoomName() + ".");
 						EmitSignal(SignalName.MapMove, direction, world.GetCurrentRoomName());
+						AudioManager.Instance.PlaySFX("walk");
 					}
 					else
 					{
