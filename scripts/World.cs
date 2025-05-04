@@ -55,9 +55,14 @@ public class World
 	public void SetCurrentRoom(String roomName)
 	{
 		if (rooms.ContainsKey(roomName))
+		{
 			currentRoom = rooms[roomName];
+		}
 		else
-			throw new InvalidOperationException("Room " + roomName + "does not exist");
+		{
+			GD.Print("ERROUNOUS CALL OF SetCurrentRoom()!!!");
+			throw new InvalidOperationException("Room " + roomName + " does not exist");
+		}
 	}
 	
 	public String GetCurrentRoomName()
@@ -82,6 +87,7 @@ public class World
 		}
 		else
 		{
+			GD.Print("ERROUNOUS CALL OF Examine()!!!");
 			return "There is no '" + itemName + "' in inventory or vicinity.";
 		}
 	}
@@ -89,7 +95,10 @@ public class World
 	public void AddItem(String itemName, String itemDescription, String roomName, bool canBePickedUp)
 	{
 		if (!rooms.ContainsKey(roomName))
+		{
+			
 			throw new InvalidOperationException("Room " + roomName + "does not exist");
+		}
 			
 		rooms[roomName].AddItem(itemName, itemDescription, canBePickedUp);
 	}
@@ -126,6 +135,7 @@ public class World
 					return false;
 				break;
 			default:
+				GD.Print("ERROUNOUS CALL OF Move()!!!");
 				throw new InvalidOperationException(direction + "is not a direction");
 		}
 		
@@ -156,69 +166,5 @@ public class World
 				room2.ConnectingRoomEast = room1;
 				break;
 		}
-	}
-}
-
-public class Room
-{
-	public String Description;
-	public String Name;
-	public Room ConnectingRoomNorth = null;
-	public Room ConnectingRoomSouth = null;
-	public Room ConnectingRoomWest = null;
-	public Room ConnectingRoomEast = null;
-	Dictionary<String, Item> Items = new Dictionary<String, Item>();
-	
-	public Room(String name, String description)
-	{
-		Description = description;
-		Name = name;
-	}
-	
-	public void AddItem(String itemName, String itemDescription, bool canBePickedUp)
-	{
-		Items.Add(itemName, new Item(itemName, itemDescription, canBePickedUp));
-	}
-	
-	public Item TakeItem(String itemName)
-	{
-		Item returnValue = Items[itemName];
-		Items.Remove(itemName);
-		return returnValue;
-	}
-	
-	public String GetItemDescription(String itemName)
-	{
-		return Items[itemName].Description;
-	}
-	
-	public bool IsItemPossibleToTake(String itemName)
-	{
-		return Items[itemName].CanBePickedUp;
-	}
-	
-	public bool ContainsItem(String itemName)
-	{
-		return Items.ContainsKey(itemName);
-	}
-	
-	public String ListItems()
-	{
-		String returnValue = "";
-		
-		if (Items.Count > 0)
-		{
-			returnValue += "\nThere is ";
-			List<Item> arr = new List<Item>(Items.Values);
-			
-			for (int i=0; i<arr.Count-1; i++)
-			{
-				returnValue += "a " + arr[i].Description + ", ";
-			}
-			
-			returnValue += "a " + arr[0].Name + ".";
-		}
-		
-		return returnValue;
 	}
 }

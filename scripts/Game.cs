@@ -21,8 +21,6 @@ public partial class Game : Node
 		world.AddRoom("Hallway", "This room is super red");
 		world.AddRoom("Salon", "This room is super red");
 
-
-	
 		// Set starting room
 		world.SetCurrentRoom("Entrance");
 		
@@ -30,7 +28,6 @@ public partial class Game : Node
 		world.AddConnection("Entrance", "Hallway", Direction.North);
 		world.AddConnection("Hallway", "Salon", Direction.North);
 
-		
 		// Add items to rooms (item name, item description, room name, can be picked up)
 		world.AddItem("Hammer", "Bretty heavy.", "Entrance", true);
 		world.AddItem("Sofa", "Soft...", "Hallway", false);
