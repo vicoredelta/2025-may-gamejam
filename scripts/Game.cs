@@ -30,7 +30,7 @@ public partial class Game : Node
 		
 		// Define connections between rooms (room 1, room 2, direction when moving from room 1 to room 2)
 		world.AddConnection("Breached Entrance", "Cramped Hallway", Direction.North);
-		world.AddConnection("Hallway", "Main Bridge", Direction.North);
+		world.AddConnection("Cramped Hallway", "Main Bridge", Direction.North);
 
 		// Add items to rooms (item name, item description, room name, can be picked up)
 		world.AddItem("rubble",
