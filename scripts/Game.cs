@@ -126,6 +126,10 @@ public partial class Game : Node
 				{
 					OutputText(world.Use(words[1], ""));
 				}
+				else if (words[2] == "at" || words[2] == "on")
+				{
+					OutputText(world.Use(words[1], words[3]));
+				}
 				else
 				{
 					OutputText(world.Use(words[1], words[2]));
