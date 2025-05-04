@@ -32,17 +32,17 @@ public partial class Map : Node
 		switch (currentRoom)
 		{
 			
-			case "Entrance":
+			case "Breached Entrance":
 				Vector2 EntrancePos = InvertPosition(Entrance.Position);
 				RoomHolder.Position = EntrancePos;
 				GD.Print(Entrance.Position);
 			break;	
-			case "Hallway":
+			case "Cramped Hallway":
 				Vector2 HallwayPos = InvertPosition(Hallway.Position);
 				RoomHolder.Position = HallwayPos;
 				GD.Print(Hallway.Position);
 			break;	
-			case "Salon":
+			case "Main Bridge":
 				Vector2 SalonPos = InvertPosition(Salon.Position);
 				RoomHolder.Position = SalonPos;
 				GD.Print(RoomHolder.Position);
