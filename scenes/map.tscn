@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://b4o68g4jvup3j"]
+[gd_scene load_steps=8 format=3 uid="uid://b4o68g4jvup3j"]
 
 [ext_resource type="Texture2D" uid="uid://bfi0cy3g13hs4" path="res://assets/map_placeholder_texture.png" id="1_4xfga"]
 [ext_resource type="Script" uid="uid://ci1jy75un2vyy" path="res://scripts/Map.cs" id="2_0cso3"]
 [ext_resource type="PackedScene" uid="uid://bpb815lf1ws17" path="res://scenes/room.tscn" id="2_paxxb"]
 [ext_resource type="PackedScene" uid="uid://beedews6es7ag" path="res://scenes/player_marker.tscn" id="3_gldc4"]
+[ext_resource type="Texture2D" uid="uid://cp0osinijq1m2" path="res://assets/sprite_map_room_0.png" id="4_nakos"]
 [ext_resource type="FontFile" uid="uid://bp277mpbyjl8y" path="res://assets/fonts/Jersey25-Regular.ttf" id="5_2klcf"]
 [ext_resource type="Texture2D" uid="uid://bh4uihjivf8of" path="res://assets/sprite_ui_map_player_0.png" id="5_2lpho"]
 
@@ -32,6 +33,7 @@ unique_name_in_owner = true
 
 [node name="Hallway" parent="Boundry/Holder/RoomsHolder" instance=ExtResource("2_paxxb")]
 position = Vector2(0, -54)
+texture = ExtResource("4_nakos")
 
 [node name="Salon" parent="Boundry/Holder/RoomsHolder" instance=ExtResource("2_paxxb")]
 position = Vector2(0, -108)
@@ -48,11 +50,11 @@ position = Vector2(54, -108)
 texture = ExtResource("5_2lpho")
 
 [node name="CurrentRoomText" type="RichTextLabel" parent="."]
-offset_left = -72.0
+offset_left = -180.0
 offset_top = -164.0
-offset_right = 71.0
+offset_right = 180.0
 offset_bottom = -132.0
 theme_override_fonts/normal_font = ExtResource("5_2klcf")
 theme_override_font_sizes/normal_font_size = 28
-text = "Entrance"
+text = "Breached Entrance"
 horizontal_alignment = 1

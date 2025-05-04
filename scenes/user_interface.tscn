@@ -37,13 +37,17 @@ color = Color(0.180392, 0.180392, 0.180392, 1)
 polygon = PackedVector2Array(300, 0, 300, 300, 149.558, 300, 0, 300, 0, 149.75, 0, 0)
 
 [node name="TextOutput" type="RichTextLabel" parent="."]
-offset_left = 50.0
-offset_top = 91.0
-offset_right = 722.0
-offset_bottom = 675.0
+offset_left = 41.0
+offset_top = 84.0
+offset_right = 728.0
+offset_bottom = 676.0
+focus_mode = 2
 theme_override_colors/default_color = Color(0.848666, 0.880868, 0.876862, 1)
 theme_override_fonts/normal_font = ExtResource("2_xsrv6")
 theme_override_font_sizes/normal_font_size = 22
+scroll_following = true
+context_menu_enabled = true
+selection_enabled = true
 deselect_on_focus_loss_enabled = false
 drag_and_drop_selection_enabled = false
 script = ExtResource("1_l2bgj")

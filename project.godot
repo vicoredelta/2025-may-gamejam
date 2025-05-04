@@ -10,9 +10,10 @@ config_version=5
 
 [application]
 
-config/name="2025-may-gamejam"
+config/name="Raid on the Sarcophagus Engine"
 run/main_scene="uid://dmjkevj2v08uh"
 config/features=PackedStringArray("4.4", "C#", "Forward Plus")
+boot_splash/show_image=false
 config/icon="res://assets/icon.svg"
 
 [autoload]
