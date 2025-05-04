@@ -3,12 +3,12 @@
 importer="font_data_dynamic"
 type="FontFile"
 uid="uid://dkrj8fnoip8jn"
-path="res://.godot/imported/MadouFutoMaruGothic-d9Xo7.ttf-4b81ee2da0ebed59db194a6441e85a43.fontdata"
+path="res://.godot/imported/MadouFutoMaruGothic-d9Xo7.ttf-92f6f26b3493d721f2186451b6060d78.fontdata"
 
 [deps]
 
-source_file="res://assets/MadouFutoMaruGothic-d9Xo7.ttf"
-dest_files=["res://.godot/imported/MadouFutoMaruGothic-d9Xo7.ttf-4b81ee2da0ebed59db194a6441e85a43.fontdata"]
+source_file="res://assets/fonts/MadouFutoMaruGothic-d9Xo7.ttf"
+dest_files=["res://.godot/imported/MadouFutoMaruGothic-d9Xo7.ttf-92f6f26b3493d721f2186451b6060d78.fontdata"]
 
 [params]
 

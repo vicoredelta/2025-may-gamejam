@@ -11,10 +11,10 @@ public partial class InventoryScreen : ItemList
 	InventoryScreen()
 	{
 		// Starting items need to be added here
-		AddItem("MagiWrench", null, false);
-		itemList.Add("MagiWrench");
-		AddItem("Generator", null, false);
-		itemList.Add("Generator");
+		AddItem("Wracker", null, false);
+		itemList.Add("Wracker");
+		AddItem("Stolen Power Cell", null, false);
+		itemList.Add("Stolen Power Cell");
 	}
 	
 	public void ModifyInventory(Item item, bool itemIsBeingAdded)
