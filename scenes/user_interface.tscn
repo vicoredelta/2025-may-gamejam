@@ -57,7 +57,7 @@ offset_bottom = 822.0
 script = ExtResource("4_lmgon")
 
 [node name="Map" parent="." instance=ExtResource("1_syvep")]
-position = Vector2(936, 248)
+position = Vector2(936, 247)
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 position = Vector2(0, -4)
@@ -71,7 +71,7 @@ offset_right = 1010.0
 offset_bottom = 450.0
 theme_override_fonts/normal_font = ExtResource("8_sdud1")
 theme_override_font_sizes/normal_font_size = 28
-text = "Inventorty"
+text = "Inventory"
 horizontal_alignment = 1
 
 [connection signal="MapMove" from="." to="Map" method="MapMove"]

@@ -10,20 +10,20 @@
 [node name="Map" type="Sprite2D"]
 texture = ExtResource("1_4xfga")
 region_enabled = true
-region_rect = Rect2(0, 0, 350, 260)
+region_rect = Rect2(0, 0, 360, 260)
 script = ExtResource("2_0cso3")
 
 [node name="Boundry" type="Control" parent="."]
 clip_contents = true
 layout_mode = 3
 anchors_preset = 0
-offset_left = -175.0
+offset_left = -180.0
 offset_top = -130.0
-offset_right = 175.0
+offset_right = 180.0
 offset_bottom = 130.0
 
 [node name="Holder" type="Node2D" parent="Boundry"]
-position = Vector2(175, 131.11)
+position = Vector2(180, 131.11)
 
 [node name="RoomsHolder" type="Node2D" parent="Boundry/Holder"]
 unique_name_in_owner = true
