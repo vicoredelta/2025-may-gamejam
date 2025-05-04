@@ -4,12 +4,12 @@ using System.Collections.Generic;
 
 public partial class InventoryScreen : ItemList
 {
+	// List to keep track of which order the items are listed in
+	// since Godot doesn't provide a method to access item by name
+	List<String> itemList = new List<String>();
+	
 	public void ModifyInventory(Item item, bool itemIsBeingAdded)
 	{
-		// List to keep track of which order the items are listed in
-		// since Godot doesn't provide a method to access item by name
-		List<String> itemList = new List<String>();
-		
 		if (itemIsBeingAdded)
 		{
 			AddItem(item.Name, null, false);

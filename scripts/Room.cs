@@ -30,6 +30,11 @@ public class Room
 		return returnValue;
 	}
 	
+	public void RemoveItem(String itemName)
+	{
+		Items.Remove(itemName);
+	}
+	
 	public String GetItemDescription(String itemName)
 	{
 		return Items[itemName].Description;
@@ -56,10 +61,10 @@ public class Room
 			
 			for (int i=0; i<arr.Count-1; i++)
 			{
-				returnValue += "a " + arr[i].Description + ", ";
+				returnValue += "a " + arr[i].Name + ", ";
 			}
 			
-			returnValue += "a " + arr[0].Name + ".";
+			returnValue += "a " + arr[arr.Count-1].Name + ".";
 		}
 		
 		return returnValue;

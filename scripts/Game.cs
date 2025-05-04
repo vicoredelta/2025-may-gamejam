@@ -20,7 +20,8 @@ public partial class Game : Node
 	{
 
 		// Create rooms (name, descripion)
-		world.AddRoom("Entrance", "This room is very blue");
+		world.AddRoom("Entrance",
+		"The scant beams of sunlight piercing through the broken hull and gives life to the coffin-like silence. Had the ship crashed elsewhere it might’ve been taken back by nature, but as it stands, the craft remains is somehow even more silent than the wasteland surrounding it. A mechanical cave devoid of life.");
 		world.AddRoom("Hallway", "This room is super red");
 		world.AddRoom("Salon", "This room is super red");
 
@@ -32,8 +33,12 @@ public partial class Game : Node
 		world.AddConnection("Hallway", "Salon", Direction.North);
 
 		// Add items to rooms (item name, item description, room name, can be picked up)
-		world.AddItem("Hammer", "Bretty heavy.", "Entrance", true);
-		world.AddItem("Sofa", "Soft...", "Hallway", false);
+		world.AddItem("MagiWrench",
+		"It’s a MagiWrench, a transforming multitool. It’s almost brand new.",
+		"Salon", true);
+		world.AddItem("rubble",
+		"The rubble is sharp but not heavy. It’d be easy to remove with just your hands.",
+		"Salon", false);
 	}
 	
 	private void OutputText(String text)
@@ -109,6 +114,21 @@ public partial class Game : Node
 				else
 				{
 					OutputText("'" + words[1] + "'" + " is not a valid direction.");
+				}
+				break;
+			
+			case "use":
+				if(words.Length < 2)
+				{
+					OutputText("'use' requires at least one argument.");
+				}
+				else if (words.Length == 2)
+				{
+					OutputText(world.Use(words[1], ""));
+				}
+				else
+				{
+					OutputText(world.Use(words[1], words[2]));
 				}
 				break;
 				

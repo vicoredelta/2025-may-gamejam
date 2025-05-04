@@ -36,6 +36,7 @@ offset_bottom = 678.0
 theme_override_fonts/font = ExtResource("2_xsrv6")
 theme_override_font_sizes/font_size = 22
 editable = false
+wrap_mode = 1
 script = ExtResource("1_l2bgj")
 
 [node name="TextInput" type="TextEdit" parent="."]

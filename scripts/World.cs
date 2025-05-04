@@ -44,6 +44,42 @@ public class World
 		rooms.Add(name, new Room(name, description));
 	}
 	
+	public String Use(String itemName1, String itemName2)
+	{
+		String outputText = "Nothing interesting happens.";
+		
+		if (!(currentRoom.ContainsItem(itemName1) || inventory.ContainsKey(itemName1)))
+		{
+			return "There is no '" + itemName1 + "' in inventory or vicinity.";
+		}
+		
+		switch (itemName1)
+		{
+			case "rubble":
+				currentRoom.RemoveItem("rubble");
+				currentRoom.AddItem("storage", "It has a simple electronic lock.", false);
+				outputText = "With little effort the rubble is cleared, revealing a storage box with a simple electronic lock.";
+				break;
+				
+			case "MagiWrench":
+				if (itemName2 != null && itemName2 == "storage" && currentRoom.ContainsItem("storage"))
+				{
+					currentRoom.RemoveItem("storage");
+					currentRoom.AddItem("RedCable", "it's a red cable.", true);
+					currentRoom.AddItem("GreenCable", "it's a green cable.", true);
+					currentRoom.AddItem("BlueCable", "it's a blue cable.", true);
+					currentRoom.AddItem("PurpleCable", "it's a purple cable.", true);
+					outputText = "With a click and a chime the lock is undone and the box lid opens to reveal a large assortment of coloured cables. The box contains Green, Purple, Red, and Blue cables.";
+				}
+				break;
+				
+			default:
+				break;
+		}
+		
+		return outputText;
+	}
+	
 	public void SetCurrentRoom(String roomName)
 	{
 		if (rooms.ContainsKey(roomName))
