@@ -35,7 +35,7 @@ public class World
 		{
 			Item pickup = currentRoom.TakeItem(itemName);
 			inventory.Add(pickup.Name, pickup);
-			return ("You pick up " + itemName + ".", inventory[itemName]);
+			return ("You pick up " + itemName + ".", pickup);
 		}
 	}
 	
