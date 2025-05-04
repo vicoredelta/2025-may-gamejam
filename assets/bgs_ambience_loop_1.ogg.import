@@ -12,8 +12,8 @@ dest_files=["res://.godot/imported/bgs_ambience_loop_1.ogg-4dd2cf0fe7da2345c763a
 
 [params]
 
-loop=false
-loop_offset=0
-bpm=0
+loop=true
+loop_offset=0.0
+bpm=0.0
 beat_count=0
 bar_beats=4
