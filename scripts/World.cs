@@ -2,14 +2,6 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public enum Direction
-{
-	North,
-	West,
-	East,
-	South
-}
-
 // Class to represent the entire game world
 public class World
 {	
@@ -25,25 +17,25 @@ public class World
 			return false;
 	}
 	
-	public String Take(String itemName)
+	public (String, Item) Take(String itemName)
 	{
 		if (inventory.ContainsKey(itemName))
 		{
-			return itemName + " is already in your inventory.";
+			return (itemName + " is already in your inventory.", null);
 		}
 		else if (!currentRoom.ContainsItem(itemName))
 		{
-			return "There is no '" + itemName + "' in the vicinity."; 
+			return ("There is no '" + itemName + "' in the vicinity.", null); 
 		}
 		else if (!currentRoom.IsItemPossibleToTake(itemName))
 		{
-			return "You can not pick up " + itemName + ".";
+			return ("You can not pick up " + itemName + ".", null);
 		}
 		else
 		{
 			Item pickup = currentRoom.TakeItem(itemName);
 			inventory.Add(pickup.Name, pickup);
-			return "You pick up " + itemName + ".";
+			return ("You pick up " + itemName + ".", inventory[itemName]);
 		}
 	}
 	

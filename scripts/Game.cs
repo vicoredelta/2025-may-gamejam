@@ -12,6 +12,9 @@ public partial class Game : Node
 	[Signal]
 	public delegate void MapMoveEventHandler();
 	
+	[Signal]
+	public delegate void ModifyInventoryEventHandler();
+	
 	// Constructor, instantiate world objects here
 	Game()
 	{
@@ -72,7 +75,14 @@ public partial class Game : Node
 				}
 				else
 				{
-					OutputText(world.Take(words[1]));
+					(String message, Item item) = world.Take(words[1]);
+					OutputText(message);
+					
+					// Add picked up item to inventory screen
+					if (item != null)
+					{
+						EmitSignal(SignalName.ModifyInventory, item, true);
+					}
 				}
 				break;
 				
