@@ -8,6 +8,15 @@ public partial class InventoryScreen : ItemList
 	// since Godot doesn't provide a method to access item by name
 	List<String> itemList = new List<String>();
 	
+	InventoryScreen()
+	{
+		// Starting items need to be added here
+		AddItem("MagiWrench", null, false);
+		itemList.Add("MagiWrench");
+		AddItem("Generateor", null, false);
+		itemList.Add("Generateor");
+	}
+	
 	public void ModifyInventory(Item item, bool itemIsBeingAdded)
 	{
 		if (itemIsBeingAdded)

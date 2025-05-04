@@ -130,6 +130,17 @@ public class World
 		rooms[roomName].AddItem(itemName, itemDescription, canBePickedUp);
 	}
 	
+	public void AddItemToPlayer(String itemName, String itemDescription)
+	{
+		if (inventory.ContainsKey(itemName))
+		{
+			GD.Print("ERROUNOUS CALL OF AttItemToPlayer()!!!");
+			throw new InvalidOperationException(itemName + "already exists in inventory");
+		}
+		
+		inventory.Add(itemName, new Item(itemName, itemDescription, true));
+	}
+	
 	// Returns true upon a successful move
 	public bool Move(String direction)
 	{
