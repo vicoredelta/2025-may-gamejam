@@ -82,13 +82,14 @@ public partial class Game : Node
 			case "move":
 				if(words.Length < 2)
 				{
-					OutputText("'Move' requires an argument.");
+					OutputText("'move' requires an argument.");
 				}
 				else if (World.IsDirection(words[1].ToLower()))
 				{
 					String direction = words[1].ToLower();
+					bool moveSuccessfull = world.Move(direction);
 					
-					if (world.Move(direction))
+					if (moveSuccessfull)
 					{
 						OutputText("You move to " + world.GetCurrentRoomName() + ".");
 						EmitSignal(SignalName.MapMove, direction, world.GetCurrentRoomName());
