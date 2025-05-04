@@ -13,8 +13,8 @@ public partial class InventoryScreen : ItemList
 		// Starting items need to be added here
 		AddItem("MagiWrench", null, false);
 		itemList.Add("MagiWrench");
-		AddItem("Generateor", null, false);
-		itemList.Add("Generateor");
+		AddItem("Generator", null, false);
+		itemList.Add("Generator");
 	}
 	
 	public void ModifyInventory(Item item, bool itemIsBeingAdded)
