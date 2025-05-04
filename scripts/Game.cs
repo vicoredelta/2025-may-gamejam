@@ -41,7 +41,7 @@ public partial class Game : Node
 		world.AddItemToPlayer("MagiWrench",
 		"It’s a MagiWrench, a transforming multitool. It’s almost brand new.");
 		world.AddItemToPlayer("Generator",
-		"It’s a Generator.");
+		"It’s a Generator. It has three power regulator knobs. There is a Blue and Green cable attached to two of them. The last one seems to be missing.");
 		
 	}
 	
