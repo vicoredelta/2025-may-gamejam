@@ -4,8 +4,8 @@ using System.Collections.Generic;
 
 public class Room
 {
-	public String name;
-	public String description;
+	String name;
+	String description;
 	Room connectingRoomNorth = null;
 	Room connectingRoomSouth = null;
 	Room connectingRoomWest = null;
