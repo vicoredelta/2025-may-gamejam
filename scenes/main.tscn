@@ -5,6 +5,3 @@
 [node name="Main" type="Node"]
 
 [node name="UserInterface" parent="." instance=ExtResource("1_o5qli")]
-
-[connection signal="MapMove" from="UserInterface" to="UserInterface/Map" method="MapMove"]
-[connection signal="ModifyInventory" from="UserInterface" to="UserInterface/Inventory" method="ModifyInventory"]

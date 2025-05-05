@@ -21,7 +21,7 @@ public partial class Game : Node
 
 		// Create rooms (name, descripion)
 		world.AddRoom("Breached Entrance",
-		"The scant beams of sunlight piercing through the broken hull and gives life to the coffin-like silence. Had the ship crashed elsewhere it might’ve been taken back by nature, but as it stands, the craft remains is somehow even more silent than the wasteland surrounding it. A mechanical cave devoid of life.");
+		"The scant beams of sunlight piercing through the broken hull and gives life to the coffin-like silence. Had the ship crashed elsewhere it might've been taken back by nature, but as it stands, the craft remains is somehow even more silent than the wasteland surrounding it. A mechanical cave devoid of life.");
 		world.AddRoom("Cramped Hallway", "This room is super red");
 		world.AddRoom("Main Bridge", "This room is super red");
 
@@ -34,14 +34,14 @@ public partial class Game : Node
 
 		// Add items to rooms (item name, item description, room name, can be picked up)
 		world.AddItem("rubble",
-		"The rubble is sharp but not heavy. It’d be easy to remove with just your hands.",
+		"The rubble is sharp but not heavy. It'd be easy to remove with just your hands.",
 		"Main Bridge", false);
 		
 		// Add player starting items here (Need to be added in InventoryScreen.cs as well!)
 
 
 		world.AddItemToPlayer("Wracker",
-		"It’s a Wracker, a transforming multitool. It’s almost brand new, but the attached gemstone have been in your family for generations.");
+		"It's a Wracker, a transforming multitool. It's almost brand new, but the attached gemstone have been in your family for generations.");
 		world.AddItemToPlayer("Stolen Power Cell",
 		"An outmode, clockwork generator. A low, hurried ticking and a faint glow suggest that it's still functional.");
 		
@@ -189,6 +189,12 @@ public partial class Game : Node
 			default:
 				OutputText("Invalid command.");
 				break;
+			case "help":
+				if(words.Length < 2)
+				{
+					OutputText(">Type [look] or [examine] for a description of an item or your current surroundings.\n>[walk] or [move] must be followed by a direction, such as [north] or [left].\n>[take] or [grab] must be followed by a noun, such as [key] or [gadget].");
+				}
+				break;				
 		}
 	}
 }

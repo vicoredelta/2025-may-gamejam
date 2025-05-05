@@ -49,11 +49,22 @@ position = Vector2(54, -108)
 [node name="PlayerMarker" parent="Boundry/Holder" instance=ExtResource("3_gldc4")]
 texture = ExtResource("5_2lpho")
 
+[node name="Label" type="Label" parent="Boundry/Holder/PlayerMarker"]
+offset_left = -44.0
+offset_top = -52.0
+offset_right = 44.0
+offset_bottom = 52.0
+tooltip_text = "This icon represents you on the map."
+mouse_filter = 0
+mouse_default_cursor_shape = 16
+
 [node name="CurrentRoomText" type="RichTextLabel" parent="."]
 offset_left = -180.0
 offset_top = -164.0
 offset_right = 180.0
 offset_bottom = -132.0
+tooltip_text = "This is the title of your current location."
+mouse_default_cursor_shape = 16
 theme_override_fonts/normal_font = ExtResource("5_2klcf")
 theme_override_font_sizes/normal_font_size = 28
 text = "Breached Entrance"

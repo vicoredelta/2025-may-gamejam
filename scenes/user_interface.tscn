@@ -43,6 +43,7 @@ offset_right = 728.0
 offset_bottom = 676.0
 focus_mode = 2
 theme_override_colors/default_color = Color(0.848666, 0.880868, 0.876862, 1)
+theme_override_colors/selection_color = Color(0.32309, 0.578478, 0.607494, 1)
 theme_override_fonts/normal_font = ExtResource("2_xsrv6")
 theme_override_font_sizes/normal_font_size = 22
 scroll_following = true
@@ -79,6 +80,7 @@ offset_right = 730.0
 offset_bottom = 822.0
 theme_override_fonts/font = ExtResource("2_xsrv6")
 theme_override_font_sizes/font_size = 22
+placeholder_text = "What is your next command?"
 script = ExtResource("1_y1h3b")
 
 [node name="Inventory" type="ItemList" parent="."]
@@ -99,10 +101,12 @@ tile_map_data = PackedByteArray("AAACADMAAgAAAAAAAAACADIAAgADAAEAAAACADEAAgADAAE
 tile_set = SubResource("TileSet_xsrv6")
 
 [node name="CurrentRoomText" type="RichTextLabel" parent="."]
-offset_left = 867.0
+offset_left = 758.0
 offset_top = 418.0
-offset_right = 1010.0
+offset_right = 1114.0
 offset_bottom = 450.0
+tooltip_text = "The box below lists all of your current belongings."
+mouse_default_cursor_shape = 16
 theme_override_fonts/normal_font = ExtResource("8_sdud1")
 theme_override_font_sizes/normal_font_size = 30
 text = "Inventory"
