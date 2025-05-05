@@ -4,18 +4,52 @@ using System.Collections.Generic;
 
 public class Room
 {
-	public String Description;
-	public String Name;
-	public Room ConnectingRoomNorth = null;
-	public Room ConnectingRoomSouth = null;
-	public Room ConnectingRoomWest = null;
-	public Room ConnectingRoomEast = null;
+	public String name;
+	public String description;
+	Room connectingRoomNorth = null;
+	Room connectingRoomSouth = null;
+	Room connectingRoomWest = null;
+	Room connectingRoomEast = null;
 	Dictionary<String, Item> Items = new Dictionary<String, Item>();
 	
 	public Room(String name, String description)
 	{
-		Description = description;
-		Name = name;
+		this.description = description;
+		this.name = name;
+	}
+	
+	public String Name
+	{
+		get { return name; }
+	}
+	
+	public String Description
+	{
+		get { return description; }
+	}
+	
+	public Room ConnectingRoomNorth
+	{
+		get { return connectingRoomNorth; }
+		set { connectingRoomNorth = value; }
+	}
+	
+	public Room ConnectingRoomSouth
+	{
+		get { return connectingRoomSouth; }
+		set { connectingRoomSouth = value; }
+	}
+	
+	public Room ConnectingRoomEast
+	{
+		get { return connectingRoomEast; }
+		set { connectingRoomEast = value; }
+	}
+	
+	public Room ConnectingRoomWest
+	{
+		get { return connectingRoomWest; }
+		set { connectingRoomWest = value; }
 	}
 	
 	public void AddItem(String itemName, String itemDescription, bool canBePickedUp)
