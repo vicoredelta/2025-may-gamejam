@@ -80,27 +80,10 @@ public partial class Game : Node
 				break;
 				
 			case "take":
-				if(words.Length < 2)
-				{
-					OutputText("'take' requires an argument.");
-				}
-				else
-				{
-					(String message, Item item) = world.Take(words[1]);
-					OutputText(message);
-					
-					// Add picked up item to inventory screen
-					if (item != null)
-					{
-						EmitSignal(SignalName.ModifyInventory, item, true);
-					}
-				}
-				break;
-
 			case "grab":
 				if(words.Length < 2)
 				{
-					OutputText("'grab' requires an argument.");
+					OutputText("'" + words[1] + "' requires an argument.");
 				}
 				else
 				{
@@ -113,38 +96,13 @@ public partial class Game : Node
 						EmitSignal(SignalName.ModifyInventory, item, true);
 					}
 				}
-				break;				
-					
-			case "move":
-				if(words.Length < 2)
-				{
-					OutputText("'move' requires an argument.");
-				}
-				else if (World.IsDirection(words[1].ToLower()))
-				{
-					String direction = words[1].ToLower();
-					bool moveSuccessfull = world.Move(direction);
-					
-					if (moveSuccessfull)
-					{
-						OutputText("You move to " + world.GetCurrentRoomName() + ".");
-						EmitSignal(SignalName.MapMove, direction, world.GetCurrentRoomName());
-						AudioManager.Instance.PlaySFX("walk");
-					}
-					else
-					{
-						OutputText("There is nowhere to go " + direction + ".");
-					}
-				}
-				else
-				{
-					OutputText("'" + words[1] + "'" + " is not a valid direction.");
-				}
 				break;
+				
+			case "move":
 			case "walk":
 				if(words.Length < 2)
 				{
-					OutputText("'walk' requires an argument.");
+					OutputText("'" + words[1] + "' requires an argument.");
 				}
 				else if (World.IsDirection(words[1].ToLower()))
 				{
@@ -167,6 +125,7 @@ public partial class Game : Node
 					OutputText("'" + words[1] + "'" + " is not a valid direction.");
 				}
 				break;
+				
 			case "use":
 				if(words.Length < 2)
 				{
@@ -185,16 +144,17 @@ public partial class Game : Node
 					OutputText(world.Use(words[1], words[2]));
 				}
 				break;
-				
-			default:
-				OutputText("Invalid command.");
-				break;
+			
 			case "help":
 				if(words.Length < 2)
 				{
 					OutputText(">Type [look] or [examine] for a description of an item or your current surroundings.\n>[walk] or [move] must be followed by a direction, such as [north] or [left].\n>[take] or [grab] must be followed by a noun, such as [key] or [gadget].");
 				}
-				break;				
+				break;
+				
+			default:
+				OutputText("Invalid command.");
+				break;			
 		}
 	}
 }
