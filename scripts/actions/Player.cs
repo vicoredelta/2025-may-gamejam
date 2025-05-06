@@ -1,15 +1,23 @@
 using Godot;
 using System;
 
-public partial class Player
+public class Player
 {
 	Room currentRoom;
-	//Todo: add inventory
+	Inventory inventory;
 	
-	public Player(Room startingRoom, ItemType[] startingItems)
+	public Player(Room startingRoom, Item[] startingItems = null)
 	{
 		currentRoom = startingRoom;
-		//Todo: add starting items to inventory
+		inventory = new Inventory();
+		
+		if (startingItems != null)
+		{
+			foreach (Item item in startingItems)
+			{
+				inventory.Add(item);
+			}
+		}
 	}
 	
 	public String Use(String item1, String item2)
@@ -35,5 +43,20 @@ public partial class Player
 	public String Take(String item)
 	{
 		return "";
+	}
+	
+	public void AddItem(Item item)
+	{
+		inventory.Add(item);
+	}
+	
+	public Item TakeItem(ItemType itemType)
+	{
+		return inventory.Take(itemType);
+	}
+	
+	public bool HasItem(ItemType itemType)
+	{
+		return inventory.HasItem(itemType);
 	}
 }

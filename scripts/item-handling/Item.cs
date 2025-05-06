@@ -9,4 +9,9 @@ public partial class Item : Node
 	{
 		this.itemType = itemType;
 	}
+	
+	public ItemType Type
+	{
+		get { return itemType; }
+	}
 }

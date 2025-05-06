@@ -14,12 +14,12 @@ public partial class ItemType
 		this.canBePickedUp = canBePickedUp;
 	}
 	
-	public string Name
+	public String Name
 	{
 		get { return name; }
 	}
 	
-	public string Description
+	public String Description
 	{
 		get { return description; }
 	}
