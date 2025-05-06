@@ -1,13 +1,13 @@
 using Godot;
 using System;
 
-public partial class Item : Node
+public partial class ItemType
 {
 	String name;
 	String description;
-	bool canBePickedUp;
+	bool canBePickedUp;	
 	
-	public Item(String name, String description, bool canBePickedUp)
+	public ItemType(String name, String description, bool canBePickedUp)
 	{
 		this.name = name;
 		this.description = description;

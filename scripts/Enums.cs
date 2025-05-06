@@ -8,3 +8,17 @@ public enum Direction
 	East,
 	South
 }
+
+public enum SpawnLocation
+{
+	Player,
+	Room,
+	Automatic
+}
+
+public enum ItemsDestroyed
+{
+	First,
+	Both,
+	None
+}
