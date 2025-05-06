@@ -4,52 +4,52 @@ using System.Collections.Generic;
 
 public partial class UseType
 {
-	ItemType item1;
-	ItemType item2;
-	List<ItemType> producedItems = new List<ItemType>();
-	ItemsDestroyed itemsDestoyed;
-	SpawnLocation createdAt;
-	String description;
+	ItemType _item1;
+	ItemType _item2;
+	List<ItemType> _producedItems = new List<ItemType>();
+	ItemsDestroyed _itemsDestoyed;
+	SpawnLocation _spawnLocation;
+	String _description;
 	
 	public UseType(String description, ItemType item1, ItemType item2,
 		ItemsDestroyed itemsDestoyed, ItemType[] producedItems = null,
-		SpawnLocation createdAt = SpawnLocation.Automatic)
+		SpawnLocation spawnLocation = SpawnLocation.Automatic)
 	{
-		this.description = description;
-		this.item1 = item1;
-		this.item2 = item2;
-		this.itemsDestoyed = itemsDestoyed;
+		_description = description;
+		_item1 = item1;
+		_item2 = item2;
+		_itemsDestoyed = itemsDestoyed;
 		
 		if (producedItems != null)
 		{
-			this.producedItems.AddRange(producedItems);
+			_producedItems.AddRange(producedItems);
 		}
 		
-		this.createdAt = createdAt;
+		_spawnLocation = spawnLocation;
 	}
 	
 	public ItemType Item1
 	{
-		get { return item1; }
+		get { return _item1; }
 	}
 	
 	public ItemType Item2
 	{
-		get { return item2; }
+		get { return _item2; }
 	}
 	
 	public ItemType[] ProducedItems
 	{
-		get { return producedItems.ToArray(); }
+		get { return _producedItems.ToArray(); }
 	}
 	
-	public SpawnLocation CreatedAt
+	public SpawnLocation spawnLocation
 	{
-		get { return createdAt; }
+		get { return _spawnLocation; }
 	}
 	
 	public String Description
 	{
-		get { return description; }
+		get { return _description; }
 	}
 }

@@ -1,62 +1,127 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 public class Player
 {
-	Room currentRoom;
-	Inventory inventory;
+	Room _currentRoom;
+	Inventory _inventory;
+	List<UseType> _uses;
 	
 	public Player(Room startingRoom, Item[] startingItems = null)
 	{
-		currentRoom = startingRoom;
-		inventory = new Inventory();
+		_currentRoom = startingRoom;
+		_inventory = new Inventory();
+		_uses = new List<UseType>();
 		
 		if (startingItems != null)
 		{
 			foreach (Item item in startingItems)
 			{
-				inventory.Add(item);
+				_inventory.Add(item);
 			}
 		}
 	}
 	
 	public String Use(String item1, String item2)
 	{
+		// Todo
 		return "";
 	}
 	
 	public String Look()
 	{
-		return "";
+		String itemsText = _currentRoom.ListItems();
+		
+		if (itemsText == "")
+		{
+			return _currentRoom.Description;
+		}
+		else
+		{
+			return _currentRoom.Description + "\n" + itemsText;
+		}
 	}
 	
 	public String Move(Direction direction)
 	{
-		return "";
+		String output = "There is nowhere to go " + direction + ".";
+		
+		switch (direction)
+		{
+			case Direction.North:
+				if (_currentRoom.ConnectingRoomNorth != null)
+				{
+					_currentRoom = _currentRoom.ConnectingRoomNorth;
+					output = "You move north.";
+				}
+				break;
+				
+			case Direction.South:
+				if (_currentRoom.ConnectingRoomSouth != null)
+				{
+					_currentRoom = _currentRoom.ConnectingRoomSouth;
+					output = "You move south.";
+				}
+				break;
+				
+			case Direction.East:
+				if (_currentRoom.ConnectingRoomEast != null)
+				{
+					_currentRoom = _currentRoom.ConnectingRoomEast;
+					output = "You move east.";
+				}
+				break;
+				
+			case Direction.West:
+				if (_currentRoom.ConnectingRoomWest != null)
+				{
+					_currentRoom = _currentRoom.ConnectingRoomWest;
+					output = "You move west.";
+				}
+				break;
+		}
+		
+		return output;
 	}
 	
 	public String Help()
 	{
-		return "";
+		return "Type [look] or [examine] for a description of an item or your " +
+			"current surroundings.\n[walk] or [move] must be followed by a " +
+			"direction, such as [north] or [left].\n[take] or [grab] must be " +
+			"followed by a noun, such as [key] or [gadget].";
 	}
 	
-	public String Take(String item)
+	public String Take(ItemType itemType)
 	{
-		return "";
+		if (!_currentRoom.HasItem(itemType))
+		{
+			return "There is no " + itemType.Name + " to take.";
+		}
+		else if (!itemType.CanBePickedUp)
+		{
+			return "You can not pick up " + itemType.Name;
+		}
+		else
+		{
+			_currentRoom.TakeItem(itemType);
+			return "You pick up " + itemType.Name;
+		}
 	}
 	
 	public void AddItem(Item item)
 	{
-		inventory.Add(item);
+		_inventory.Add(item);
 	}
 	
 	public Item TakeItem(ItemType itemType)
 	{
-		return inventory.Take(itemType);
+		return _inventory.Take(itemType);
 	}
 	
 	public bool HasItem(ItemType itemType)
 	{
-		return inventory.HasItem(itemType);
+		return _inventory.HasItem(itemType);
 	}
 }

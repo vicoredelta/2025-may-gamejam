@@ -4,19 +4,19 @@ using System.Collections.Generic;
 
 public class Inventory
 {
-	List<Item> items = new List<Item>();
+	List<Item> _items = new List<Item>();
 	
 	public bool HasItem(ItemType itemType)
 	{
-		return items.Exists(x => x.Type == itemType);
+		return _items.Exists(x => x.Type == itemType);
 	}
 	
 	public Item Take(ItemType itemType)
 	{
 		if (HasItem(itemType))
 		{
-			Item returnValue = items.Find(x => x.Type == itemType);
-			items.Remove(returnValue);
+			Item returnValue = _items.Find(x => x.Type == itemType);
+			_items.Remove(returnValue);
 			return returnValue;
 		}
 		else
@@ -27,6 +27,28 @@ public class Inventory
 	
 	public void Add(Item item)
 	{
-		items.Add(item);
+		_items.Add(item);
+	}
+	
+	public String ListItems()
+	{
+		String output = "";
+		
+		if (_items.Count != 0)
+		{
+			output += "There is ";
+			
+			if (_items.Count > 1)
+			{
+				for (int i = 0; i < _items.Count - 1; i++)
+				{
+					output += " a " + _items[i].Name + ", ";
+				}
+			}
+			
+			output += "a " + _items[_items.Count].Name + ".";
+		}
+		
+		return output;
 	}
 }

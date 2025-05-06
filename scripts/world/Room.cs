@@ -4,49 +4,49 @@ using System.Collections.Generic;
 
 public class Room
 {
-	String name;
-	String description;
-	Room connectingRoomNorth = null;
-	Room connectingRoomSouth = null;
-	Room connectingRoomWest = null;
-	Room connectingRoomEast = null;
-	Inventory items;
+	String _name;
+	String _description;
+	Room _connectingRoomNorth = null;
+	Room _connectingRoomSouth = null;
+	Room _connectingRoomWest = null;
+	Room _connectingRoomEast = null;
+	Inventory _items;
 	
 	public Room(String name, String description)
 	{
-		this.description = description;
-		this.name = name;
-		items = new Inventory();
+		_description = description;
+		_name = name;
+		_items = new Inventory();
 	}
 	
 	public String Name
 	{
-		get { return name; }
+		get { return _name; }
 	}
 	
 	public String Description
 	{
-		get { return description; }
+		get { return _description; }
 	}
 	
 	public Room ConnectingRoomNorth
 	{
-		get { return connectingRoomNorth; }
+		get { return _connectingRoomNorth; }
 	}
 	
 	public Room ConnectingRoomSouth
 	{
-		get { return connectingRoomSouth; }
+		get { return _connectingRoomSouth; }
 	}
 	
 	public Room ConnectingRoomEast
 	{
-		get { return connectingRoomEast; }
+		get { return _connectingRoomEast; }
 	}
 	
 	public Room ConnectingRoomWest
 	{
-		get { return connectingRoomWest; }
+		get { return _connectingRoomWest; }
 	}
 	
 	public void Connect(Room destinationRoom, Direction direction)
@@ -54,36 +54,41 @@ public class Room
 		switch (direction)
 		{
 			case Direction.North:
-				this.connectingRoomNorth = destinationRoom;
-				destinationRoom.connectingRoomSouth = this;
+				_connectingRoomNorth = destinationRoom;
+				destinationRoom._connectingRoomSouth = this;
 				break;
 			case Direction.South:
-				this.connectingRoomSouth = destinationRoom;
-				destinationRoom.connectingRoomNorth = this;
+				_connectingRoomSouth = destinationRoom;
+				destinationRoom._connectingRoomNorth = this;
 				break;
 			case Direction.East:
-				this.connectingRoomEast = destinationRoom;
-				destinationRoom.connectingRoomWest = this;
+				_connectingRoomEast = destinationRoom;
+				destinationRoom._connectingRoomWest = this;
 				break;
 			case Direction.West:
-				this.connectingRoomWest = destinationRoom;
-				destinationRoom.connectingRoomEast = this;
+				_connectingRoomWest = destinationRoom;
+				destinationRoom._connectingRoomEast = this;
 				break;
 		}
 	}
 	
 	public void AddItem(Item item)
 	{
-		items.Add(item);
+		_items.Add(item);
 	}
 	
 	public Item TakeItem(ItemType itemType)
 	{
-		return items.Take(itemType);
+		return _items.Take(itemType);
 	}
 	
 	public bool HasItem(ItemType itemType)
 	{
-		return items.HasItem(itemType);
+		return _items.HasItem(itemType);
+	}
+	
+	public String ListItems()
+	{
+		return _items.ListItems();
 	}
 }

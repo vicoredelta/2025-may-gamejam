@@ -121,63 +121,18 @@ public class World
 	
 	public void AddItem(String itemName, String itemDescription, String roomName, bool canBePickedUp)
 	{
-		if (!rooms.ContainsKey(roomName))
-		{
-			GD.Print("ERROUNOUS CALL OF AddItem()!!!");
-			throw new InvalidOperationException("Room " + roomName + "does not exist");
-		}
-			
-		rooms[roomName].AddItem(itemName, itemDescription, canBePickedUp);
+		
 	}
 	
 	public void AddItemToPlayer(String itemName, String itemDescription)
 	{
-		if (inventory.ContainsKey(itemName))
-		{
-			GD.Print("ERROUNOUS CALL OF AttItemToPlayer()!!!");
-			throw new InvalidOperationException(itemName + "already exists in inventory");
-		}
 		
-		inventory.Add(itemName, new Item(itemName, itemDescription, true));
 	}
 	
 	// Returns true upon a successful move
 	public bool Move(String direction)
 	{
-		bool returnValue = true;
-		
-		switch (direction)
-		{
-			case "north":
-				if (currentRoom.ConnectingRoomNorth != null)
-					currentRoom = currentRoom.ConnectingRoomNorth;
-				else
-					return false;
-				break;
-			case "south":
-				if (currentRoom.ConnectingRoomSouth != null)
-					currentRoom = currentRoom.ConnectingRoomSouth;
-				else
-					return false;
-				break;
-			case "east":
-				if (currentRoom.ConnectingRoomEast != null)
-					currentRoom = currentRoom.ConnectingRoomEast;
-				else
-					return false;
-				break;
-			case "west":
-				if (currentRoom.ConnectingRoomWest != null)
-					currentRoom = currentRoom.ConnectingRoomWest;
-				else
-					return false;
-				break;
-			default:
-				GD.Print("ERROUNOUS CALL OF Move()!!!");
-				throw new InvalidOperationException(direction + "is not a direction");
-		}
-		
-		return returnValue;
+		return true;
 	}
 	
 	public void AddConnection(String roomName1, String roomName2, Direction direction)

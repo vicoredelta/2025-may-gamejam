@@ -3,29 +3,29 @@ using System;
 
 public partial class ItemType
 {
-	String name;
-	String description;
-	bool canBePickedUp;	
+	String _name;
+	String _description;
+	bool _canBePickedUp;	
 	
 	public ItemType(String name, String description, bool canBePickedUp)
 	{
-		this.name = name;
-		this.description = description;
-		this.canBePickedUp = canBePickedUp;
+		_name = name;
+		_description = description;
+		_canBePickedUp = canBePickedUp;
 	}
 	
 	public String Name
 	{
-		get { return name; }
+		get { return _name; }
 	}
 	
 	public String Description
 	{
-		get { return description; }
+		get { return _description; }
 	}
 	
 	public bool CanBePickedUp
 	{
-		get { return canBePickedUp; }
+		get { return _canBePickedUp; }
 	}
 }
