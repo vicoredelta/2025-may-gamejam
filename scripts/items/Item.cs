@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class Item : Node
+public class Item
 {
 	ItemType itemType;
 	

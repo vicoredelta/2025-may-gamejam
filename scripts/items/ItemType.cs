@@ -1,11 +1,12 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
-public partial class ItemType
+public class ItemType
 {
 	String _name;
 	String _description;
-	bool _canBePickedUp;	
+	bool _canBePickedUp;
 	
 	public ItemType(String name, String description, bool canBePickedUp)
 	{

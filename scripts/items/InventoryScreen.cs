@@ -19,6 +19,7 @@ public partial class InventoryScreen : ItemList
 	
 	public void ModifyInventory(Item item, bool itemIsBeingAdded)
 	{
+		/*
 		if (itemIsBeingAdded)
 		{
 			AddItem(item.Name, null, false);
@@ -30,5 +31,6 @@ public partial class InventoryScreen : ItemList
 			itemList.RemoveAt(index);
 			RemoveItem(index);
 		}
+		*/
 	}
 }

@@ -9,16 +9,8 @@ public enum Direction
 	South
 }
 
-public enum SpawnLocation
+public enum ItemCreateLocation
 {
 	Player,
-	Room,
-	Automatic
-}
-
-public enum ItemsDestroyed
-{
-	First,
-	Both,
-	None
+	Room
 }

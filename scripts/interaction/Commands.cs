@@ -2,31 +2,20 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public class Player
+public partial class Player
 {
-	Room _currentRoom;
-	Inventory _inventory;
-	List<UseType> _uses;
-	
-	public Player(Room startingRoom, Item[] startingItems = null)
+	public String Use(List<ItemType> requiredItems)
 	{
-		_currentRoom = startingRoom;
-		_inventory = new Inventory();
-		_uses = new List<UseType>();
+		ItemUse foundUse = FindUse(requiredItems);
 		
-		if (startingItems != null)
+		if (foundUse != null)
 		{
-			foreach (Item item in startingItems)
-			{
-				_inventory.Add(item);
-			}
+			return foundUse.Use(_inventory, _currentRoom);
 		}
-	}
-	
-	public String Use(String item1, String item2)
-	{
-		// Todo
-		return "";
+		else
+		{
+			return "Nothing interesting happens.";
+		}
 	}
 	
 	public String Look()
@@ -108,20 +97,5 @@ public class Player
 			_currentRoom.TakeItem(itemType);
 			return "You pick up " + itemType.Name;
 		}
-	}
-	
-	public void AddItem(Item item)
-	{
-		_inventory.Add(item);
-	}
-	
-	public Item TakeItem(ItemType itemType)
-	{
-		return _inventory.Take(itemType);
-	}
-	
-	public bool HasItem(ItemType itemType)
-	{
-		return _inventory.HasItem(itemType);
 	}
 }

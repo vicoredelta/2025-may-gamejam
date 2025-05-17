@@ -1,0 +1,78 @@
+using Godot;
+using System;
+using System.Collections.Generic;
+
+public class ItemUse
+{
+	String _description;
+	List<ItemType> _requiredItems = new List<ItemType>();
+	List<ItemType> _producedItems = new List<ItemType>();
+	List<ItemType> _destroyedItems = new List<ItemType>();
+	ItemCreateLocation _itemCreateLocation;
+	
+	public ItemUse(String description, ItemType[] requiredItems,
+		ItemType[] producedItems, ItemType[] destroyedItems,
+		ItemCreateLocation createLocation)
+	{
+		_description = description;
+		_itemCreateLocation = createLocation;
+		_requiredItems.AddRange(requiredItems);
+		
+		if (producedItems != null)
+		{
+			_producedItems.AddRange(producedItems);
+		}
+		
+		if (destroyedItems != null)
+		{
+			_producedItems.AddRange(destroyedItems);
+		}
+	}
+	
+	public List<ItemType> RequiredItems
+	{
+		get { return _requiredItems; }
+	}
+	
+	public String Use(Inventory playerInventory, Room currentRoom)
+	{
+		// Check that required items are available
+		foreach (ItemType requiredItem in _requiredItems)
+		{
+			if (!(playerInventory.HasItem(requiredItem) ||
+				currentRoom.HasItem(requiredItem)))
+			{
+				return "There is no " + requiredItem.Name + " in inventory " +
+					"or vicinity.";
+			}
+		}
+		
+		// Produce new items
+		foreach (ItemType producedItem in _producedItems)
+		{
+			if (_itemCreateLocation == ItemCreateLocation.Player)
+			{
+				playerInventory.Add(new Item(producedItem));
+			}
+			else
+			{
+				currentRoom.AddItem(new Item(producedItem));
+			}
+		}
+		
+		// Destroy items
+		foreach (ItemType destroyedItem in _destroyedItems)
+		{
+			if (playerInventory.HasItem(destroyedItem))
+			{
+				playerInventory.Take(destroyedItem);
+			}
+			else if (currentRoom.HasItem(destroyedItem))
+			{
+				currentRoom.TakeItem(destroyedItem);
+			}
+		}
+		
+		return _description;
+	}
+}
