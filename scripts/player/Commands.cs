@@ -98,4 +98,28 @@ public partial class Player
 			return "You pick up " + itemType.Name;
 		}
 	}
+	
+	private ItemUse FindUse(List<ItemType> requiredItems)
+	{
+		foreach (ItemUse use in _uses)
+		{
+			bool itemsFound = true;
+			
+			foreach (ItemType reqItem in requiredItems)
+			{
+				if (!use.RequiredItems.Contains(reqItem))
+				{
+					itemsFound = false;
+					break;
+				}
+			}
+			
+			if (itemsFound)
+			{
+				return use;
+			}
+		}
+		
+		return null;
+	}
 }

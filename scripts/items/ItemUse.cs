@@ -10,8 +10,8 @@ public class ItemUse
 	List<ItemType> _destroyedItems = new List<ItemType>();
 	ItemCreateLocation _itemCreateLocation;
 	
-	public ItemUse(String description, ItemType[] requiredItems,
-		ItemType[] producedItems, ItemType[] destroyedItems,
+	public ItemUse(String description, List<ItemType> requiredItems,
+		List<ItemType> producedItems, List<ItemType> destroyedItems,
 		ItemCreateLocation createLocation)
 	{
 		_description = description;

@@ -27,8 +27,29 @@ public class World
 	}
 	
 	public void CreateItemUse(String description, String[] requiredItems,
-		String[] producedItems, String[] destroyedItems)
+		String[] producedItems, String[] destroyedItems,
+		ItemCreateLocation createLocation)
 	{
-		// Complete this
+		List<ItemType> reqItems = new List<ItemType>();
+		List<ItemType> prdItems = new List<ItemType>();
+		List<ItemType> dstItems = new List<ItemType>();
+		
+		foreach (String itemName in requiredItems)
+		{
+			reqItems.Add(_itemTypes[itemName]);
+		}
+		
+		foreach (String itemName in producedItems)
+		{
+			prdItems.Add(_itemTypes[itemName]);
+		}
+		
+		foreach (String itemName in destroyedItems)
+		{
+			dstItems.Add(_itemTypes[itemName]);
+		}
+		
+		_player.AddItemUse(new ItemUse(description, reqItems, prdItems,
+			dstItems, createLocation));
 	}
 }

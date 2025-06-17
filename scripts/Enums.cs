@@ -14,3 +14,12 @@ public enum ItemCreateLocation
 	Player,
 	Room
 }
+
+public enum Command
+{
+	Use,
+	Look,
+	Move,
+	Take,
+	Help
+}

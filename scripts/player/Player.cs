@@ -30,27 +30,8 @@ public partial class Player
 		return _inventory.HasItem(itemType);
 	}
 	
-	private ItemUse FindUse(List<ItemType> requiredItems)
+	public void AddItemUse(ItemUse itemUse)
 	{
-		foreach (ItemUse use in _uses)
-		{
-			bool itemsFound = true;
-			
-			foreach (ItemType reqItem in requiredItems)
-			{
-				if (!use.RequiredItems.Contains(reqItem))
-				{
-					itemsFound = false;
-					break;
-				}
-			}
-			
-			if (itemsFound)
-			{
-				return use;
-			}
-		}
-		
-		return null;
+		_uses.Add(itemUse);
 	}
 }
