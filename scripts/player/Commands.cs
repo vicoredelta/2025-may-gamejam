@@ -32,43 +32,48 @@ public partial class Player
 		}
 	}
 	
+	public String Examine(ItemType item)
+	{
+		return item.Description;
+	}
+	
 	public String Move(Direction direction)
 	{
 		String output = "There is nowhere to go " + direction + ".";
 		
 		switch (direction)
 		{
-			case Direction.North:
-				if (_currentRoom.ConnectingRoomNorth != null)
-				{
-					_currentRoom = _currentRoom.ConnectingRoomNorth;
-					output = "You move north.";
-				}
-				break;
-				
-			case Direction.South:
-				if (_currentRoom.ConnectingRoomSouth != null)
-				{
-					_currentRoom = _currentRoom.ConnectingRoomSouth;
-					output = "You move south.";
-				}
-				break;
-				
-			case Direction.East:
-				if (_currentRoom.ConnectingRoomEast != null)
-				{
-					_currentRoom = _currentRoom.ConnectingRoomEast;
-					output = "You move east.";
-				}
-				break;
-				
-			case Direction.West:
-				if (_currentRoom.ConnectingRoomWest != null)
-				{
-					_currentRoom = _currentRoom.ConnectingRoomWest;
-					output = "You move west.";
-				}
-				break;
+		case Direction.North:
+			if (_currentRoom.ConnectingRoomNorth != null)
+			{
+				_currentRoom = _currentRoom.ConnectingRoomNorth;
+				output = "You move north.";
+			}
+			break;
+			
+		case Direction.South:
+			if (_currentRoom.ConnectingRoomSouth != null)
+			{
+				_currentRoom = _currentRoom.ConnectingRoomSouth;
+				output = "You move south.";
+			}
+			break;
+			
+		case Direction.East:
+			if (_currentRoom.ConnectingRoomEast != null)
+			{
+				_currentRoom = _currentRoom.ConnectingRoomEast;
+				output = "You move east.";
+			}
+			break;
+			
+		case Direction.West:
+			if (_currentRoom.ConnectingRoomWest != null)
+			{
+				_currentRoom = _currentRoom.ConnectingRoomWest;
+				output = "You move west.";
+			}
+			break;
 		}
 		
 		return output;

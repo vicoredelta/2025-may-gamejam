@@ -1,18 +1,118 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 public class Parser
 {
-	public Parser()
+	String[] _lookAlias = ["look", "see"];
+	String[] _useAlias = ["use"];
+	String[] _examineAlias = ["exammine", "inspect"];
+	String[] _takeAlias = ["take", "grab", "pick", "get"];
+	String[] _moveAlias = ["move", "walk"];
+	String[] _helpAlias = ["help", "manual"];
+	String[] _northAlias = ["north", "up"];
+	String[] _southAlias = ["south", "down"];
+	String[] _westAlias = ["west", "left"];
+	String[] _eastAlias = ["east", "right"];
+	Dictionary<String, ItemType> _itemTypes = new Dictionary<String, ItemType>();
+	
+	public Parser(List<ItemType> itemTypes)
 	{
-		
+		foreach (ItemType itemType in itemTypes)
+		{
+			_itemTypes.Add(itemType.Name.ToLower(), itemType);
+		}
 	}
 	
-	public (Command, List<ItemType>, Direction) Read(String text)
+	public (Command, List<ItemType>, Direction) GetCommand(String text)
 	{
-		// TODO: finish this
+		String[] words = text.ToLower().Split(' ');
+		List<ItemType> items = new List<ItemType>();
+		Command command;
+		Direction direction;
 		
-		return (Command.Use, new List<ItemType>(), Direction.North);
+		if (_useAlias.Contains(words[0]))
+		{
+			command = Command.Use;
+			
+			foreach(String word in words.Skip(1))
+			{
+				if (_itemTypes.ContainsKey(word))
+				{
+					items.Add(_itemTypes[word]);
+				}
+			}
+		}
+		else if (_lookAlias.Contains(words[0]))
+		{
+			command = Command.Look;
+		}
+		else if (_examineAlias.Contains(words[0]))
+		{
+			command = Command.Examine;
+			
+			foreach(String word in words.Skip(1))
+			{
+				if (_itemTypes.ContainsKey(word))
+				{
+					items.Add(_itemTypes[word]);
+					break;
+				}
+			}
+		}
+		else if (_takeAlias.Contains(words[0]))
+		{
+			command = Command.Take;
+			
+			foreach(String word in words.Skip(1))
+			{
+				if (_itemTypes.ContainsKey(word))
+				{
+					items.Add(_itemTypes[word]);
+					break;
+				}
+			}
+		}
+		else if (_moveAlias.Contains(words[0]))
+		{
+			command = Command.Move;
+			
+			foreach(String word in words.Skip(1))
+			{
+				if (_northAlias.Contains(word))
+				{
+					direction = Direction.North;
+					break;
+				}
+				if (_southAlias.Contains(word))
+				{
+					direction = Direction.South;
+					break;
+				}
+				if (_westAlias.Contains(word))
+				{
+					direction = Direction.West;
+					break;
+				}
+				if (_eastAlias.Contains(word))
+				{
+					direction = Direction.East;
+					break;
+				}
+			}
+		}
+		else if (_helpAlias.Contains(words[0]))
+		{
+			command = Command.Help;
+		}
+		else
+		{
+			command = Command.InvalidCommand;
+		}
+		
+		// TODO: make a better return type
+		
+		return (command, items, direction);
 	}
 }
