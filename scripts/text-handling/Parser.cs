@@ -7,7 +7,7 @@ public class Parser
 {
 	String[] _lookAlias = ["look", "see"];
 	String[] _useAlias = ["use"];
-	String[] _examineAlias = ["exammine", "inspect"];
+	String[] _examineAlias = ["examine", "inspect"];
 	String[] _takeAlias = ["take", "grab", "pick", "get"];
 	String[] _moveAlias = ["move", "walk"];
 	String[] _helpAlias = ["help", "manual"];
@@ -30,7 +30,7 @@ public class Parser
 		String[] words = text.ToLower().Split(' ');
 		List<ItemType> items = new List<ItemType>();
 		Command command;
-		Direction direction;
+		Direction direction = Direction.InvalidDirection;
 		
 		if (_useAlias.Contains(words[0]))
 		{
@@ -110,8 +110,6 @@ public class Parser
 		{
 			command = Command.InvalidCommand;
 		}
-		
-		// TODO: make a better return type
 		
 		return (command, items, direction);
 	}

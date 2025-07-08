@@ -53,26 +53,6 @@ deselect_on_focus_loss_enabled = false
 drag_and_drop_selection_enabled = false
 script = ExtResource("1_l2bgj")
 
-[node name="TextOutput_old" type="TextEdit" parent="."]
-visible = false
-offset_left = 39.0
-offset_top = 81.0
-offset_right = 730.0
-offset_bottom = 678.0
-theme_override_colors/font_color = Color(0.760784, 0, 0, 1)
-theme_override_fonts/font = ExtResource("2_xsrv6")
-theme_override_font_sizes/font_size = 22
-context_menu_enabled = false
-emoji_menu_enabled = false
-shortcut_keys_enabled = false
-selecting_enabled = false
-deselect_on_focus_loss_enabled = false
-drag_and_drop_selection_enabled = false
-virtual_keyboard_enabled = false
-middle_mouse_paste_enabled = false
-empty_selection_clipboard_enabled = false
-wrap_mode = 1
-
 [node name="TextInput" type="TextEdit" parent="."]
 offset_left = 38.0
 offset_top = 706.0
@@ -115,3 +95,4 @@ horizontal_alignment = 1
 [connection signal="MapMove" from="." to="Map" method="MapMove"]
 [connection signal="ModifyInventory" from="." to="Inventory" method="ModifyInventory"]
 [connection signal="TextOutput" from="." to="TextOutput" method="TextOutputReceived"]
+[connection signal="PlayerInput" from="TextInput" to="." method="PlayerInputReceived"]

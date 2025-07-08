@@ -6,7 +6,8 @@ public enum Direction
 	North,
 	West,
 	East,
-	South
+	South,
+	InvalidDirection
 }
 
 public enum ItemCreateLocation

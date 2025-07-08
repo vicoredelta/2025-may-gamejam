@@ -21,9 +21,24 @@ public class World
 		_rooms.Add(name, new Room(name, description));
 	}
 	
+	public void ConnectRooms(String room1Name, String room2Name, Direction direction)
+	{
+		_rooms[room1Name].Connect(_rooms[room2Name], direction);
+	}
+	
 	public void CreateItemType(String name, String description, bool canBePickedUp)
 	{
 		_itemTypes.Add(name, new ItemType(name, description, canBePickedUp));
+	}
+	
+	public void AddItemToRoom(String itemName, String roomName)
+	{
+		_rooms[roomName].AddItem(new Item(_itemTypes[itemName]));
+	}
+	
+	public void AddItemToPlayer(String itemName)
+	{
+		_player.AddItem(new Item(_itemTypes[itemName]));
 	}
 	
 	public void CreateItemUse(String description, String[] requiredItems,
