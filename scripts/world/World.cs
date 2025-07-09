@@ -41,9 +41,16 @@ public class World
 		_player.AddItem(new Item(_itemTypes[itemName]));
 	}
 	
-	public void CreateItemUse(String description, String[] requiredItems,
-		String[] producedItems, String[] destroyedItems,
-		ItemCreateLocation createLocation)
+	public List<ItemType> GetItemTypes()
+	{
+		List<ItemType> itemTypeList = new List<ItemType>();
+		itemTypeList.AddRange(_itemTypes.Values);
+		return itemTypeList;
+	}
+	
+	public void CreateUse(String[] requiredItems, String[] producedItems,
+		String[] destroyedItems, ItemCreateLocation createLocation,
+		String description)
 	{
 		List<ItemType> reqItems = new List<ItemType>();
 		List<ItemType> prdItems = new List<ItemType>();

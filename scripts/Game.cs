@@ -11,6 +11,8 @@ public partial class Game : Node
 		"elsewhere it might've been taken back by nature, but as it stands, " +
 		"the craft remains is somehow even more silent than the wasteland " +
 		"surrounding it. A mechanical cave devoid of life.");
+		
+	Parser parser;
 	
 	[Signal]
 	public delegate void TextOutputEventHandler();
@@ -35,15 +37,30 @@ public partial class Game : Node
 		world.ConnectRooms("Cramped Hallway", "Main Bridge", Direction.North);
 
 		// Define every unique type of item (item name, item description, can be picked up)
-		world.CreateItemType("Rubble",
-		"The rubble is sharp but not heavy. It'd be easy to remove with just your hands.",
-		false);
 		world.CreateItemType("Wracker",
 		"It's a Wracker, a transforming multitool. It's almost brand new, but the attached gemstone have been in your family for generations.",
 		true);
 		world.CreateItemType("Stolen Power Cell",
 		"An outmode, clockwork generator. A low, hurried ticking and a faint glow suggest that it's still functional.",
 		true);
+		world.CreateItemType("Rubble",
+		"The rubble is sharp but not heavy. It'd be easy to remove with just your hands.",
+		false);
+		world.CreateItemType("Storage", "It has a simple electronic lock.", false);
+		world.CreateItemType("Red Cable", "It's a red cable.", true);
+		world.CreateItemType("Blue Cable", "It's a blue cable.", true);
+		world.CreateItemType("Green Cable", "It's a green cable.", true);
+		world.CreateItemType("Purple Cable", "It's a purple cable.", true);
+		
+		// Define uses (required items, produced items, destroyed items, create location, description)
+		world.CreateUse(
+			["Rubble"], ["Storage"], ["Rubble"], ItemCreateLocation.Room,
+			"With little effort the rubble is cleared, revealing a storage box with a simple electronic lock."
+		);
+		world.CreateUse(
+			["Wracker", "Storage"], ["Red Cable", "Blue Cable", "Green Cable", "Purple Cable"], ["Storage"], ItemCreateLocation.Room,
+			"With little effort the rubble is cleared, revealing a storage box with a simple electronic lock."
+		);
 		
 		// Add items to rooms
 		world.AddItemToRoom("Rubble", "Main Bridge");
@@ -51,6 +68,8 @@ public partial class Game : Node
 		// Add player starting items here (Need to be added in InventoryScreen.cs as well!)
 		world.AddItemToPlayer("Wracker");
 		world.AddItemToPlayer("Stolen Power Cell");
+		
+		parser = new Parser(world.GetItemTypes());
 	}
 	
 	private void OutputText(String text)
@@ -62,5 +81,7 @@ public partial class Game : Node
 	{
 		// Echo input in output window
 		OutputText(">" + textInput);
+		
+		// TODO: Use parser here
 	}
 }
