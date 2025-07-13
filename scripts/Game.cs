@@ -69,6 +69,7 @@ public partial class Game : Node
 		world.AddItemToPlayer("Wracker");
 		world.AddItemToPlayer("Stolen Power Cell");
 		
+		// Create parser object
 		parser = new Parser(world.GetItemTypes());
 	}
 	
@@ -80,8 +81,17 @@ public partial class Game : Node
 	public void PlayerInputReceived(String textInput)
 	{
 		// Echo input in output window
-		OutputText(">" + textInput);
+		OutputText(">" + textInput + "\n");
+	
+		// Parse input
+		(Command, List<ItemType>, Direction) parsedInput = parser.GetCommand(textInput);
 		
-		// TODO: Use parser here
+		// Execute command
+		String commandTextOutput = world.ExecuteCommand(parsedInput.Item1,
+														parsedInput.Item2,
+														parsedInput.Item3);
+		
+		// Output text	TODO: Clean bugs
+		OutputText(commandTextOutput + "\n");
 	}
 }

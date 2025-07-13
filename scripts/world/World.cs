@@ -48,6 +48,17 @@ public class World
 		return itemTypeList;
 	}
 	
+	public String ExecuteCommand (Command command, List<ItemType> itemTypes, Direction direction) => command switch
+	{
+		Command.Use => _player.Use(itemTypes),
+		Command.Look => _player.Look(),
+		Command.Examine => _player.Examine(itemTypes[0]),
+		Command.Move => _player.Move(direction),
+		Command.Take => _player.Take(itemTypes[0]),
+		Command.Help => _player.Help(),
+		Command.InvalidCommand => "Nothing interesting happens."
+	};
+	
 	public void CreateUse(String[] requiredItems, String[] producedItems,
 		String[] destroyedItems, ItemCreateLocation createLocation,
 		String description)
