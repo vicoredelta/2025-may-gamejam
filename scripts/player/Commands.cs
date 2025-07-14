@@ -28,7 +28,7 @@ public partial class Player
 			
 			if (_currentRoom.ListItems() != "")
 			{
-				text = text + _currentRoom.ListItems() + "\n";
+				text = text + "\n" + _currentRoom.ListItems();
 			}
 			
 			return new CommandOutput(Command.Look, text);
