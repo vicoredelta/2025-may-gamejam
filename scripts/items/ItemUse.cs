@@ -17,16 +17,8 @@ public class ItemUse
 		_description = description;
 		_itemCreateLocation = createLocation;
 		_requiredItems.AddRange(requiredItems);
-		
-		if (producedItems != null)
-		{
-			_producedItems.AddRange(producedItems);
-		}
-		
-		if (destroyedItems != null)
-		{
-			_producedItems.AddRange(destroyedItems);
-		}
+		_producedItems.AddRange(producedItems);
+		_destroyedItems.AddRange(destroyedItems);
 	}
 	
 	public List<ItemType> RequiredItems
@@ -42,7 +34,7 @@ public class ItemUse
 			if (!(playerInventory.HasItem(requiredItem) ||
 				currentRoom.HasItem(requiredItem)))
 			{
-				return "There is no " + requiredItem.Name + " in inventory " +
+				return "There is no " + requiredItem.Name.ToLower() + " in inventory " +
 					"or vicinity.";
 			}
 		}

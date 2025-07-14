@@ -34,4 +34,28 @@ public partial class Player
 	{
 		_uses.Add(itemUse);
 	}
+	
+	private ItemUse FindUse(List<ItemType> itemsProvided)
+	{
+		foreach (ItemUse use in _uses)
+		{
+			bool itemsFound = true;
+			
+			foreach (ItemType reqItem in use.RequiredItems)
+			{
+				if (!itemsProvided.Contains(reqItem))
+				{
+					itemsFound = false;
+					break;
+				}
+			}
+			
+			if (itemsFound)
+			{
+				return use;
+			}
+		}
+		
+		return null;
+	}
 }

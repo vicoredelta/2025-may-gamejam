@@ -11,26 +11,32 @@ public partial class InventoryScreen : ItemList
 	InventoryScreen()
 	{
 		// Starting items need to be added here
-		AddItem("Wracker", null, false);
-		itemList.Add("Wracker");
-		AddItem("Stolen Power Cell", null, false);
-		itemList.Add("Stolen Power Cell");
+		AddItemToInventoryScreen("Wracker");
+		AddItemToInventoryScreen("Stolen_Power_Cell");
 	}
 	
 	public void ModifyInventory(Item item, bool itemIsBeingAdded)
 	{
-		/*
 		if (itemIsBeingAdded)
 		{
-			AddItem(item.Name, null, false);
-			itemList.Add(item.Name);
+			AddItemToInventoryScreen(item.Type.Name);
 		}
 		else
 		{
-			int index = itemList.IndexOf(item.Name);
-			itemList.RemoveAt(index);
-			RemoveItem(index);
+			RemoveItemFromInventoryScreen(item.Type.Name);
 		}
-		*/
+	}
+	
+	private void AddItemToInventoryScreen(String itemName)
+	{
+		AddItem(itemName, null, false);
+		itemList.Add(itemName);
+	}
+	
+	private void RemoveItemFromInventoryScreen(String itemName)
+	{
+		int index = itemList.IndexOf(itemName);
+		itemList.RemoveAt(index);
+		RemoveItem(index);
 	}
 }

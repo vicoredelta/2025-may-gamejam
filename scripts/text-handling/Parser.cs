@@ -25,10 +25,11 @@ public class Parser
 		}
 	}
 	
-	public (Command, List<ItemType>, Direction) GetCommand(String text)
+	public ParsedCommand GetCommand(String text)
 	{
 		String[] words = text.ToLower().Split(' ');
 		List<ItemType> items = new List<ItemType>();
+		ItemType item = null;
 		Command command;
 		Direction direction = Direction.InvalidDirection;
 		
@@ -56,7 +57,7 @@ public class Parser
 			{
 				if (_itemTypes.ContainsKey(word))
 				{
-					items.Add(_itemTypes[word]);
+					item = _itemTypes[word];
 					break;
 				}
 			}
@@ -69,7 +70,7 @@ public class Parser
 			{
 				if (_itemTypes.ContainsKey(word))
 				{
-					items.Add(_itemTypes[word]);
+					item = _itemTypes[word];
 					break;
 				}
 			}
@@ -111,6 +112,22 @@ public class Parser
 			command = Command.InvalidCommand;
 		}
 		
-		return (command, items, direction);
+		return new ParsedCommand(command, direction, items, item);
+	}
+}
+
+public class ParsedCommand
+{
+	public Command Command { get; }
+	public List<ItemType> Items { get; }
+	public Direction Direction { get; }
+	public ItemType Item { get; }
+	
+	public ParsedCommand(Command command, Direction direction, List<ItemType> items, ItemType item)
+	{
+		Command = command;
+		if (direction != null) Direction = direction; 
+		Items = items;
+		if (item != null) Item = item;
 	}
 }

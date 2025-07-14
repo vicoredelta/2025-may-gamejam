@@ -13,7 +13,6 @@ public partial class Map : Node
 	{
 		GD.Print(destinationRoom);
 		setRoom(destinationRoom);
-		
 	}
 	
 	public override void _Ready()

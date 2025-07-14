@@ -34,12 +34,15 @@ public partial class Player
 	
 	public String Examine(ItemType item)
 	{
-		return item.Description;
+		if (item != null)
+			return item.Description;
+		else
+			return "Nothing interesting happens.";
 	}
 	
 	public String Move(Direction direction)
 	{
-		String output = "There is nowhere to go " + direction + ".";
+		String output = "There is nowhere to go " + direction.ToString().ToLower() + ".";
 		
 		switch (direction)
 		{
@@ -74,6 +77,9 @@ public partial class Player
 				output = "You move west.";
 			}
 			break;
+		case Direction.InvalidDirection:
+			output = "Nothing interesting happens.";
+			break;
 		}
 		
 		return output;
@@ -89,42 +95,22 @@ public partial class Player
 	
 	public String Take(ItemType itemType)
 	{
-		if (!_currentRoom.HasItem(itemType))
+		if (itemType == null)
 		{
-			return "There is no " + itemType.Name + " to take.";
+			return "Nothing interesting happens.";
+		}
+		else if (!_currentRoom.HasItem(itemType))
+		{
+			return "There is no " + itemType.Name.ToLower() + " to take.";
 		}
 		else if (!itemType.CanBePickedUp)
 		{
-			return "You can not pick up " + itemType.Name;
+			return "You can not pick up the " + itemType.Name.ToLower() + ".";
 		}
 		else
 		{
 			_currentRoom.TakeItem(itemType);
-			return "You pick up " + itemType.Name;
+			return "You pick up the " + itemType.Name.ToLower() + ".";
 		}
-	}
-	
-	private ItemUse FindUse(List<ItemType> requiredItems)
-	{
-		foreach (ItemUse use in _uses)
-		{
-			bool itemsFound = true;
-			
-			foreach (ItemType reqItem in requiredItems)
-			{
-				if (!use.RequiredItems.Contains(reqItem))
-				{
-					itemsFound = false;
-					break;
-				}
-			}
-			
-			if (itemsFound)
-			{
-				return use;
-			}
-		}
-		
-		return null;
 	}
 }

@@ -42,11 +42,11 @@ public class Inventory
 			{
 				for (int i = 0; i < _items.Count - 1; i++)
 				{
-					output += "a " + _items[i].Type.Name + ", ";
+					output += "a [" + _items[i].Type.Name.ToLower() + "], ";
 				}
 			}
 			
-			output += "a " + _items[_items.Count].Type.Name + ".";
+			output += "a [" + _items[_items.Count - 1].Type.Name.ToLower() + "].";
 		}
 		
 		return output;

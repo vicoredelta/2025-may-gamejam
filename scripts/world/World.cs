@@ -48,13 +48,13 @@ public class World
 		return itemTypeList;
 	}
 	
-	public String ExecuteCommand (Command command, List<ItemType> itemTypes, Direction direction) => command switch
+	public String ExecuteCommand (ParsedCommand parsedCommand) => parsedCommand.Command switch
 	{
-		Command.Use => _player.Use(itemTypes),
+		Command.Use => _player.Use(parsedCommand.Items),
 		Command.Look => _player.Look(),
-		Command.Examine => _player.Examine(itemTypes[0]),
-		Command.Move => _player.Move(direction),
-		Command.Take => _player.Take(itemTypes[0]),
+		Command.Examine => _player.Examine(parsedCommand.Item),
+		Command.Move => _player.Move(parsedCommand.Direction),
+		Command.Take => _player.Take(parsedCommand.Item),
 		Command.Help => _player.Help(),
 		Command.InvalidCommand => "Nothing interesting happens."
 	};

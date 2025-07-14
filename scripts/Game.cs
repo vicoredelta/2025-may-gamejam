@@ -29,8 +29,8 @@ public partial class Game : Node
 		// Room and item names must be unique!
 		
 		// Create rooms (name, descripion), starting room is created further up
-		world.CreateRoom("Cramped Hallway", "This room is super red");
-		world.CreateRoom("Main Bridge", "This room is super red");
+		world.CreateRoom("Cramped Hallway", "This room is super red.");
+		world.CreateRoom("Main Bridge", "This room is super red.");
 		
 		// Define connections between rooms (room 1, room 2, direction when moving from room 1 to room 2)
 		world.ConnectRooms("Breached Entrance", "Cramped Hallway", Direction.North);
@@ -38,19 +38,19 @@ public partial class Game : Node
 
 		// Define every unique type of item (item name, item description, can be picked up)
 		world.CreateItemType("Wracker",
-		"It's a Wracker, a transforming multitool. It's almost brand new, but the attached gemstone have been in your family for generations.",
+		"It's a wracker, a transforming multitool. It's almost brand new, but the attached gemstone have been in your family for generations.",
 		true);
-		world.CreateItemType("Stolen Power Cell",
+		world.CreateItemType("Stolen_Power_Cell",
 		"An outmode, clockwork generator. A low, hurried ticking and a faint glow suggest that it's still functional.",
 		true);
 		world.CreateItemType("Rubble",
 		"The rubble is sharp but not heavy. It'd be easy to remove with just your hands.",
 		false);
 		world.CreateItemType("Storage", "It has a simple electronic lock.", false);
-		world.CreateItemType("Red Cable", "It's a red cable.", true);
-		world.CreateItemType("Blue Cable", "It's a blue cable.", true);
-		world.CreateItemType("Green Cable", "It's a green cable.", true);
-		world.CreateItemType("Purple Cable", "It's a purple cable.", true);
+		world.CreateItemType("Red_Cable", "It's a red cable.", true);
+		world.CreateItemType("Blue_Cable", "It's a blue cable.", true);
+		world.CreateItemType("Green_Cable", "It's a green cable.", true);
+		world.CreateItemType("Purple_Cable", "It's a purple cable.", true);
 		
 		// Define uses (required items, produced items, destroyed items, create location, description)
 		world.CreateUse(
@@ -58,7 +58,7 @@ public partial class Game : Node
 			"With little effort the rubble is cleared, revealing a storage box with a simple electronic lock."
 		);
 		world.CreateUse(
-			["Wracker", "Storage"], ["Red Cable", "Blue Cable", "Green Cable", "Purple Cable"], ["Storage"], ItemCreateLocation.Room,
+			["Wracker", "Storage"], ["Red_Cable", "Blue_Cable", "Green_Cable", "Purple_Cable"], ["Storage"], ItemCreateLocation.Room,
 			"With little effort the rubble is cleared, revealing a storage box with a simple electronic lock."
 		);
 		
@@ -67,7 +67,7 @@ public partial class Game : Node
 		
 		// Add player starting items here (Need to be added in InventoryScreen.cs as well!)
 		world.AddItemToPlayer("Wracker");
-		world.AddItemToPlayer("Stolen Power Cell");
+		world.AddItemToPlayer("Stolen_Power_Cell");
 		
 		// Create parser object
 		parser = new Parser(world.GetItemTypes());
@@ -84,14 +84,12 @@ public partial class Game : Node
 		OutputText(">" + textInput + "\n");
 	
 		// Parse input
-		(Command, List<ItemType>, Direction) parsedInput = parser.GetCommand(textInput);
+		ParsedCommand parsedCommand = parser.GetCommand(textInput);
 		
 		// Execute command
-		String commandTextOutput = world.ExecuteCommand(parsedInput.Item1,
-														parsedInput.Item2,
-														parsedInput.Item3);
+		String result = world.ExecuteCommand(parsedCommand);
 		
-		// Output text	TODO: Clean bugs
-		OutputText(commandTextOutput + "\n");
+		// Output text
+		OutputText(result + "\n");
 	}
 }
