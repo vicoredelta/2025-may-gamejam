@@ -14,7 +14,7 @@ public partial class TextOutput : RichTextLabel
 			"revitalise the craft's inspirited machinery.\nYou have one such "+
 			"cell in your possession.\nEntering the spacecraft was of little " +
 			"issue. The crash had torn a convenient entrance in the hull, " + 
-			"now only half concealed in tumbleweeds and sand.\n");
+			"now only half concealed in tumbleweeds and sand.\n\n");
 	}
 	
 	public void TextOutputReceived(String textOutput)
