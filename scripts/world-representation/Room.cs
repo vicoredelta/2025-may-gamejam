@@ -4,70 +4,41 @@ using System.Collections.Generic;
 
 public class Room
 {
-	String _name;
-	String _description;
-	Room _connectingRoomNorth = null;
-	Room _connectingRoomSouth = null;
-	Room _connectingRoomWest = null;
-	Room _connectingRoomEast = null;
 	Inventory _items;
 	
 	public Room(String name, String description)
 	{
-		_description = description;
-		_name = name;
+		Description = description;
+		Name = name;
 		_items = new Inventory();
 	}
 	
-	public String Name
-	{
-		get { return _name; }
-	}
-	
-	public String Description
-	{
-		get { return _description; }
-	}
-	
-	public Room ConnectingRoomNorth
-	{
-		get { return _connectingRoomNorth; }
-	}
-	
-	public Room ConnectingRoomSouth
-	{
-		get { return _connectingRoomSouth; }
-	}
-	
-	public Room ConnectingRoomEast
-	{
-		get { return _connectingRoomEast; }
-	}
-	
-	public Room ConnectingRoomWest
-	{
-		get { return _connectingRoomWest; }
-	}
+	public String Name { get; }
+	public String Description { get; }
+	public Room ConnectingRoomNorth { get; private set; } = null;
+	public Room ConnectingRoomSouth { get; private set; } = null;
+	public Room ConnectingRoomEast { get; private set; } = null;
+	public Room ConnectingRoomWest { get; private set; } = null;
 	
 	public void Connect(Room destinationRoom, Direction direction)
 	{
 		switch (direction)
 		{
 			case Direction.North:
-				_connectingRoomNorth = destinationRoom;
-				destinationRoom._connectingRoomSouth = this;
+				ConnectingRoomNorth = destinationRoom;
+				destinationRoom.ConnectingRoomSouth = this;
 				break;
 			case Direction.South:
-				_connectingRoomSouth = destinationRoom;
-				destinationRoom._connectingRoomNorth = this;
+				ConnectingRoomSouth = destinationRoom;
+				destinationRoom.ConnectingRoomNorth = this;
 				break;
 			case Direction.East:
-				_connectingRoomEast = destinationRoom;
-				destinationRoom._connectingRoomWest = this;
+				ConnectingRoomEast = destinationRoom;
+				destinationRoom.ConnectingRoomWest = this;
 				break;
 			case Direction.West:
-				_connectingRoomWest = destinationRoom;
-				destinationRoom._connectingRoomEast = this;
+				ConnectingRoomWest = destinationRoom;
+				destinationRoom.ConnectingRoomEast = this;
 				break;
 		}
 	}

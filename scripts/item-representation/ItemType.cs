@@ -4,44 +4,24 @@ using System.Collections.Generic;
 
 public class ItemType
 {
-	String _name;
-	String _description;
-	bool _canBePickedUp;
-	
 	public ItemType(String name, String description, bool canBePickedUp)
 	{
-		_name = name;
-		_description = description;
-		_canBePickedUp = canBePickedUp;
+		Name = name;
+		Description = description;
+		CanBePickedUp = canBePickedUp;
 	}
 	
-	public String Name
-	{
-		get { return _name; }
-	}
-	
-	public String Description
-	{
-		get { return _description; }
-	}
-	
-	public bool CanBePickedUp
-	{
-		get { return _canBePickedUp; }
-	}
+	public String Name { get; private set; }
+	public String Description { get; private set; }
+	public bool CanBePickedUp { get; private set; }
 }
 
 public class Item
 {
-	ItemType itemType;
-	
 	public Item(ItemType itemType)
 	{
-		this.itemType = itemType;
+		Type = itemType;
 	}
 	
-	public ItemType Type
-	{
-		get { return itemType; }
-	}
+	public ItemType Type { get; private set; }
 }
