@@ -35,7 +35,7 @@ public partial class Player
 			
 		case Command.Examine:
 			if (input.Items.Count == 0)
-				return new CommandOutput();
+				return new CommandOutput("You must specify an in the vicinity or on your person.");
 			else
 				return new CommandOutput(Command.Examine, input.Items[0].Description);
 			
@@ -79,7 +79,7 @@ public partial class Player
 			}
 			
 		default:
-			return new CommandOutput();
+			return new CommandOutput("Invalid command.");
 		}
 	}
 }
