@@ -59,7 +59,7 @@ public partial class Game : Node
 		);
 		world.CreateUse(
 			["Wracker", "Storage"], ["Red_Cable", "Blue_Cable", "Green_Cable", "Purple_Cable"], ["Storage"], ItemCreateLocation.Room,
-			"With little effort the rubble is cleared, revealing a storage box with a simple electronic lock."
+			"With a click and a chime the lock is undone and the box lid opens to reveal a large assortment of coloured cables. The box contains Green, Purple, Red, and Blue cables."
 		);
 		
 		// Add items to rooms
