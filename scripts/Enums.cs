@@ -6,5 +6,23 @@ public enum Direction
 	North,
 	West,
 	East,
-	South
+	South,
+	InvalidDirection
+}
+
+public enum ItemCreateLocation
+{
+	Player,
+	Room
+}
+
+public enum Command
+{
+	Use,
+	Look,
+	Examine,
+	Move,
+	Take,
+	Help,
+	InvalidCommand
 }

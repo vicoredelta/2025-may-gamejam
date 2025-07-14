@@ -1,12 +1,12 @@
 [gd_scene load_steps=12 format=4 uid="uid://bmb2klssaod8n"]
 
 [ext_resource type="Script" uid="uid://dnjxfh5m1lg2v" path="res://scripts/Game.cs" id="1_jbsfc"]
-[ext_resource type="Script" uid="uid://ekyba86i6l0g" path="res://scripts/TextOutput.cs" id="1_l2bgj"]
+[ext_resource type="Script" uid="uid://ekyba86i6l0g" path="res://scripts/text-handling/TextOutput.cs" id="1_l2bgj"]
 [ext_resource type="PackedScene" uid="uid://b4o68g4jvup3j" path="res://scenes/map.tscn" id="1_syvep"]
-[ext_resource type="Script" uid="uid://8vhaa23wb4xq" path="res://scripts/TextInput.cs" id="1_y1h3b"]
+[ext_resource type="Script" uid="uid://8vhaa23wb4xq" path="res://scripts/text-handling/TextInput.cs" id="1_y1h3b"]
 [ext_resource type="FontFile" uid="uid://dhm23uaml2q1u" path="res://assets/fonts/Modeseven-L3n5.ttf" id="2_aisij"]
 [ext_resource type="FontFile" uid="uid://dkrj8fnoip8jn" path="res://assets/fonts/MadouFutoMaruGothic-d9Xo7.ttf" id="2_xsrv6"]
-[ext_resource type="Script" uid="uid://bkvfj1yu1sx2t" path="res://scripts/InventoryScreen.cs" id="4_lmgon"]
+[ext_resource type="Script" uid="uid://bkvfj1yu1sx2t" path="res://scripts/item-representation/InventoryScreen.cs" id="4_lmgon"]
 [ext_resource type="Texture2D" uid="uid://n8v8kbo0kj7f" path="res://assets/tileset_frame_1.png" id="6_lmgon"]
 [ext_resource type="FontFile" uid="uid://bp277mpbyjl8y" path="res://assets/fonts/Jersey25-Regular.ttf" id="8_sdud1"]
 
@@ -53,26 +53,6 @@ deselect_on_focus_loss_enabled = false
 drag_and_drop_selection_enabled = false
 script = ExtResource("1_l2bgj")
 
-[node name="TextOutput_old" type="TextEdit" parent="."]
-visible = false
-offset_left = 39.0
-offset_top = 81.0
-offset_right = 730.0
-offset_bottom = 678.0
-theme_override_colors/font_color = Color(0.760784, 0, 0, 1)
-theme_override_fonts/font = ExtResource("2_xsrv6")
-theme_override_font_sizes/font_size = 22
-context_menu_enabled = false
-emoji_menu_enabled = false
-shortcut_keys_enabled = false
-selecting_enabled = false
-deselect_on_focus_loss_enabled = false
-drag_and_drop_selection_enabled = false
-virtual_keyboard_enabled = false
-middle_mouse_paste_enabled = false
-empty_selection_clipboard_enabled = false
-wrap_mode = 1
-
 [node name="TextInput" type="TextEdit" parent="."]
 offset_left = 38.0
 offset_top = 706.0
@@ -115,4 +95,4 @@ horizontal_alignment = 1
 [connection signal="MapMove" from="." to="Map" method="MapMove"]
 [connection signal="ModifyInventory" from="." to="Inventory" method="ModifyInventory"]
 [connection signal="TextOutput" from="." to="TextOutput" method="TextOutputReceived"]
-[connection signal="PlayerInput" from="TextInput" to="." method="PlayerInput"]
+[connection signal="PlayerInput" from="TextInput" to="." method="PlayerInputReceived"]
