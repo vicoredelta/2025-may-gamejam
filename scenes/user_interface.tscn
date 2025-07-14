@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://8vhaa23wb4xq" path="res://scripts/text-handling/TextInput.cs" id="1_y1h3b"]
 [ext_resource type="FontFile" uid="uid://dhm23uaml2q1u" path="res://assets/fonts/Modeseven-L3n5.ttf" id="2_aisij"]
 [ext_resource type="FontFile" uid="uid://dkrj8fnoip8jn" path="res://assets/fonts/MadouFutoMaruGothic-d9Xo7.ttf" id="2_xsrv6"]
-[ext_resource type="Script" uid="uid://bkvfj1yu1sx2t" path="res://scripts/item-handling/InventoryScreen.cs" id="4_lmgon"]
+[ext_resource type="Script" uid="uid://bkvfj1yu1sx2t" path="res://scripts/item-representation/InventoryScreen.cs" id="4_lmgon"]
 [ext_resource type="Texture2D" uid="uid://n8v8kbo0kj7f" path="res://assets/tileset_frame_1.png" id="6_lmgon"]
 [ext_resource type="FontFile" uid="uid://bp277mpbyjl8y" path="res://assets/fonts/Jersey25-Regular.ttf" id="8_sdud1"]
 
