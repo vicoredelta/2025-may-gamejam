@@ -15,6 +15,11 @@ public partial class Player
 		_uses = new List<ItemUse>();
 	}
 	
+	public String GetRoomName()
+	{
+		return _currentRoom.Name;
+	}
+	
 	public void AddItem(Item item)
 	{
 		_inventory.Add(item);

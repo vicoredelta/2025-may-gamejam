@@ -34,6 +34,7 @@ public class CommandOutput
 	
 	public CommandOutput(Direction direction, String text)
 	{
+		Command = Command.Move;
 		Direction = direction;
 		Text = text;
 	}

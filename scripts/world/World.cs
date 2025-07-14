@@ -53,6 +53,11 @@ public class World
 		return _player.ExecuteCommand(commandInput);
 	}
 	
+	public String GetRoomName()
+	{
+		return _player.GetRoomName();
+	}
+	
 	public void CreateUse(String[] requiredItems, String[] producedItems,
 		String[] destroyedItems, ItemCreateLocation createLocation,
 		String description)

@@ -105,5 +105,12 @@ public partial class Game : Node
 				EmitSignal(SignalName.ModifyInventory, item.Name, false);
 			}
 		}
+		
+		// Update minimap if necessary
+		if (result.Command == Command.Move)
+		{
+			GD.Print("Test");
+			EmitSignal(SignalName.MapMove, result.Direction.ToString(), world.GetRoomName());
+		}
 	}
 }
