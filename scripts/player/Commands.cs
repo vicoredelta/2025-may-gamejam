@@ -48,7 +48,7 @@ public partial class Player
 			if (connectingRoom != null)
 			{
 				_currentRoom = connectingRoom;
-				return new CommandOutput(input.Direction, "You move " + input.Direction.ToString().ToLower());
+				return new CommandOutput(input.Direction, "You move " + input.Direction.ToString().ToLower() + ".");
 			}
 			
 			return new CommandOutput("There is nowhere to go " + input.Direction.ToString().ToLower() + ".");
