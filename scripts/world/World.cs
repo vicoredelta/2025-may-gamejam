@@ -48,16 +48,10 @@ public class World
 		return itemTypeList;
 	}
 	
-	public String ExecuteCommand (ParsedCommand parsedCommand) => parsedCommand.Command switch
+	public CommandOutput ExecuteCommand (CommandInput commandInput)
 	{
-		Command.Use => _player.Use(parsedCommand.Items),
-		Command.Look => _player.Look(),
-		Command.Examine => _player.Examine(parsedCommand.Item),
-		Command.Move => _player.Move(parsedCommand.Direction),
-		Command.Take => _player.Take(parsedCommand.Item),
-		Command.Help => _player.Help(),
-		Command.InvalidCommand => "Nothing interesting happens."
-	};
+		return _player.ExecuteCommand(commandInput);
+	}
 	
 	public void CreateUse(String[] requiredItems, String[] producedItems,
 		String[] destroyedItems, ItemCreateLocation createLocation,

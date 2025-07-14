@@ -15,15 +15,15 @@ public partial class InventoryScreen : ItemList
 		AddItemToInventoryScreen("Stolen_Power_Cell");
 	}
 	
-	public void ModifyInventory(Item item, bool itemIsBeingAdded)
+	public void ModifyInventory(String itemName, bool itemIsBeingAdded)
 	{
 		if (itemIsBeingAdded)
 		{
-			AddItemToInventoryScreen(item.Type.Name);
+			AddItemToInventoryScreen(itemName);
 		}
 		else
 		{
-			RemoveItemFromInventoryScreen(item.Type.Name);
+			RemoveItemFromInventoryScreen(itemName);
 		}
 	}
 	

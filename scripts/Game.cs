@@ -84,12 +84,26 @@ public partial class Game : Node
 		OutputText(">" + textInput + "\n");
 	
 		// Parse input
-		ParsedCommand parsedCommand = parser.GetCommand(textInput);
+		CommandInput input = parser.GetCommand(textInput);
 		
 		// Execute command
-		String result = world.ExecuteCommand(parsedCommand);
+		CommandOutput result = world.ExecuteCommand(input);
 		
 		// Output text
-		OutputText(result + "\n");
+		OutputText(result.Text + "\n");
+		
+		// Modify inventory screen if necessary
+		if (result.Command == Command.Take || result.Command == Command.Use)
+		{
+			foreach (ItemType item in result.ItemsObtained)
+			{
+				EmitSignal(SignalName.ModifyInventory, item.Name, true);
+			}
+			
+			foreach (ItemType item in result.ItemsLost)
+			{
+				EmitSignal(SignalName.ModifyInventory, item.Name, false);
+			}
+		}
 	}
 }

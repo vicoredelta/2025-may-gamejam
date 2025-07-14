@@ -26,7 +26,7 @@ public class ItemUse
 		get { return _requiredItems; }
 	}
 	
-	public String Use(Inventory playerInventory, Room currentRoom)
+	public CommandOutput Use(Inventory playerInventory, Room currentRoom)
 	{
 		// Check that required items are available
 		foreach (ItemType requiredItem in _requiredItems)
@@ -34,8 +34,8 @@ public class ItemUse
 			if (!(playerInventory.HasItem(requiredItem) ||
 				currentRoom.HasItem(requiredItem)))
 			{
-				return "There is no " + requiredItem.Name.ToLower() + " in inventory " +
-					"or vicinity.";
+				return new CommandOutput("There is no " + requiredItem.Name.ToLower() +
+					" in inventory or vicinity.");
 			}
 		}
 		
@@ -65,6 +65,6 @@ public class ItemUse
 			}
 		}
 		
-		return _description;
+		return new CommandOutput(_description, _producedItems, _destroyedItems);
 	}
 }

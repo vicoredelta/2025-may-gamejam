@@ -72,6 +72,21 @@ public class Room
 		}
 	}
 	
+	public Room GetConnectingRoom(Direction direction)
+	{
+		switch (direction)
+		{
+		case Direction.North: if (ConnectingRoomNorth != null) return ConnectingRoomNorth; break;
+		case Direction.South: if (ConnectingRoomSouth != null) return ConnectingRoomSouth; break;
+		case Direction.East: if (ConnectingRoomEast != null) return ConnectingRoomEast; break;
+		case Direction.West: if (ConnectingRoomWest != null) return ConnectingRoomWest; break;
+		case Direction.InvalidDirection:
+			break;
+		}
+		
+		return null;
+	}
+	
 	public void AddItem(Item item)
 	{
 		_items.Add(item);
