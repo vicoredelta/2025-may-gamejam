@@ -55,13 +55,13 @@ public partial class Player
 			
 		case Command.Help:
 			return new CommandOutput(Command.Help,
-			"Type [look] for a description of an item or your current " +
+			"Type [look] for a description of your current " +
 			"surroundings, [take] to pick up an item, [move] to " +
 			"walk to a different room, [examine] to look closer at item, " +
 			"or [use] to use an item.\n" +
 			"[move] must be followed by a direction, such as [north] or [left]. " +
 			"[take] must be followed by an item in the vicinity, such as [key] or [gadget]. " +
-			"[use] must be followed by one or several items.");
+			"[use] must be followed by one or more items.");
 			
 		case Command.Take:
 			if (input.Items.Count == 0 || !_currentRoom.HasItem(input.Items[0]))

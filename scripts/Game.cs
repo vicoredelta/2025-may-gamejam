@@ -93,17 +93,13 @@ public partial class Game : Node
 		OutputText(result.Text + "\n");
 		
 		// Modify inventory screen if necessary
-		if (result.Command == Command.Take || result.Command == Command.Use)
+		foreach (ItemType item in result.ItemsObtained)
 		{
-			foreach (ItemType item in result.ItemsObtained)
-			{
-				EmitSignal(SignalName.ModifyInventory, item.Name, true);
-			}
-			
-			foreach (ItemType item in result.ItemsLost)
-			{
-				EmitSignal(SignalName.ModifyInventory, item.Name, false);
-			}
+			EmitSignal(SignalName.ModifyInventory, item.Name, true);
+		}
+		foreach (ItemType item in result.ItemsLost)
+		{
+			EmitSignal(SignalName.ModifyInventory, item.Name, false);
 		}
 		
 		if (result.Command == Command.Move)
