@@ -76,7 +76,7 @@ public partial class Game : Node
 		parser = new Parser(world.GetItemTypes());
 		
 		// Generate room tiles in minimap
-		foreach (TileCoordinate coord in world.GenerateTileCoordinates("Breached Entrance"))
+		foreach (TileCoordinate coord in world.GenerateTileCoordinates())
 		{
 			EmitSignal(SignalName.GenerateMapTile, coord.Name, coord.Position);	
 		}

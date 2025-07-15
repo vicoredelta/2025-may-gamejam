@@ -85,8 +85,8 @@ public class World
 			dstItems, createLocation));
 	}
 	
-	public List<TileCoordinate> GenerateTileCoordinates(String originRoom)
+	public List<TileCoordinate> GenerateTileCoordinates()
 	{
-		return 	_rooms[originRoom].GenerateTileCoordinates();
+		return 	_rooms[_player.GetRoomName()].GenerateTileCoordinates();
 	}
 }
