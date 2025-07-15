@@ -5,6 +5,10 @@ using System.Collections.Generic;
 public class Room
 {
 	Inventory _items;
+	Room _connectingRoomNorth = null;
+	Room _connectingRoomSouth = null;
+	Room _connectingRoomEast = null;
+	Room _connectingRoomWest = null;
 	
 	public Room(String name, String description)
 	{
@@ -15,30 +19,26 @@ public class Room
 	
 	public String Name { get; }
 	public String Description { get; }
-	public Room ConnectingRoomNorth { get; private set; } = null;
-	public Room ConnectingRoomSouth { get; private set; } = null;
-	public Room ConnectingRoomEast { get; private set; } = null;
-	public Room ConnectingRoomWest { get; private set; } = null;
 	
 	public void Connect(Room destinationRoom, Direction direction)
 	{
 		switch (direction)
 		{
 			case Direction.North:
-				ConnectingRoomNorth = destinationRoom;
-				destinationRoom.ConnectingRoomSouth = this;
+				_connectingRoomNorth = destinationRoom;
+				destinationRoom._connectingRoomSouth = this;
 				break;
 			case Direction.South:
-				ConnectingRoomSouth = destinationRoom;
-				destinationRoom.ConnectingRoomNorth = this;
+				_connectingRoomSouth = destinationRoom;
+				destinationRoom._connectingRoomNorth = this;
 				break;
 			case Direction.East:
-				ConnectingRoomEast = destinationRoom;
-				destinationRoom.ConnectingRoomWest = this;
+				_connectingRoomEast = destinationRoom;
+				destinationRoom._connectingRoomWest = this;
 				break;
 			case Direction.West:
-				ConnectingRoomWest = destinationRoom;
-				destinationRoom.ConnectingRoomEast = this;
+				_connectingRoomWest = destinationRoom;
+				destinationRoom._connectingRoomEast = this;
 				break;
 		}
 	}
@@ -47,10 +47,10 @@ public class Room
 	{
 		switch (direction)
 		{
-		case Direction.North: if (ConnectingRoomNorth != null) return ConnectingRoomNorth; break;
-		case Direction.South: if (ConnectingRoomSouth != null) return ConnectingRoomSouth; break;
-		case Direction.East: if (ConnectingRoomEast != null) return ConnectingRoomEast; break;
-		case Direction.West: if (ConnectingRoomWest != null) return ConnectingRoomWest; break;
+		case Direction.North: if (_connectingRoomNorth != null) return _connectingRoomNorth; break;
+		case Direction.South: if (_connectingRoomSouth != null) return _connectingRoomSouth; break;
+		case Direction.East: if (_connectingRoomEast != null) return _connectingRoomEast; break;
+		case Direction.West: if (_connectingRoomWest != null) return _connectingRoomWest; break;
 		case Direction.InvalidDirection:
 			break;
 		}
@@ -77,4 +77,38 @@ public class Room
 	{
 		return _items.ListItems();
 	}
+	
+	public List<TileCoordinate> GenerateTileCoordinates()
+	{
+		return GenerateTileCoordinates(this, 0, 0, new List<Room>());
+	}
+	
+	private List<TileCoordinate> GenerateTileCoordinates(Room refRoom, float refPosX, float refPosY, List<Room> visitedRooms)
+	{
+		List<TileCoordinate> list = new List<TileCoordinate>();
+		
+		if (refRoom != null && !visitedRooms.Contains(refRoom))
+		{
+			visitedRooms.Add(refRoom);
+			list.Add(new TileCoordinate(refRoom.Name, refPosX, refPosY));
+			list.AddRange(GenerateTileCoordinates(refRoom._connectingRoomSouth, refPosX, refPosY + 54, visitedRooms));
+			list.AddRange(GenerateTileCoordinates(refRoom._connectingRoomNorth, refPosX, refPosY - 54, visitedRooms));
+			list.AddRange(GenerateTileCoordinates(refRoom._connectingRoomWest, refPosX - 54, refPosY, visitedRooms));
+			list.AddRange(GenerateTileCoordinates(refRoom._connectingRoomEast, refPosX + 54, refPosY, visitedRooms));
+		}
+		
+		return list;
+	}
+}
+
+public struct TileCoordinate
+{
+	public TileCoordinate(String name, float x, float y)
+	{
+		Name = name;
+		Position = new Vector2(x, y);
+	}
+	
+	public String Name { get; }
+	public Vector2 Position { get; }
 }

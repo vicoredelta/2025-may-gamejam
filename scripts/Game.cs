@@ -23,8 +23,11 @@ public partial class Game : Node
 	[Signal]
 	public delegate void ModifyInventoryEventHandler();
 	
-	// Constructor, instantiate world objects here
-	Game()
+	[Signal]
+	public delegate void GenerateMapTileEventHandler();
+	
+	// Instantiate world objects here
+	public override void _Ready()
 	{
 		// Room and item names must be unique!
 		
@@ -71,6 +74,12 @@ public partial class Game : Node
 		
 		// Create parser object
 		parser = new Parser(world.GetItemTypes());
+		
+		// Generate room tiles in minimap
+		foreach (TileCoordinate coord in world.GenerateTileCoordinates("Breached Entrance"))
+		{
+			EmitSignal(SignalName.GenerateMapTile, coord.Name, coord.Position);	
+		}
 	}
 	
 	private void OutputText(String text)
@@ -105,7 +114,7 @@ public partial class Game : Node
 		if (result.Command == Command.Move)
 		{
 			// Update minimap
-			EmitSignal(SignalName.MapMove, result.Direction.ToString(), world.GetRoomName());
+			EmitSignal(SignalName.MapMove, world.GetRoomName());
 			
 			// Play walking sound
 			AudioManager.Instance.PlaySFX("walk");

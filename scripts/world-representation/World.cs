@@ -84,4 +84,9 @@ public class World
 		_player.AddItemUse(new ItemUse(description, reqItems, prdItems,
 			dstItems, createLocation));
 	}
+	
+	public List<TileCoordinate> GenerateTileCoordinates(String originRoom)
+	{
+		return 	_rooms[originRoom].GenerateTileCoordinates();
+	}
 }
