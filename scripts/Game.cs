@@ -105,7 +105,6 @@ public partial class Game : Node
 		if (result.Command == Command.Move)
 		{
 			// Update minimap
-			GD.Print("Test");
 			EmitSignal(SignalName.MapMove, result.Direction.ToString(), world.GetRoomName());
 			
 			// Play walking sound
