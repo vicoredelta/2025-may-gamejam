@@ -68,9 +68,8 @@ public partial class Game : Node
 		// Add items to rooms
 		world.AddItemToRoom("Rubble", "Main Bridge");
 		
-		// Add player starting items here (Need to be added in InventoryScreen.cs as well!)
-		world.AddItemToPlayer("Wracker");
-		world.AddItemToPlayer("Stolen_Power_Cell");
+		// Add items to player inventory
+		AddStartingItems(["Wracker", "Stolen_Power_Cell"]);
 		
 		// Create parser object
 		parser = new Parser(world.GetItemTypes());
@@ -85,6 +84,15 @@ public partial class Game : Node
 	private void OutputText(String text)
 	{
 		EmitSignal(SignalName.TextOutput, text + "\n");
+	}
+	
+	private void AddStartingItems(String[] itemNames)
+	{
+		foreach (String item in itemNames)
+		{
+			world.AddItemToPlayer(item);
+			EmitSignal(SignalName.ModifyInventory, item, true);
+		}
 	}
 	
 	public void PlayerInputReceived(String textInput)
