@@ -5,9 +5,8 @@ using System.Linq;
 
 public class Parser
 {
-	String[] _lookAlias = ["look", "see"];
-	String[] _useAlias = ["use"];
-	String[] _examineAlias = ["examine", "inspect"];
+	String[] _lookAlias = ["look", "see", "examine", "inspect"];
+	String[] _useAlias = ["use", "activate"];
 	String[] _takeAlias = ["take", "grab", "pick", "get"];
 	String[] _moveAlias = ["move", "walk"];
 	String[] _helpAlias = ["help", "manual"];
@@ -47,10 +46,6 @@ public class Parser
 		else if (_lookAlias.Contains(words[0]))
 		{
 			command = Command.Look;
-		}
-		else if (_examineAlias.Contains(words[0]))
-		{
-			command = Command.Examine;
 			
 			foreach(String word in words.Skip(1))
 			{

@@ -24,20 +24,22 @@ public partial class Player
 			return new CommandOutput();
 			
 		case Command.Look:
-			String text = _currentRoom.Description;
-			
-			if (_currentRoom.ListItems() != "")
+			if (input.Items.Count == 0 ||
+				!(_inventory.HasItem(input.Items[0]) || _currentRoom.HasItem(input.Items[0])))
 			{
-				text = text + "\n" + _currentRoom.ListItems();
+				String text = _currentRoom.Description;
+				
+				if (_currentRoom.ListItems() != "")
+				{
+					text = text + "\n" + _currentRoom.ListItems();
+				}
+				
+				return new CommandOutput(Command.Look, text);
 			}
-			
-			return new CommandOutput(Command.Look, text);
-			
-		case Command.Examine:
-			if (input.Items.Count == 0)
-				return new CommandOutput("You must specify an in the vicinity or on your person.");
 			else
-				return new CommandOutput(Command.Examine, input.Items[0].Description);
+			{
+				return new CommandOutput(Command.Look, input.Items[0].Description);
+			}
 			
 		case Command.Move:
 			if (input.Direction == Direction.InvalidDirection)
@@ -57,10 +59,12 @@ public partial class Player
 			return new CommandOutput(Command.Help,
 			"Type [look] for a description of your current " +
 			"surroundings, [take] to pick up an item, [move] to " +
-			"walk to a different room, [examine] to look closer at item, " +
+			"walk to a different room." +
 			"or [use] to use an item.\n" +
-			"[move] must be followed by a direction, such as [north] or [left]. " +
-			"[take] must be followed by an item in the vicinity, such as [key] or [gadget]. " +
+			"[look] may be followed by an item in the vicinity or in your inventory " +
+			"in order to take a closer look at it." +
+			"[move] must be followed by a direction, such as [north] or [west]." +
+			"[take] must be followed by an item in the vicinity, such as [key] or [gadget]." +
 			"[use] must be followed by one or more items.");
 			
 		case Command.Take:

@@ -20,7 +20,6 @@ public enum Command
 {
 	Use,
 	Look,
-	Examine,
 	Move,
 	Take,
 	Help,
