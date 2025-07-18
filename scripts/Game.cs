@@ -41,13 +41,13 @@ public partial class Game : Node
 
 		// Define every unique type of item (item name, item description, can be picked up)
 		world.CreateItemType("Wracker",
-		"It's a wracker, a transforming multitool. It's almost brand new, but the attached gemstone have been in your family for generations.",
+		"It's a [color=38a868]wracker[/color], a transforming multitool. It's almost brand new, but the attached gemstone have been in your family for generations.",
 		true);
 		world.CreateItemType("Stolen_Power_Cell",
-		"An outmode, clockwork generator. A low, hurried ticking and a faint glow suggest that it's still functional.",
+		"An outmode, clockwork [color=38a868]generator[/color]. A low, hurried ticking and a faint glow suggest that it's still functional.",
 		true);
 		world.CreateItemType("Rubble",
-		"A mound of splintered blackstone and smashed machinery. Some kind of container lies half-buried under the mess.",
+		"A mound of splintered blackstone and smashed machinery. Some kind of [color=7b84ff]container[/color] lies half-buried under the mess.",
 		false);
 		world.CreateItemType("Storage", "It has a simple electronic lock.", false);
 		world.CreateItemType("Red_Cable", "It's a red cable.", true);
@@ -58,7 +58,7 @@ public partial class Game : Node
 		// Define uses (required items, produced items, destroyed items, create location, description)
 		world.CreateUse(
 			["Rubble"], ["Storage"], ["Rubble"], ItemCreateLocation.Room,
-			"With little effort the rubble is cleared, revealing a storage box with a simple electronic lock."
+			"With little effort the rubble is cleared, revealing a [color=7b84ff]storage box[/color] with a simple electronic lock."
 		);
 		world.CreateUse(
 			["Wracker", "Storage"], ["Red_Cable", "Blue_Cable", "Green_Cable", "Purple_Cable"], ["Storage"], ItemCreateLocation.Room,

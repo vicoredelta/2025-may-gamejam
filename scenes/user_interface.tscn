@@ -44,6 +44,7 @@ offset_bottom = 676.0
 focus_mode = 2
 theme_override_colors/default_color = Color(0.848666, 0.880868, 0.876862, 1)
 theme_override_colors/selection_color = Color(0.32309, 0.578478, 0.607494, 1)
+theme_override_constants/line_separation = 2
 theme_override_fonts/normal_font = ExtResource("2_xsrv6")
 theme_override_font_sizes/normal_font_size = 22
 scroll_following = true

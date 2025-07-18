@@ -57,15 +57,15 @@ public partial class Player
 			
 		case Command.Help:
 			return new CommandOutput(Command.Help,
-			"Type [look] for a description of your current " +
-			"surroundings, [take] to pick up an item, [move] to " +
-			"walk to a different room." +
-			"or [use] to use an item.\n" +
-			"[look] may be followed by an item in the vicinity or in your inventory " +
-			"in order to take a closer look at it." +
-			"[move] must be followed by a direction, such as [north] or [west]." +
-			"[take] must be followed by an item in the vicinity, such as [key] or [gadget]." +
-			"[use] must be followed by one or more items.");
+			"Type [color=de6ba5][look][/color] for a description of your current " +
+			"surroundings, \n[color=de6ba5][take][/color] to pick up an item, \n[color=de6ba5][move][/color] to " +
+			"walk to a different room, " +
+			"or [color=de6ba5][use][/color] to use an item.\n" +
+			"[color=de6ba5][look][/color] may be followed by an item in the vicinity or in your inventory " +
+			"in order to take a closer look at it.\n" +
+			"[color=de6ba5][move][/color] must be followed by a direction, such as [color=7b84ff][north][/color].\n" +
+			"[color=de6ba5][take][/color] must be followed by an item in the vicinity, such as [color=38a868][key][/color].\n" +
+			"[color=de6ba5][use][/color] must be followed by one or more items.");
 			
 		case Command.Take:
 			if (input.Items.Count == 0 || !_currentRoom.HasItem(input.Items[0]))
