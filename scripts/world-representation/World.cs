@@ -41,6 +41,11 @@ public class World
 		_player.AddItem(new Item(_itemTypes[itemName]));
 	}
 	
+	public void AddItemAsObstacle(String itemName, String room1, String room2)
+	{
+		_rooms[room1].AddObstacle(_rooms[room2], new Item(_itemTypes[itemName]));
+	}
+	
 	public List<ItemType> GetItemTypes()
 	{
 		List<ItemType> itemTypeList = new List<ItemType>();

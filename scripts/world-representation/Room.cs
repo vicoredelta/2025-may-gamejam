@@ -4,7 +4,8 @@ using System.Collections.Generic;
 
 public class Room
 {
-	Inventory _items;
+	Inventory _items = new Inventory();
+	Dictionary<Direction, Inventory> _obstacles = new Dictionary<Direction, Inventory>();
 	Room _connectingRoomNorth = null;
 	Room _connectingRoomSouth = null;
 	Room _connectingRoomEast = null;
@@ -14,7 +15,12 @@ public class Room
 	{
 		Description = description;
 		Name = name;
-		_items = new Inventory();
+		
+		foreach (var direction in Enum.GetValues<Direction>())
+		{
+			if (direction != Direction.InvalidDirection)
+				_obstacles.Add(direction, new Inventory());
+		}
 	}
 	
 	public String Name { get; }
@@ -63,6 +69,20 @@ public class Room
 		_items.Add(item);
 	}
 	
+	public void AddObstacle(Room connectingRoom, Item item)
+	{
+		_obstacles[GetDirection(connectingRoom)].Add(item);
+	}
+	
+	public Direction GetDirection(Room connectingRoom)
+	{
+		if (connectingRoom._connectingRoomNorth == this) return Direction.South;
+		if (connectingRoom._connectingRoomSouth == this) return Direction.North;
+		if (connectingRoom._connectingRoomWest == this) return Direction.East;
+		if (connectingRoom._connectingRoomEast == this) return Direction.West;
+		return Direction.InvalidDirection;
+	}
+	
 	public Item TakeItem(ItemType itemType)
 	{
 		return _items.Take(itemType);
@@ -75,7 +95,29 @@ public class Room
 	
 	public String ListItems()
 	{
-		return _items.ListItems();
+		String text = _items.ListItems();
+		
+		if (text != "") 
+		{
+			text = text + ".";
+		}
+		
+		return text;
+	}
+	
+	public String ListObstacles()
+	{
+		String text = "";
+		
+		foreach (var direction in Enum.GetValues<Direction>())
+		{
+			if (direction != Direction.InvalidDirection &&
+				_obstacles[direction].ListItems() != "")
+			{
+				text = text + "\n" + _obstacles[direction].ListItems() + " blocking the way " + direction.ToString().ToLower() + ".";
+			}
+		}
+		return text;
 	}
 	
 	public List<TileCoordinate> GenerateTileCoordinates()
