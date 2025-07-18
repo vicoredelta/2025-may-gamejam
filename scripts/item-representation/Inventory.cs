@@ -46,7 +46,7 @@ public class Inventory
 				}
 			}
 			
-			output += "a [" + _items[_items.Count - 1].Type.Name.ToLower() + "].";
+			output += "a [" + _items[_items.Count - 1].Type.Name.ToLower() + "]";
 		}
 		
 		return output;

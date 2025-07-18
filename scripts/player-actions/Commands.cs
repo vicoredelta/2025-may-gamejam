@@ -34,6 +34,11 @@ public partial class Player
 					text = text + "\n" + _currentRoom.ListItems();
 				}
 				
+				if (_currentRoom.ListObstacles() != "")
+				{
+					text = text + "\n" + _currentRoom.ListObstacles();
+				}
+				
 				return new CommandOutput(Command.Look, text);
 			}
 			else
