@@ -47,7 +47,7 @@ public partial class Game : Node
 		"An outmode, clockwork generator. A low, hurried ticking and a faint glow suggest that it's still functional.",
 		true);
 		world.CreateItemType("Rubble",
-		"The rubble is sharp but not heavy. It'd be easy to remove with just your hands.",
+		"A mound of splintered blackstone and smashed machinery. Some kind of container lies half-buried under the mess.",
 		false);
 		world.CreateItemType("Storage", "It has a simple electronic lock.", false);
 		world.CreateItemType("Red_Cable", "It's a red cable.", true);

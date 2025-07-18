@@ -5,15 +5,15 @@ using System.Linq;
 
 public class Parser
 {
-	String[] _lookAlias = ["look", "see", "examine", "inspect"];
+	String[] _lookAlias = ["check", "examine", "inspect", "look", "see", "view"];
 	String[] _useAlias = ["use", "activate"];
-	String[] _takeAlias = ["take", "grab", "pick", "get"];
+	String[] _takeAlias = ["get", "grab", "pick", "take"];
 	String[] _moveAlias = ["move", "walk"];
-	String[] _helpAlias = ["help", "manual"];
-	String[] _northAlias = ["north", "up"];
-	String[] _southAlias = ["south", "down"];
-	String[] _westAlias = ["west", "left"];
-	String[] _eastAlias = ["east", "right"];
+	String[] _helpAlias = ["advice", "guide", "help", "hint", "manual", "tutorial"];
+	String[] _northAlias = ["north", "n", "up", "u"];
+	String[] _southAlias = ["south", "s", "down", "d"];
+	String[] _westAlias = ["west", "w", "left", "l"];
+	String[] _eastAlias = ["east", "e", "right", "r"];
 	Dictionary<String, ItemType> _itemTypes = new Dictionary<String, ItemType>();
 	
 	public Parser(List<ItemType> itemTypes)
