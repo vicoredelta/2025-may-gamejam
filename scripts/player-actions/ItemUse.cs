@@ -8,6 +8,7 @@ public class ItemUse
 	List<ItemType> _requiredItems = new List<ItemType>();
 	List<ItemType> _producedItems = new List<ItemType>();
 	List<ItemType> _destroyedItems = new List<ItemType>();
+	List<ItemType> _itemsLostFromInventory = new List<ItemType>();
 	ItemCreateLocation _itemCreateLocation;
 	
 	public ItemUse(String description, List<ItemType> requiredItems,
@@ -58,6 +59,7 @@ public class ItemUse
 			if (playerInventory.HasItem(destroyedItem))
 			{
 				playerInventory.Take(destroyedItem);
+				_itemsLostFromInventory.Add(destroyedItem);
 			}
 			else if (currentRoom.HasItem(destroyedItem))
 			{
@@ -65,6 +67,6 @@ public class ItemUse
 			}
 		}
 		
-		return new CommandOutput(_description, _producedItems, _destroyedItems);
+		return new CommandOutput(_description, _producedItems, _itemsLostFromInventory);
 	}
 }
