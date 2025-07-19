@@ -5,5 +5,3 @@
 [node name="Main" type="Node"]
 
 [node name="UserInterface" parent="." instance=ExtResource("1_o5qli")]
-
-[connection signal="GenerateMapTile" from="UserInterface" to="UserInterface" method="TileCoordinateReceived"]

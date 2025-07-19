@@ -4,17 +4,19 @@ using System.Collections.Generic;
 
 public class ItemType
 {
-	public ItemType(String name, String description, bool canBePickedUp, bool visible)
+	public ItemType(String name, String description, bool canBePickedUp, bool visible, String iconPath)
 	{
 		Name = name;
 		Description = description;
 		CanBePickedUp = canBePickedUp;
 		Visible = visible;
+		IconPath = iconPath;
 	}
 	
-	public String Name { get; private set; }
-	public String Description { get; private set; }
-	public bool CanBePickedUp { get; private set; }
+	public String IconPath { get; }
+	public String Name { get; }
+	public String Description { get; }
+	public bool CanBePickedUp { get; }
 	public bool Visible { get; }
 }
 
