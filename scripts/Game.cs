@@ -49,6 +49,13 @@ public partial class Game : Node
 		world.CreateItemType("Rubble",
 		"A mound of splintered blackstone and smashed machinery. Some kind of [color=7b84ff]container[/color] lies half-buried under the mess.",
 		false);
+		world.CreateItemType("Carcass",
+		"The remains of a small animal, possibly a rodent. It might have sought shelter from the sweltering heat, " +
+		"but was unable to claw its way out again.",
+		false);
+		world.CreateItemType("Wasteland",
+		"This item shouldn't be listed by the look command!",
+		false);
 		world.CreateItemType("Door",
 		"A metal door blocks your path.",
 		false);
@@ -74,6 +81,8 @@ public partial class Game : Node
 		
 		// Add items to rooms
 		world.AddItemToRoom("Rubble", "Main Bridge");
+		world.AddItemToRoom("Carcass", "Breached Entrance");
+		world.AddItemToRoom("Wasteland", "Breached Entrance");
 		
 		// Add items as obstacles between rooms (item, room, direction to block)
 		world.AddItemAsObstacle("Door", "Breached Entrance", Direction.North);
