@@ -55,6 +55,7 @@ public partial class Player
 				}
 				
 				_currentRoom = connectingRoom;
+				_currentRoom.Visited = true;
 				return new CommandOutput(input.Direction, "You move " + input.Direction.ToString().ToLower() + ".");
 			}
 			

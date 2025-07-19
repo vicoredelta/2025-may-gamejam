@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using Godot.Collections;
 
 public partial class Game : Node
 {
@@ -98,6 +99,15 @@ public partial class Game : Node
 		{
 			EmitSignal(SignalName.GenerateMapTile, coord.Name, coord.Position);	
 		}
+		//sets minimap visibility
+		var visitedStatus = world.GetVisitedStatusForAllRooms();
+		var godotDict = new Godot.Collections.Dictionary<string, bool>();
+
+		foreach (var kvp in visitedStatus)
+		{
+			godotDict[kvp.Key] = kvp.Value;
+		}
+		EmitSignal(SignalName.MapMove, world.GetRoomName(), godotDict);
 	}
 	
 	private void OutputText(String text)
@@ -141,7 +151,14 @@ public partial class Game : Node
 		if (result.Command == Command.Move)
 		{
 			// Update minimap
-			EmitSignal(SignalName.MapMove, world.GetRoomName());
+			var visitedStatus = world.GetVisitedStatusForAllRooms();
+			var godotDict = new Godot.Collections.Dictionary<string, bool>();
+
+				foreach (var kvp in visitedStatus)
+			{
+				godotDict[kvp.Key] = kvp.Value;
+			}
+			EmitSignal(SignalName.MapMove, world.GetRoomName(), godotDict);
 			
 			// Play walking sound
 			AudioManager.Instance.PlaySFX("walk");

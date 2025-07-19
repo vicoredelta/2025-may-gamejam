@@ -12,6 +12,7 @@ public class World
 	public World(String startingRoomName, String startingRoomDescription)
 	{
 		Room startingRoom = new Room(startingRoomName, startingRoomDescription);
+		startingRoom.Visited = true;
 		_rooms.Add(startingRoomName, startingRoom);
 		_player = new Player(startingRoom);
 	}
@@ -88,6 +89,21 @@ public class World
 		
 		_player.AddItemUse(new ItemUse(description, reqItems, prdItems,
 			dstItems, createLocation));
+	}
+	
+	public Dictionary<string, bool> GetVisitedStatusForAllRooms()
+	{
+		var visitedStatus = new Dictionary<string, bool>();
+		
+		foreach (var roomEntry in _rooms)
+		{
+			string roomName = roomEntry.Key;
+			Room room = roomEntry.Value;
+			
+			visitedStatus[roomName] = room.Visited;
+		}
+		
+		return visitedStatus;
 	}
 	
 	public List<TileCoordinate> GenerateTileCoordinates()

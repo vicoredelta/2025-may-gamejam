@@ -22,6 +22,7 @@ public class Room
 	
 	public String Name { get; }
 	public String Description { get; }
+	public bool Visited { get; set; } = false;
 	
 	public void Connect(Room destinationRoom, Direction direction)
 	{
