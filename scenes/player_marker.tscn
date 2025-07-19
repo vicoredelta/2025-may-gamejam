@@ -1,7 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://beedews6es7ag"]
-
-[ext_resource type="Texture2D" uid="uid://o50u2q6uq1f6" path="res://assets/icon.svg" id="1_ywjxs"]
+[gd_scene format=3 uid="uid://beedews6es7ag"]
 
 [node name="PlayerMarker" type="Sprite2D"]
 scale = Vector2(0.25, 0.25)
-texture = ExtResource("1_ywjxs")
