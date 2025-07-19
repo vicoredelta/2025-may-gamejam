@@ -33,12 +33,21 @@ public partial class Game : Node
 		// Room and item names must be unique!
 		
 		// Create rooms (name, descripion), starting room is created further up
-		world.CreateRoom("Cramped Hallway", "This room is super red.");
-		world.CreateRoom("Main Bridge", "This room is super red.");
+	world.CreateRoom("Cramped Hallway", "A straight path ahead. There wouldn’t be any need for empty halls in this type of spacecraft. What could it have been used for?");
+		world.CreateRoom("Heart Chamber", "The Mäejrans usually built their ship bridges in the middle, " +
+		"from where networked idola could operate the machinery. There are no windows, " +
+		"but you can see four large [color=7b84ff]doors[/color] in each direction. In the middle of the room, " +
+		"you can see some kind of [color=7b84ff]control panel[/color]. You also spot a large pile of [color=7b84ff]rubble[/color] in a corner.");
+		world.CreateRoom("Elevator Shaft", "Don't fall down!");
+		world.CreateRoom("Captain's Quarters", "Must have been cozy, once upon a time.");
+		world.CreateRoom("Strange Panels", "What could they have been used for?");
 		
 		// Define connections between rooms (room 1, room 2, direction when moving from room 1 to room 2)
 		world.ConnectRooms("Breached Entrance", "Cramped Hallway", Direction.North);
-		world.ConnectRooms("Cramped Hallway", "Main Bridge", Direction.North);
+		world.ConnectRooms("Cramped Hallway", "Heart Chamber", Direction.North);
+		world.ConnectRooms("Heart Chamber", "Elevator Shaft", Direction.West);
+		world.ConnectRooms("Heart Chamber", "Strange Panels", Direction.East);
+		world.ConnectRooms("Heart Chamber", "Captain's Quarters", Direction.North);
 
 		// Define every unique type of item (item name, item description, can be picked up, is visible [optional], icon path [optional])
 		world.CreateItemType("Wracker",
@@ -81,7 +90,7 @@ public partial class Game : Node
 		);
 		
 		// Add items to rooms
-		world.AddItemToRoom("Rubble", "Main Bridge");
+		world.AddItemToRoom("Rubble", "Heart Chamber");
 		world.AddItemToRoom("Carcass", "Breached Entrance");
 		world.AddItemToRoom("Wasteland", "Breached Entrance");
 		

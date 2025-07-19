@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://beedews6es7ag"]
 
-[ext_resource type="Texture2D" path="res://assets/icon.svg" id="1_ywjxs"]
+[ext_resource type="Texture2D" uid="uid://bh4uihjivf8of" path="res://assets/sprite_ui_map_player_0.png" id="1_ywjxs"]
 
 [node name="PlayerMarker" type="Sprite2D"]
 scale = Vector2(0.25, 0.25)
