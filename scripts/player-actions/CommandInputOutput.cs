@@ -56,6 +56,6 @@ public class CommandOutput
 		Command = Command.Use;
 		Text = text;
 		ItemsObtained.AddRange(itemsObtained);
-		ItemsLost.AddRange(itemsObtained);
+		ItemsLost.AddRange(itemsLost);
 	}
 }
