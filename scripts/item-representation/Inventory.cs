@@ -46,8 +46,15 @@ public class Inventory
 			{
 				for (int i = 0; i < filteredList.Count - 1; i++)
 				{
-					output += "a [" + filteredList[i].Type.Name.ToLower() + "], ";
+					output += "a [" + filteredList[i].Type.Name.ToLower() + "]";
+					
+					if (i != filteredList.Count - 2)
+					{
+						output += ", ";
+					}
 				}
+				
+				output += " and ";
 			}
 			
 			output += "a [" + filteredList[filteredList.Count - 1].Type.Name.ToLower() + "]";

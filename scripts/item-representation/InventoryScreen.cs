@@ -8,11 +8,11 @@ public partial class InventoryScreen : ItemList
 	// since Godot doesn't provide a method to access item by name
 	List<String> itemList = new List<String>();
 	
-	public void ModifyInventory(String itemName, bool itemIsBeingAdded)
+	public void ModifyInventory(String itemName, String iconPath, bool itemIsBeingAdded)
 	{
 		if (itemIsBeingAdded)
 		{
-			AddItemToInventoryScreen(itemName);
+			AddItemToInventoryScreen(itemName, iconPath);
 		}
 		else
 		{
@@ -20,9 +20,17 @@ public partial class InventoryScreen : ItemList
 		}
 	}
 	
-	private void AddItemToInventoryScreen(String itemName)
+	private void AddItemToInventoryScreen(String itemName, String iconPath)
 	{
-		AddItem(itemName, null, false);
+		if (iconPath != "")
+		{
+			AddItem(itemName, GD.Load<Texture2D>(iconPath), false);
+		}
+		else
+		{
+			AddItem(itemName, null, false);
+		}
+		
 		itemList.Add(itemName);
 	}
 	

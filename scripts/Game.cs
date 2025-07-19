@@ -40,7 +40,7 @@ public partial class Game : Node
 		world.ConnectRooms("Breached Entrance", "Cramped Hallway", Direction.North);
 		world.ConnectRooms("Cramped Hallway", "Main Bridge", Direction.North);
 
-		// Define every unique type of item (item name, item description, can be picked up, is visible [optional])
+		// Define every unique type of item (item name, item description, can be picked up, is visible [optional], icon path [optional])
 		world.CreateItemType("Wracker",
 		"It's a [color=38a868]wracker[/color], a transforming multitool. It's almost brand new, but the attached gemstone have been in your family for generations.",
 		true);
@@ -120,7 +120,7 @@ public partial class Game : Node
 		foreach (String item in itemNames)
 		{
 			world.AddItemToPlayer(item);
-			EmitSignal(SignalName.ModifyInventory, item, true);
+			EmitSignal(SignalName.ModifyInventory, item, "", true);
 		}
 	}
 	
@@ -141,11 +141,11 @@ public partial class Game : Node
 		// Modify inventory screen if necessary
 		foreach (ItemType item in result.ItemsObtained)
 		{
-			EmitSignal(SignalName.ModifyInventory, item.Name, true);
+			EmitSignal(SignalName.ModifyInventory, item.Name, item.IconPath, true);
 		}
 		foreach (ItemType item in result.ItemsLost)
 		{
-			EmitSignal(SignalName.ModifyInventory, item.Name, false);
+			EmitSignal(SignalName.ModifyInventory, item.Name, item.IconPath, false);
 		}
 		
 		if (result.Command == Command.Move)
