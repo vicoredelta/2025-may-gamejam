@@ -26,9 +26,9 @@ public class World
 		_rooms[room1Name].Connect(_rooms[room2Name], direction);
 	}
 	
-	public void CreateItemType(String name, String description, bool canBePickedUp)
+	public void CreateItemType(String name, String description, bool canBePickedUp, bool visible = true)
 	{
-		_itemTypes.Add(name, new ItemType(name, description, canBePickedUp));
+		_itemTypes.Add(name, new ItemType(name, description, canBePickedUp, visible));
 	}
 	
 	public void AddItemToRoom(String itemName, String roomName)

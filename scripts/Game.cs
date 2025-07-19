@@ -39,7 +39,7 @@ public partial class Game : Node
 		world.ConnectRooms("Breached Entrance", "Cramped Hallway", Direction.North);
 		world.ConnectRooms("Cramped Hallway", "Main Bridge", Direction.North);
 
-		// Define every unique type of item (item name, item description, can be picked up)
+		// Define every unique type of item (item name, item description, can be picked up, is visible [optional])
 		world.CreateItemType("Wracker",
 		"It's a [color=38a868]wracker[/color], a transforming multitool. It's almost brand new, but the attached gemstone have been in your family for generations.",
 		true);
@@ -55,7 +55,7 @@ public partial class Game : Node
 		false);
 		world.CreateItemType("Wasteland",
 		"This item shouldn't be listed by the look command!",
-		false);
+		false, false);
 		world.CreateItemType("Door",
 		"A metal door blocks your path.",
 		false);

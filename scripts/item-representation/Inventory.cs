@@ -35,20 +35,22 @@ public class Inventory
 	public String ListItems()
 	{
 		String output = "";
+		List<Item> filteredList = new List<Item>();
+		filteredList = _items.FindAll(x => x.Type.Visible);
 		
-		if (_items.Count != 0)
+		if (filteredList.Count != 0)
 		{
 			output += "There is ";
 			
-			if (_items.Count > 1)
+			if (filteredList.Count > 1)
 			{
-				for (int i = 0; i < _items.Count - 1; i++)
+				for (int i = 0; i < filteredList.Count - 1; i++)
 				{
-					output += "a [" + _items[i].Type.Name.ToLower() + "], ";
+					output += "a [" + filteredList[i].Type.Name.ToLower() + "], ";
 				}
 			}
 			
-			output += "a [" + _items[_items.Count - 1].Type.Name.ToLower() + "]";
+			output += "a [" + filteredList[filteredList.Count - 1].Type.Name.ToLower() + "]";
 		}
 		
 		return output;
