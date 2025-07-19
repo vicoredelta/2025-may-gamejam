@@ -49,6 +49,9 @@ public partial class Game : Node
 		world.CreateItemType("Rubble",
 		"A mound of splintered blackstone and smashed machinery. Some kind of [color=7b84ff]container[/color] lies half-buried under the mess.",
 		false);
+		world.CreateItemType("Door",
+		"A metal door blocks your path.",
+		false);
 		world.CreateItemType("Storage", "It has a simple electronic lock.", false);
 		world.CreateItemType("Red_Cable", "It's a red cable.", true);
 		world.CreateItemType("Blue_Cable", "It's a blue cable.", true);
@@ -64,9 +67,16 @@ public partial class Game : Node
 			["Wracker", "Storage"], ["Red_Cable", "Blue_Cable", "Green_Cable", "Purple_Cable"], ["Storage"], ItemCreateLocation.Room,
 			"With a click and a chime the lock is undone and the box lid opens to reveal a large assortment of coloured cables. The box contains green, purple, red, and blue cables."
 		);
+		world.CreateUse(
+			["Door"], [], ["Door"], ItemCreateLocation.Room,
+			"You open the door without difficulty."
+		);
 		
 		// Add items to rooms
 		world.AddItemToRoom("Rubble", "Main Bridge");
+		
+		// Add items as obstacles between rooms (item, room, direction to block)
+		world.AddItemAsObstacle("Door", "Breached Entrance", Direction.North);
 		
 		// Add items to player inventory
 		AddStartingItems(["Wracker", "Stolen_Power_Cell"]);

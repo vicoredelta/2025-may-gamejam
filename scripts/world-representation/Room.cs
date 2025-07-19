@@ -5,7 +5,10 @@ using System.Collections.Generic;
 public class Room
 {
 	Inventory _items = new Inventory();
-	Dictionary<Direction, Inventory> _obstacles = new Dictionary<Direction, Inventory>();
+	Inventory _obstaclesNorth = null;
+	Inventory _obstaclesSouth = null;
+	Inventory _obstaclesEast = null;
+	Inventory _obstaclesWest = null;
 	Room _connectingRoomNorth = null;
 	Room _connectingRoomSouth = null;
 	Room _connectingRoomEast = null;
@@ -15,12 +18,6 @@ public class Room
 	{
 		Description = description;
 		Name = name;
-		
-		foreach (var direction in Enum.GetValues<Direction>())
-		{
-			if (direction != Direction.InvalidDirection)
-				_obstacles.Add(direction, new Inventory());
-		}
 	}
 	
 	public String Name { get; }
@@ -28,40 +25,35 @@ public class Room
 	
 	public void Connect(Room destinationRoom, Direction direction)
 	{
+		Inventory obstacles = new Inventory();
+		
 		switch (direction)
 		{
 			case Direction.North:
 				_connectingRoomNorth = destinationRoom;
 				destinationRoom._connectingRoomSouth = this;
+				_obstaclesNorth = obstacles;
+				destinationRoom._obstaclesSouth = obstacles;
 				break;
 			case Direction.South:
 				_connectingRoomSouth = destinationRoom;
 				destinationRoom._connectingRoomNorth = this;
+				_obstaclesSouth = obstacles;
+				destinationRoom._obstaclesNorth = obstacles;
 				break;
 			case Direction.East:
 				_connectingRoomEast = destinationRoom;
 				destinationRoom._connectingRoomWest = this;
+				_obstaclesEast = obstacles;
+				destinationRoom._obstaclesWest = obstacles;
 				break;
 			case Direction.West:
 				_connectingRoomWest = destinationRoom;
 				destinationRoom._connectingRoomEast = this;
+				_obstaclesWest = obstacles;
+				destinationRoom._obstaclesEast = obstacles;
 				break;
 		}
-	}
-	
-	public Room GetConnectingRoom(Direction direction)
-	{
-		switch (direction)
-		{
-		case Direction.North: if (_connectingRoomNorth != null) return _connectingRoomNorth; break;
-		case Direction.South: if (_connectingRoomSouth != null) return _connectingRoomSouth; break;
-		case Direction.East: if (_connectingRoomEast != null) return _connectingRoomEast; break;
-		case Direction.West: if (_connectingRoomWest != null) return _connectingRoomWest; break;
-		case Direction.InvalidDirection:
-			break;
-		}
-		
-		return null;
 	}
 	
 	public void AddItem(Item item)
@@ -69,55 +61,81 @@ public class Room
 		_items.Add(item);
 	}
 	
-	public void AddObstacle(Room connectingRoom, Item item)
+	public void AddObstacle(Item item, Direction direction)
 	{
-		_obstacles[GetDirection(connectingRoom)].Add(item);
+		GetObstacles(direction).Add(item);
 	}
 	
-	public Direction GetDirection(Room connectingRoom)
+	public Room GetConnectingRoom(Direction direction) => direction switch 
 	{
-		if (connectingRoom._connectingRoomNorth == this) return Direction.South;
-		if (connectingRoom._connectingRoomSouth == this) return Direction.North;
-		if (connectingRoom._connectingRoomWest == this) return Direction.East;
-		if (connectingRoom._connectingRoomEast == this) return Direction.West;
-		return Direction.InvalidDirection;
-	}
+		Direction.North => _connectingRoomNorth,
+		Direction.South => _connectingRoomSouth,
+		Direction.East => _connectingRoomEast,
+		Direction.West => _connectingRoomWest,
+		_ => null
+	};
 	
 	public Item TakeItem(ItemType itemType)
 	{
-		return _items.Take(itemType);
+		if (_items.HasItem(itemType)) return _items.Take(itemType);
+		if (_obstaclesNorth != null && _obstaclesNorth.HasItem(itemType)) return _obstaclesNorth.Take(itemType);
+		if (_obstaclesSouth != null && _obstaclesSouth.HasItem(itemType)) return _obstaclesSouth.Take(itemType);
+		if (_obstaclesEast != null && _obstaclesNorth.HasItem(itemType)) return _obstaclesEast.Take(itemType);
+		if (_obstaclesWest != null && _obstaclesNorth.HasItem(itemType)) return _obstaclesWest.Take(itemType);
+		return null;
 	}
 	
 	public bool HasItem(ItemType itemType)
 	{
-		return _items.HasItem(itemType);
+		return (_items.HasItem(itemType)
+			|| (_obstaclesNorth != null && _obstaclesNorth.HasItem(itemType))
+			|| (_obstaclesSouth != null && _obstaclesSouth.HasItem(itemType))
+			|| (_obstaclesEast != null && _obstaclesEast.HasItem(itemType))
+			|| (_obstaclesWest != null && _obstaclesWest.HasItem(itemType)));
+	}
+	
+	public bool ObstaclesExist(Direction direction)
+	{
+		Inventory obstacles = GetObstacles(direction);
+		
+		if (obstacles != null && obstacles.Count > 0)
+		{
+			return true;
+		}
+		
+		return false;
 	}
 	
 	public String ListItems()
 	{
-		String text = _items.ListItems();
+		String text = "";
 		
-		if (text != "") 
+		if (_items.ListItems() != "") 
 		{
-			text = text + ".";
+			text = text + _items.ListItems() + ".";
+		}
+		
+		foreach (var dir in Enum.GetValues<Direction>())
+		{
+			if (ListObstacles(dir) != "")
+			{
+				text = text + ListObstacles(dir);
+			}
 		}
 		
 		return text;
 	}
 	
-	public String ListObstacles()
+	public String ListObstacles(Direction direction)
 	{
-		String text = "";
-		
-		foreach (var direction in Enum.GetValues<Direction>())
+		if (GetConnectingRoom(direction) != null && GetObstacles(direction).ListItems() != "")
 		{
-			if (direction != Direction.InvalidDirection &&
-				_obstacles[direction].ListItems() != "")
-			{
-				text = text + "\n" + _obstacles[direction].ListItems() + " blocking the way " + direction.ToString().ToLower() + ".";
-			}
+			return GetObstacles(direction).ListItems() + " blocking the way " + direction.ToString().ToLower() + ".";
 		}
-		return text;
+		else
+		{
+			return "";
+		}
 	}
 	
 	public List<TileCoordinate> GenerateTileCoordinates()
@@ -141,6 +159,15 @@ public class Room
 		
 		return list;
 	}
+	
+	private Inventory GetObstacles(Direction direction) => direction switch 
+	{
+		Direction.North => _obstaclesNorth,
+		Direction.South => _obstaclesSouth,
+		Direction.East => _obstaclesEast,
+		Direction.West => _obstaclesWest,
+		_ => null
+	};
 }
 
 public struct TileCoordinate

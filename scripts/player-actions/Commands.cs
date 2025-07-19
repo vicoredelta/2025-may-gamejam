@@ -34,11 +34,6 @@ public partial class Player
 					text = text + "\n" + _currentRoom.ListItems();
 				}
 				
-				if (_currentRoom.ListObstacles() != "")
-				{
-					text = text + "\n" + _currentRoom.ListObstacles();
-				}
-				
 				return new CommandOutput(Command.Look, text);
 			}
 			else
@@ -54,6 +49,11 @@ public partial class Player
 			
 			if (connectingRoom != null)
 			{
+				if (_currentRoom.ObstaclesExist(input.Direction))
+				{
+					return new CommandOutput(_currentRoom.ListObstacles(input.Direction));
+				}
+				
 				_currentRoom = connectingRoom;
 				return new CommandOutput(input.Direction, "You move " + input.Direction.ToString().ToLower() + ".");
 			}

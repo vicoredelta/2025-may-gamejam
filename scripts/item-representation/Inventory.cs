@@ -6,6 +6,8 @@ public class Inventory
 {
 	List<Item> _items = new List<Item>();
 	
+	public int Count { get { return _items.Count; } }
+	
 	public bool HasItem(ItemType itemType)
 	{
 		return _items.Exists(x => x.Type == itemType);
