@@ -96,6 +96,21 @@ public class World
 			dstItems, createLocation));
 	}
 	
+	public void CreateInputAction(String requiredItem, List<String> producedItems,
+		ItemCreateLocation createLocation, String description, String wrongInputText,
+		String requiredText)
+	{
+		List<ItemType> prdItems = new List<ItemType>();
+		
+		foreach (String itemName in producedItems)
+		{
+			prdItems.Add(_itemTypes[itemName]);
+		}
+		
+		_player.AddInputAction(new InputAction(description, requiredText, wrongInputText,
+			_itemTypes[requiredItem], prdItems, createLocation));
+	}
+	
 	public Dictionary<string, bool> GetVisitedStatusForAllRooms()
 	{
 		var visitedStatus = new Dictionary<string, bool>();

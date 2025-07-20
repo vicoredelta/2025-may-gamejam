@@ -22,6 +22,7 @@ public enum Command
 	Look,
 	Move,
 	Take,
+	Input,
 	Help,
 	InvalidCommand
 }

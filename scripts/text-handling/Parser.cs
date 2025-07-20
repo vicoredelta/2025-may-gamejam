@@ -14,6 +14,7 @@ public class Parser
 	String[] _southAlias = ["south", "s", "down", "d"];
 	String[] _westAlias = ["west", "w", "left", "l"];
 	String[] _eastAlias = ["east", "e", "right", "r"];
+	String[] _inputAlias = ["input", "entry", "write"];
 	Dictionary<String, ItemType> _itemTypes = new Dictionary<String, ItemType>();
 	
 	public Parser(List<ItemType> itemTypes)
@@ -30,6 +31,7 @@ public class Parser
 		List<ItemType> items = new List<ItemType>();
 		Command command;
 		Direction direction = Direction.InvalidDirection;
+		String entryText = "";
 		
 		if (_useAlias.Contains(words[0]))
 		{
@@ -97,6 +99,26 @@ public class Parser
 				}
 			}
 		}
+		else if (_inputAlias.Contains(words[0]))
+		{
+			command = Command.Input;
+			bool itemFound = false;
+			
+			foreach(String word in words.Skip(1))
+			{
+				if (_itemTypes.ContainsKey(word) && !itemFound)
+				{
+					items.Add(_itemTypes[word]);
+					itemFound = true;
+				}
+				else
+				{
+					entryText += word;
+				}
+			}
+			
+			
+		}
 		else if (_helpAlias.Contains(words[0]))
 		{
 			command = Command.Help;
@@ -106,6 +128,6 @@ public class Parser
 			command = Command.InvalidCommand;
 		}
 		
-		return new CommandInput(command, items, direction);
+		return new CommandInput(command, items, direction, entryText);
 	}
 }

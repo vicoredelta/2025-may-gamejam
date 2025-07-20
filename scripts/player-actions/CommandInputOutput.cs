@@ -7,12 +7,14 @@ public class CommandInput
 	public Command Command { get; }
 	public List<ItemType> Items { get; } = new List<ItemType>();
 	public Direction Direction { get; } = Direction.InvalidDirection;
+	public String EntryText { get; }
 	
-	public CommandInput(Command command, List<ItemType> items, Direction direction)
+	public CommandInput(Command command, List<ItemType> items, Direction direction, String entryText)
 	{
 		Command = command;
 		Direction = direction;
 		Items.AddRange(items);
+		EntryText = entryText;
 	}
 }
 
@@ -57,5 +59,13 @@ public class CommandOutput
 		Text = text;
 		ItemsObtained.AddRange(itemsObtained);
 		ItemsLost.AddRange(itemsLost);
+	}
+	
+	public CommandOutput(String text, List<ItemType> itemsObtained, ItemType itemLost)
+	{
+		Command = Command.Input;
+		Text = text;
+		ItemsObtained.AddRange(itemsObtained);
+		if (itemLost != null) ItemsLost.Add(itemLost);
 	}
 }

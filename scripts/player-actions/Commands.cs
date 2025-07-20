@@ -95,6 +95,33 @@ public partial class Player
 				return new CommandOutput("You pick up the " + input.Items[0].Name.ToLower() + ".", input.Items[0]);
 			}
 			
+		case Command.Input:
+			if (input.Items.Count == 0)
+			{
+				return new CommandOutput("You must specify an item.");
+			}
+			else if (!this.HasItem(input.Items[0]) && !_currentRoom.HasItem(input.Items[0]))
+			{
+				return new CommandOutput("There is no " + input.Items[0] + " in the vicinity");
+			}
+			else if (input.EntryText == "")
+			{
+				return new CommandOutput("You need write some input for " + input.Items[0] + ".");
+			}
+			else
+			{
+				InputAction action = FindInputAction(input.Items[0]);
+				
+				if (action == null)
+				{
+					return new CommandOutput();
+				}
+				else
+				{
+					return action.Activate(this, _currentRoom, input.EntryText);
+				}
+			}
+			
 		default:
 			return new CommandOutput("Invalid command.");
 		}

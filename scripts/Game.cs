@@ -69,6 +69,9 @@ public partial class Game : Node
 		world.CreateItemType("Door",
 		"A metal door blocks your path.",
 		false);
+		world.CreateItemType("Code_Lock",
+		"A metal door with a small terminal is blocking the way. There is a small post-it note with the numbers '123' written on it.",
+		false);
 		world.CreateItemType("Storage", "It has a simple electronic lock.", false);
 		world.CreateItemType("Red_Cable", "It's a red cable.", true);
 		world.CreateItemType("Blue_Cable", "It's a blue cable.", true);
@@ -89,6 +92,13 @@ public partial class Game : Node
 			"You open the door without difficulty."
 		);
 		
+		// Define input actions (required item, producedItems, create location, description on correct input, description on wrong input, required input)
+		world.CreateInputAction(
+			"Code_Lock", [], ItemCreateLocation.Room,
+			"The door opens.", "The remains closed with a dissapproving beep.",
+			"123"
+		);
+		
 		// Add items to rooms
 		world.AddItemToRoom("Rubble", "Heart Chamber");
 		world.AddItemToRoom("Carcass", "Breached Entrance");
@@ -96,6 +106,7 @@ public partial class Game : Node
 		
 		// Add items as obstacles between rooms (item, room, direction to block)
 		world.AddItemAsObstacle("Door", "Breached Entrance", Direction.North);
+		world.AddItemAsObstacle("Code_Lock", "Heart Chamber", Direction.East);
 		
 		// Add items to player inventory
 		AddStartingItems(["Wracker", "Stolen_Power_Cell"]);

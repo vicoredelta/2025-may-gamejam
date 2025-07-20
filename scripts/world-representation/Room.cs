@@ -83,8 +83,8 @@ public class Room
 		if (_items.HasItem(itemType)) return _items.Take(itemType);
 		if (_obstaclesNorth != null && _obstaclesNorth.HasItem(itemType)) return _obstaclesNorth.Take(itemType);
 		if (_obstaclesSouth != null && _obstaclesSouth.HasItem(itemType)) return _obstaclesSouth.Take(itemType);
-		if (_obstaclesEast != null && _obstaclesNorth.HasItem(itemType)) return _obstaclesEast.Take(itemType);
-		if (_obstaclesWest != null && _obstaclesNorth.HasItem(itemType)) return _obstaclesWest.Take(itemType);
+		if (_obstaclesEast != null && _obstaclesEast.HasItem(itemType)) return _obstaclesEast.Take(itemType);
+		if (_obstaclesWest != null && _obstaclesWest.HasItem(itemType)) return _obstaclesWest.Take(itemType);
 		return null;
 	}
 	

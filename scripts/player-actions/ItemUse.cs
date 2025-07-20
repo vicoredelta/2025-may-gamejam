@@ -33,11 +33,10 @@ public class ItemUse
 		// Check that required items are available
 		foreach (ItemType requiredItem in _requiredItems)
 		{
-			if (!(player.HasItem(requiredItem) ||
-				currentRoom.HasItem(requiredItem)))
+			if (!(player.HasItem(requiredItem) || currentRoom.HasItem(requiredItem)))
 			{
 				return new CommandOutput("There is no " + requiredItem.Name.ToLower() +
-					" in inventory or vicinity.");
+					" in vicinity.");
 			}
 		}
 		

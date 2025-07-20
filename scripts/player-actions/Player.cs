@@ -23,6 +23,11 @@ public partial class Player : Inventory
 		_uses.Add(itemUse);
 	}
 	
+	public void AddInputAction(InputAction inputAction)
+	{
+		_inputActions.Add(inputAction);
+	}
+	
 	private ItemUse FindUse(List<ItemType> itemsProvided)
 	{
 		foreach (ItemUse use in _uses)
@@ -45,5 +50,10 @@ public partial class Player : Inventory
 		}
 		
 		return null;
+	}
+	
+	private InputAction FindInputAction(ItemType requiredItem)
+	{
+		return _inputActions.Find(x => x.RequiredItem == requiredItem);
 	}
 }
