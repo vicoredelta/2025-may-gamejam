@@ -32,8 +32,8 @@ public partial class Game : Node
 	{
 		// Room and item names must be unique!
 		
-		// Create rooms (name, descripion), starting room is created further up
-	world.CreateRoom("Cramped Hallway", "A straight path ahead. There wouldn’t be any need for empty halls in this type of spacecraft. What could it have been used for?");
+		// Create rooms (name, descripion, first time description [optional]), starting room is created further up
+		world.CreateRoom("Cramped Hallway", "A straight path ahead. There wouldn’t be any need for empty halls in this type of spacecraft. What could it have been used for?");
 		world.CreateRoom("Heart Chamber", "The Mäejrans usually built their ship bridges in the middle, " +
 		"from where networked idola could operate the machinery. There are no windows, " +
 		"but you can see four large [color=7b84ff]doors[/color] in each direction. In the middle of the room, " +

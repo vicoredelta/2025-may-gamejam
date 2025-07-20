@@ -11,15 +11,15 @@ public class World
 	
 	public World(String startingRoomName, String startingRoomDescription)
 	{
-		Room startingRoom = new Room(startingRoomName, startingRoomDescription);
+		Room startingRoom = new Room(startingRoomName, startingRoomDescription, "");
 		startingRoom.Visited = true;
 		_rooms.Add(startingRoomName, startingRoom);
 		_player = new Player(startingRoom);
 	}
 	
-	public void CreateRoom(String name, String description)
+	public void CreateRoom(String name, String description, String firstTimeDescription = "")
 	{
-		_rooms.Add(name, new Room(name, description));
+		_rooms.Add(name, new Room(name, description, firstTimeDescription));
 	}
 	
 	public void ConnectRooms(String room1Name, String room2Name, Direction direction)

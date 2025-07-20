@@ -14,15 +14,17 @@ public class Room
 	Room _connectingRoomEast = null;
 	Room _connectingRoomWest = null;
 	
-	public Room(String name, String description)
+	public Room(String name, String description, String firstTimeDescription)
 	{
 		Description = description;
 		Name = name;
+		FirstTimeDescription = firstTimeDescription;
 	}
 	
 	public String Name { get; }
 	public String Description { get; }
 	public bool Visited { get; set; } = false;
+	public String FirstTimeDescription { get; }
 	
 	public void Connect(Room destinationRoom, Direction direction)
 	{

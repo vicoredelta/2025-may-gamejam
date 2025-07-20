@@ -55,8 +55,15 @@ public partial class Player
 				}
 				
 				_currentRoom = connectingRoom;
-				_currentRoom.Visited = true;
-				return new CommandOutput(input.Direction, "You move " + input.Direction.ToString().ToLower() + ".");
+				String outText = "You move " + input.Direction.ToString().ToLower() + ".";
+				
+				if (!_currentRoom.Visited)
+				{
+					outText += " " + _currentRoom.FirstTimeDescription;
+					_currentRoom.Visited = true;
+				}
+				
+				return new CommandOutput(input.Direction, outText);
 			}
 			
 			return new CommandOutput("There is nowhere to go " + input.Direction.ToString().ToLower() + ".");
