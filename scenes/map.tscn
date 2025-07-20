@@ -1,18 +1,18 @@
 [gd_scene load_steps=5 format=3 uid="uid://b4o68g4jvup3j"]
 
-[ext_resource type="Texture2D" uid="uid://b614plyodmxnh" path="res://assets/tileset_items.png" id="1_2klcf"]
 [ext_resource type="Script" uid="uid://ci1jy75un2vyy" path="res://scripts/world-representation/Map.cs" id="2_0cso3"]
+[ext_resource type="Texture2D" uid="uid://d2itebp8dcjyj" path="res://assets/tileset_frame_0.png" id="2_2klcf"]
 [ext_resource type="PackedScene" uid="uid://beedews6es7ag" path="res://scenes/player_marker.tscn" id="3_gldc4"]
 [ext_resource type="FontFile" uid="uid://bp277mpbyjl8y" path="res://assets/fonts/Jersey25-Regular.ttf" id="5_2klcf"]
 
 [node name="Map" type="Node2D"]
 script = ExtResource("2_0cso3")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(11.4375, 8.125)
-texture = ExtResource("1_2klcf")
-region_enabled = true
-region_rect = Rect2(0, 32, 32, 32)
+[node name="Bakgrund" type="Polygon2D" parent="."]
+position = Vector2(-183, -130)
+scale = Vector2(1.22, 0.866667)
+color = Color(0.0941176, 0.133333, 0.14902, 1)
+polygon = PackedVector2Array(300, 0, 300, 300, 149.558, 300, 0, 300, 0, 149.75, 0, 0)
 
 [node name="Boundry" type="Control" parent="."]
 clip_contents = true
@@ -29,6 +29,13 @@ position = Vector2(180, 131.11)
 
 [node name="RoomsHolder" type="Node2D" parent="Boundry/Holder"]
 unique_name_in_owner = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Boundry/Holder"]
+position = Vector2(0, -1.11)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("2_2klcf")
+region_enabled = true
+region_rect = Rect2(32, 32, 32, 32)
 
 [node name="PlayerMarker" parent="Boundry/Holder" instance=ExtResource("3_gldc4")]
 

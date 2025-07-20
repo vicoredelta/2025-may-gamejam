@@ -1,10 +1,11 @@
 [gd_scene load_steps=2 format=3 uid="uid://bpb815lf1ws17"]
 
-[ext_resource type="Texture2D" uid="uid://c278ydlgbxv4q" path="res://assets/room_placeholder_texture.png" id="1_36trf"]
+[ext_resource type="Texture2D" uid="uid://d2itebp8dcjyj" path="res://assets/tileset_frame_0.png" id="1_36trf"]
 
 [node name="Room" type="Sprite2D"]
+scale = Vector2(1.5, 1.5)
 texture = ExtResource("1_36trf")
 region_enabled = true
-region_rect = Rect2(0, 0, 50, 50)
+region_rect = Rect2(0, 32, 32, 32)
 metadata/Description = ""
 metadata/Name = ""
