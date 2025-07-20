@@ -46,7 +46,7 @@ public class Inventory
 			{
 				for (int i = 0; i < filteredList.Count - 1; i++)
 				{
-					output += "a [" + filteredList[i].Type.Name.ToLower() + "]";
+					output += "a [color=7b84ff]" + filteredList[i].Type.Name.ToLower() + "[/color]";
 					
 					if (i != filteredList.Count - 2)
 					{
@@ -57,7 +57,7 @@ public class Inventory
 				output += " and ";
 			}
 			
-			output += "a [" + filteredList[filteredList.Count - 1].Type.Name.ToLower() + "]";
+			output += "a [color=7b84ff]" + filteredList[filteredList.Count - 1].Type.Name.ToLower() + "[/color]";
 		}
 		
 		return output;
