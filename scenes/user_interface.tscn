@@ -1,10 +1,11 @@
-[gd_scene load_steps=13 format=4 uid="uid://bmb2klssaod8n"]
+[gd_scene load_steps=14 format=4 uid="uid://bmb2klssaod8n"]
 
 [ext_resource type="Script" uid="uid://dnjxfh5m1lg2v" path="res://scripts/Game.cs" id="1_jbsfc"]
 [ext_resource type="Script" uid="uid://ekyba86i6l0g" path="res://scripts/text-handling/TextOutput.cs" id="1_l2bgj"]
 [ext_resource type="PackedScene" uid="uid://b4o68g4jvup3j" path="res://scenes/map.tscn" id="1_syvep"]
 [ext_resource type="Script" uid="uid://8vhaa23wb4xq" path="res://scripts/text-handling/TextInput.cs" id="1_y1h3b"]
 [ext_resource type="FontFile" uid="uid://dhm23uaml2q1u" path="res://assets/fonts/Modeseven-L3n5.ttf" id="2_aisij"]
+[ext_resource type="Theme" uid="uid://da3qfs4isoc8t" path="res://assets/themes/customTheme.theme" id="2_prbuy"]
 [ext_resource type="FontFile" uid="uid://dkrj8fnoip8jn" path="res://assets/fonts/MadouFutoMaruGothic-d9Xo7.ttf" id="2_xsrv6"]
 [ext_resource type="Script" uid="uid://bkvfj1yu1sx2t" path="res://scripts/item-representation/InventoryScreen.cs" id="4_lmgon"]
 [ext_resource type="Texture2D" uid="uid://n8v8kbo0kj7f" path="res://assets/tileset_frame_1.png" id="6_lmgon"]
@@ -44,6 +45,7 @@ offset_top = 85.0
 offset_right = 728.0
 offset_bottom = 675.0
 focus_mode = 2
+theme = ExtResource("2_prbuy")
 theme_override_colors/default_color = Color(0.848666, 0.880868, 0.876862, 1)
 theme_override_colors/selection_color = Color(0.32309, 0.578478, 0.607494, 1)
 theme_override_constants/line_separation = 2

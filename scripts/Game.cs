@@ -194,9 +194,9 @@ public partial class Game : Node
 			AudioManager.Instance.PlaySFX("walk");
 		}
 		
+		// Use specific happenings
 		if (result.ItemUse == attachPowerCell)
 		{
-			// do thing
 			world.IsPowerOn = true;
 		}
 	}
