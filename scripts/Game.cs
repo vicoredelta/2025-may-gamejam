@@ -15,7 +15,7 @@ public partial class Game : Node
 		
 	Parser parser;
 	
-	ItemUse openDoor;
+	ItemUse attachPowerCell;
 	
 	[Signal]
 	public delegate void TextOutputEventHandler();
@@ -88,24 +88,29 @@ public partial class Game : Node
 			["Rubble"], ["Storage"], ["Rubble"], ItemCreateLocation.Room,false,
 			"With little effort the rubble is cleared, revealing a [color=7b84ff]storage box[/color] with a simple electronic lock."
 		);
+		attachPowerCell = world.CreateUse(
+			["Stolen_Power_Cell", "Console"], [], [], ItemCreateLocation.Room,false,
+			"You place the powercell into the hatch and attach the cables. There is a small hiss as the ships power returns."
+		);
 		world.CreateUse(
 			["Wracker", "Storage"], ["Red_Cable", "Blue_Cable", "Green_Cable", "Purple_Cable"], ["Storage"], ItemCreateLocation.Room, false,
 			"With a click and a chime the lock is undone and the box lid opens to reveal a large assortment of coloured cables. The box contains green, purple, red, and blue cables."
 		);
-		openDoor = world.CreateUse(
+		world.CreateUse(
 			["Door"], [], ["Door"], ItemCreateLocation.Room, false,
 			"You open the door without difficulty."
 		);
 		
 		// Define input actions (required item, producedItems, create location, description on correct input, description on wrong input, required input)
 		world.CreateInputAction(
-			"Code_Lock", [], ItemCreateLocation.Room,
+			"Code_Lock", [], ItemCreateLocation.Room, true,
 			"The door opens.", "The remains closed with a dissapproving beep.",
 			"123"
 		);
 		
 		// Add items to rooms
 		world.AddItemToRoom("Rubble", "Heart Chamber");
+		world.AddItemToRoom("Console", "Heart Chamber");
 		world.AddItemToRoom("Carcass", "Breached Entrance");
 		world.AddItemToRoom("Wasteland", "Breached Entrance");
 		
@@ -189,9 +194,10 @@ public partial class Game : Node
 			AudioManager.Instance.PlaySFX("walk");
 		}
 		
-		if (result.ItemUse == openDoor)
+		if (result.ItemUse == attachPowerCell)
 		{
 			// do thing
+			world.IsPowerOn = true;
 		}
 	}
 }

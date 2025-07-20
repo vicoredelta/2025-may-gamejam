@@ -10,15 +10,17 @@ public class InputAction
 	ItemCreateLocation _itemCreateLocation;
 	String _requiredText;
 	String _wrongInputText;
+	public bool RequiresPower{ get; }
 	
 	public InputAction(String description, String requiredText, String wrongInputText, ItemType requiredItem,
-		List<ItemType> producedItems, ItemCreateLocation createLocation)
+		List<ItemType> producedItems, ItemCreateLocation createLocation, bool requiresPower = false)
 	{
 		_description = description;
 		_requiredText = requiredText;
 		_itemCreateLocation = createLocation;
 		_requiredItem = requiredItem;
 		_wrongInputText = wrongInputText;
+		RequiresPower = requiresPower;
 	}
 	
 	public ItemType RequiredItem
@@ -28,6 +30,11 @@ public class InputAction
 	
 	public CommandOutput Activate(Player player, Room currentRoom, String inputText)
 	{
+		
+		if (RequiresPower && !player._world.IsPowerOn)
+		{
+			return new CommandOutput("Nothing happens. It seems there's no power.");
+		}
 		ItemType itemLostFromInventory = null;
 		List<ItemType> ItemsGainedToinventory = new List<ItemType>();
 		

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public partial class Player : Inventory
 {
 	Room _currentRoom;
-	private World _world;
+	public World _world;
 	List<ItemUse> _uses = new List<ItemUse>(); 
 	List<InputAction> _inputActions = new List<InputAction>();
 	

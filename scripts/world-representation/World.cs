@@ -102,7 +102,7 @@ public class World
 	}
 	
 	public void CreateInputAction(String requiredItem, List<String> producedItems,
-		ItemCreateLocation createLocation, String description, String wrongInputText,
+		ItemCreateLocation createLocation, bool reqPower, String description, String wrongInputText,
 		String requiredText)
 	{
 		List<ItemType> prdItems = new List<ItemType>();
@@ -113,7 +113,7 @@ public class World
 		}
 		
 		_player.AddInputAction(new InputAction(description, requiredText, wrongInputText,
-			_itemTypes[requiredItem], prdItems, createLocation));
+			_itemTypes[requiredItem], prdItems, createLocation, reqPower));
 	}
 	
 	public Dictionary<string, bool> GetVisitedStatusForAllRooms()
