@@ -110,7 +110,7 @@ public class Parser
 		{
 			String[] segment = words.Take(i).ToArray();
 			
-			for (int j = (segment.Length - 1); j >= 0; j--)
+			for (int j = 0; j < segment.Length; j++)
 			{
 				String potentialKey = String.Join(" ", segment.Skip(j).ToArray());
 				
