@@ -74,16 +74,16 @@ public partial class Player
 			
 		case Command.Help:
 			return new CommandOutput(Command.Help,
-			"Type [color=de6ba5][look][/color] for a description of your current " +
-			"surroundings, \n[color=de6ba5][take][/color] to pick up an item, \n[color=de6ba5][move][/color] to " +
+			"Type [color=de6ba5]look[/color] for a description of your current " +
+			"surroundings, \n[color=de6ba5]take[/color] to pick up an item, \n[color=de6ba5]move[/color] to " +
 			"walk to a different room, " +
-			"or [color=de6ba5][use][/color] to use an item. " +
-			"Some items can be interacted with by inputing text by typing [color=de6ba5][input][/color] followed by the item followed by the text to input.\n" +
-			"[color=de6ba5][look][/color] may be followed by an item in the vicinity or in your inventory " +
+			"or [color=de6ba5]use[/color] to use an item. " +
+			"Some items can be interacted with by inputing text by typing [color=de6ba5]input[/color] followed by the item followed by the text to input.\n" +
+			"[color=de6ba5]look[/color] may be followed by an item in the vicinity or in your inventory " +
 			"in order to take a closer look at it.\n" +
-			"[color=de6ba5][move][/color] must be followed by a direction, such as [color=7b84ff][north][/color].\n" +
-			"[color=de6ba5][take][/color] must be followed by an item in the vicinity, such as [color=38a868][key][/color].\n" +
-			"[color=de6ba5][use][/color] must be followed by one or more items.");
+			"[color=de6ba5]move[/color] must be followed by a direction, such as [color=7b84ff]north[/color].\n" +
+			"[color=de6ba5]take[/color] must be followed by an item in the vicinity, such as [color=38a868]key[/color].\n" +
+			"[color=de6ba5]use[/color] must be followed by one or more items.");
 			
 		case Command.Take:
 			if (input.Items.Count == 0 || !_currentRoom.HasItem(input.Items[0]))
