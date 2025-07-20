@@ -55,7 +55,7 @@ public partial class Game : Node
 		world.CreateItemType("Wracker",
 		"It's a [color=38a868]wracker[/color], a transforming multitool. It's almost brand new, but the attached gemstone have been in your family for generations.",
 		true);
-		world.CreateItemType("Stolen_Power_Cell",
+		world.CreateItemType("Stolen Power Cell",
 		"An outmode, clockwork [color=38a868]generator[/color]. A low, hurried ticking and a faint glow suggest that it's still functional.",
 		true);
 		world.CreateItemType("Rubble",
@@ -74,14 +74,14 @@ public partial class Game : Node
 		world.CreateItemType("Door",
 		"A metal door blocks your path.",
 		false);
-		world.CreateItemType("Code_Lock",
+		world.CreateItemType("Code Lock",
 		"A metal door with a small terminal is blocking the way. There is a small post-it note with the numbers '123' written on it.",
 		false);
 		world.CreateItemType("Storage", "It has a simple electronic lock.", false);
-		world.CreateItemType("Red_Cable", "It's a red cable.", true);
-		world.CreateItemType("Blue_Cable", "It's a blue cable.", true);
-		world.CreateItemType("Green_Cable", "It's a green cable.", true);
-		world.CreateItemType("Purple_Cable", "It's a purple cable.", true);
+		world.CreateItemType("Red Cable", "It's a red cable.", true);
+		world.CreateItemType("Blue Cable", "It's a blue cable.", true);
+		world.CreateItemType("Green Cable", "It's a green cable.", true);
+		world.CreateItemType("Purple Cable", "It's a purple cable.", true);
 		
 		// Define uses (required items, produced items, destroyed items, create location, requires power, description)
 		world.CreateUse(
@@ -89,11 +89,11 @@ public partial class Game : Node
 			"With little effort the rubble is cleared, revealing a [color=7b84ff]storage box[/color] with a simple electronic lock."
 		);
 		attachPowerCell = world.CreateUse(
-			["Stolen_Power_Cell", "Console"], [], [], ItemCreateLocation.Room,false,
+			["Stolen Power Cell", "Console"], [], [], ItemCreateLocation.Room,false,
 			"You place the powercell into the hatch and attach the cables. There is a small hiss as the ships power returns."
 		);
 		world.CreateUse(
-			["Wracker", "Storage"], ["Red_Cable", "Blue_Cable", "Green_Cable", "Purple_Cable"], ["Storage"], ItemCreateLocation.Room, false,
+			["Wracker", "Storage"], ["Red Cable", "Blue Cable", "Green Cable", "Purple Cable"], ["Storage"], ItemCreateLocation.Room, false,
 			"With a click and a chime the lock is undone and the box lid opens to reveal a large assortment of coloured cables. The box contains green, purple, red, and blue cables."
 		);
 		world.CreateUse(
@@ -103,7 +103,7 @@ public partial class Game : Node
 		
 		// Define input actions (required item, producedItems, create location, description on correct input, description on wrong input, required input)
 		world.CreateInputAction(
-			"Code_Lock", [], ItemCreateLocation.Room, true,
+			"Code Lock", [], ItemCreateLocation.Room, true,
 			"The door opens.", "The remains closed with a dissapproving beep.",
 			"123"
 		);
@@ -116,10 +116,10 @@ public partial class Game : Node
 		
 		// Add items as obstacles between rooms (item, room, direction to block)
 		world.AddItemAsObstacle("Door", "Breached Entrance", Direction.North);
-		world.AddItemAsObstacle("Code_Lock", "Heart Chamber", Direction.East);
+		world.AddItemAsObstacle("Code Lock", "Heart Chamber", Direction.East);
 		
 		// Add items to player inventory
-		AddStartingItems(["Wracker", "Stolen_Power_Cell"]);
+		AddStartingItems(["Wracker", "Stolen Power Cell"]);
 		
 		// Create parser object
 		parser = new Parser(world.GetItemTypes());

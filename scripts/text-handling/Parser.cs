@@ -36,40 +36,17 @@ public class Parser
 		if (_useAlias.Contains(words[0]))
 		{
 			command = Command.Use;
-			
-			foreach(String word in words.Skip(1))
-			{
-				if (_itemTypes.ContainsKey(word))
-				{
-					items.Add(_itemTypes[word]);
-				}
-			}
+			AddAllItems(words.Skip(1).ToArray(), items);
 		}
 		else if (_lookAlias.Contains(words[0]))
 		{
 			command = Command.Look;
-			
-			foreach(String word in words.Skip(1))
-			{
-				if (_itemTypes.ContainsKey(word))
-				{
-					items.Add(_itemTypes[word]);
-					break;
-				}
-			}
+			AddNextItem(words.Skip(1).ToArray(), items);
 		}
 		else if (_takeAlias.Contains(words[0]))
 		{
 			command = Command.Take;
-			
-			foreach(String word in words.Skip(1))
-			{
-				if (_itemTypes.ContainsKey(word))
-				{
-					items.Add(_itemTypes[word]);
-					break;
-				}
-			}
+			AddNextItem(words.Skip(1).ToArray(), items);
 		}
 		else if (_moveAlias.Contains(words[0]))
 		{
@@ -102,22 +79,8 @@ public class Parser
 		else if (_inputAlias.Contains(words[0]))
 		{
 			command = Command.Input;
-			bool itemFound = false;
-			
-			foreach(String word in words.Skip(1))
-			{
-				if (_itemTypes.ContainsKey(word) && !itemFound)
-				{
-					items.Add(_itemTypes[word]);
-					itemFound = true;
-				}
-				else
-				{
-					entryText += word;
-				}
-			}
-			
-			
+			String[] remainingText = AddNextItem(words.Skip(1).ToArray(), items);
+			entryText += String.Join(" ", remainingText);
 		}
 		else if (_helpAlias.Contains(words[0]))
 		{
@@ -129,5 +92,44 @@ public class Parser
 		}
 		
 		return new CommandInput(command, items, direction, entryText);
+	}
+	
+	private void AddAllItems(String[] words, List<ItemType> items)
+	{
+		String[] remainingWords = words;
+		while ((remainingWords = AddNextItem(remainingWords, items)).Length != 0);
+	}
+	
+	private String[] AddNextItem(String[] words, List<ItemType> items)
+	{
+		int i = AddNextItemHelper(words, items);
+		
+		if (i == -1)
+		{
+			return [];
+		}
+		
+		return words.Skip(i).ToArray();
+	}
+	
+	private int AddNextItemHelper(String[] words, List<ItemType> items)
+	{
+		for (int i = 1; i <= words.Length; i++)
+		{
+			String[] segment = words.Take(i).ToArray();
+			
+			for (int j = (segment.Length - 1); j >= 0; j--)
+			{
+				String potentialKey = String.Join(" ", segment.Skip(j).ToArray());
+				
+				if (_itemTypes.ContainsKey(potentialKey))
+				{
+					items.Add(_itemTypes[potentialKey]);
+					return i;
+				}
+			}
+		}
+		
+		return -1;	// return -1 when no match is found
 	}
 }
