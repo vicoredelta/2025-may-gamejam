@@ -27,5 +27,19 @@ public class Item
 		Type = itemType;
 	}
 	
+	public static Item GetItem(ItemType itemType, Inventory inventory1, Inventory inventory2)
+	{
+		Item item = inventory1.GetItem(itemType);
+		
+		if (item != null)
+		{
+			return item;
+		}
+		else
+		{
+			return inventory2.GetItem(itemType);
+		}
+	}
+	
 	public ItemType Type { get; private set; }
 }

@@ -44,7 +44,7 @@ public class World
 	
 	public void AddItemToPlayer(String itemName)
 	{
-		_player.AddItem(new Item(_itemTypes[itemName]));
+		_player.Add(new Item(_itemTypes[itemName]));
 	}
 	
 	public void AddItemAsObstacle(String itemName, String room, Direction direction)

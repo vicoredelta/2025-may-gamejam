@@ -9,6 +9,7 @@ public class ItemUse
 	List<ItemType> _producedItems = new List<ItemType>();
 	List<ItemType> _destroyedItems = new List<ItemType>();
 	List<ItemType> _itemsLostFromInventory = new List<ItemType>();
+	List<ItemType> _itemsGainedToIventory = new List<ItemType>();
 	ItemCreateLocation _itemCreateLocation;
 	
 	public ItemUse(String description, List<ItemType> requiredItems,
@@ -27,12 +28,12 @@ public class ItemUse
 		get { return _requiredItems; }
 	}
 	
-	public CommandOutput Use(Inventory playerInventory, Room currentRoom)
+	public CommandOutput Use(Player player, Room currentRoom)
 	{
 		// Check that required items are available
 		foreach (ItemType requiredItem in _requiredItems)
 		{
-			if (!(playerInventory.HasItem(requiredItem) ||
+			if (!(player.HasItem(requiredItem) ||
 				currentRoom.HasItem(requiredItem)))
 			{
 				return new CommandOutput("There is no " + requiredItem.Name.ToLower() +
@@ -45,7 +46,8 @@ public class ItemUse
 		{
 			if (_itemCreateLocation == ItemCreateLocation.Player)
 			{
-				playerInventory.Add(new Item(producedItem));
+				player.Add(new Item(producedItem));
+				_itemsGainedToIventory.Add(producedItem);
 			}
 			else
 			{
@@ -56,9 +58,9 @@ public class ItemUse
 		// Destroy items
 		foreach (ItemType destroyedItem in _destroyedItems)
 		{
-			if (playerInventory.HasItem(destroyedItem))
+			if (player.HasItem(destroyedItem))
 			{
-				playerInventory.Take(destroyedItem);
+				player.Take(destroyedItem);
 				_itemsLostFromInventory.Add(destroyedItem);
 			}
 			else if (currentRoom.HasItem(destroyedItem))
@@ -67,6 +69,6 @@ public class ItemUse
 			}
 		}
 		
-		return new CommandOutput(_description, _producedItems, _itemsLostFromInventory);
+		return new CommandOutput(_description, _itemsGainedToIventory, _itemsLostFromInventory);
 	}
 }

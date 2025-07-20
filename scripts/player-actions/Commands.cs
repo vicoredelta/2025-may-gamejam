@@ -18,14 +18,14 @@ public partial class Player
 		
 			if (foundUse != null)
 			{
-				return foundUse.Use(_inventory, _currentRoom);
+				return foundUse.Use(this, _currentRoom);
 			}
 			
 			return new CommandOutput();
 			
 		case Command.Look:
 			if (input.Items.Count == 0 ||
-				!(_inventory.HasItem(input.Items[0]) || _currentRoom.HasItem(input.Items[0])))
+				!(this.HasItem(input.Items[0]) || _currentRoom.HasItem(input.Items[0])))
 			{
 				String text = _currentRoom.Description;
 				

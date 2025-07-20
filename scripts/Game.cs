@@ -57,7 +57,7 @@ public partial class Game : Node
 		"An outmode, clockwork [color=38a868]generator[/color]. A low, hurried ticking and a faint glow suggest that it's still functional.",
 		true);
 		world.CreateItemType("Rubble",
-		"A mound of splintered blackstone and smashed machinery. Some kind of [color=7b84ff]container[/color] lies half-buried under the mess.",
+		"A mound of splintered blackstone and smashed machinery. Some kind of [color=7b84ff]Inventory[/color] lies half-buried under the mess.",
 		false);
 		world.CreateItemType("Carcass",
 		"The remains of a small animal, possibly a rodent. It might have sought shelter from the sweltering heat, " +
