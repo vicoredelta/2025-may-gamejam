@@ -15,7 +15,7 @@ public class ItemType
 	
 	public String IconPath { get; }
 	public String Name { get; }
-	public String Description { get; }
+	public String Description { get; set; }
 	public bool CanBePickedUp { get; }
 	public bool Visible { get; }
 }

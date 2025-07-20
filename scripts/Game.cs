@@ -16,6 +16,7 @@ public partial class Game : Node
 	Parser parser;
 	
 	ItemUse attachPowerCell;
+	ItemType console;
 	
 	[Signal]
 	public delegate void TextOutputEventHandler();
@@ -61,11 +62,8 @@ public partial class Game : Node
 		world.CreateItemType("Rubble",
 		"A mound of splintered blackstone and smashed machinery. Some kind of [color=7b84ff]Inventory[/color] lies half-buried under the mess.",
 		false);
-		world.CreateItemType("Console",
+		console = world.CreateItemType("Console",
 		"Some kind of console. There is a open hatch under it that seem to be where the power source used to be placed...",
-		false);
-		world.CreateItemType("Powered Console",
-		"Some kind of console. You hear the humm of its fan working beneath the casing.",
 		false);
 		world.CreateItemType("Carcass",
 		"The remains of a small animal, possibly a rodent. It might have sought shelter from the sweltering heat, " +
@@ -92,7 +90,7 @@ public partial class Game : Node
 			"With little effort the rubble is cleared, revealing a [color=7b84ff]storage box[/color] with a simple electronic lock."
 		);
 		attachPowerCell = world.CreateUse(
-			["Stolen Power Cell", "Console"], ["Powered Console"], ["Console", "Stolen Power Cell"], ItemCreateLocation.Room, false,
+			["Stolen Power Cell", "Console"], [], ["Stolen Power Cell"], ItemCreateLocation.Room, false,
 			"You place the powercell into the hatch and attach the cables. There is a small hiss as the ships power returns."
 		);
 		world.CreateUse(
@@ -201,6 +199,7 @@ public partial class Game : Node
 		if (result.ItemUse == attachPowerCell)
 		{
 			world.IsPowerOn = true;
+			console.Description = "Some kind of console. You hear the humm of its fan working beneath the casing.";
 		}
 	}
 }
