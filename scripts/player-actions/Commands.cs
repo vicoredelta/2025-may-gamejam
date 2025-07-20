@@ -73,7 +73,8 @@ public partial class Player
 			"Type [color=de6ba5][look][/color] for a description of your current " +
 			"surroundings, \n[color=de6ba5][take][/color] to pick up an item, \n[color=de6ba5][move][/color] to " +
 			"walk to a different room, " +
-			"or [color=de6ba5][use][/color] to use an item.\n" +
+			"or [color=de6ba5][use][/color] to use an item. " +
+			"Some items can be interacted with by inputing text by typing [color=de6ba5][input][/color] followed by the item followed by the text to input.\n" +
 			"[color=de6ba5][look][/color] may be followed by an item in the vicinity or in your inventory " +
 			"in order to take a closer look at it.\n" +
 			"[color=de6ba5][move][/color] must be followed by a direction, such as [color=7b84ff][north][/color].\n" +
