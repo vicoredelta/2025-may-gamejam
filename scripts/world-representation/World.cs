@@ -7,6 +7,7 @@ public class World
 {
 	Dictionary<String, Room> _rooms = new Dictionary<String, Room>();
 	Dictionary<String, ItemType> _itemTypes = new Dictionary<String, ItemType>();
+	public bool IsPowerOn { get; set; } = false;
 	Player _player;
 	
 	public World(String startingRoomName, String startingRoomDescription)
@@ -14,7 +15,7 @@ public class World
 		Room startingRoom = new Room(startingRoomName, startingRoomDescription, "");
 		startingRoom.Visited = true;
 		_rooms.Add(startingRoomName, startingRoom);
-		_player = new Player(startingRoom);
+		_player = new Player(startingRoom, this);
 	}
 	
 	public void CreateRoom(String name, String description, String firstTimeDescription = "")
@@ -71,7 +72,7 @@ public class World
 	
 	public void CreateUse(String[] requiredItems, String[] producedItems,
 		String[] destroyedItems, ItemCreateLocation createLocation,
-		String description)
+		bool reqPower, String description)
 	{
 		List<ItemType> reqItems = new List<ItemType>();
 		List<ItemType> prdItems = new List<ItemType>();
@@ -93,7 +94,7 @@ public class World
 		}
 		
 		_player.AddItemUse(new ItemUse(description, reqItems, prdItems,
-			dstItems, createLocation));
+			dstItems, createLocation, reqPower));
 	}
 	
 	public void CreateInputAction(String requiredItem, List<String> producedItems,

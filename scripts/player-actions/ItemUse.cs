@@ -11,16 +11,18 @@ public class ItemUse
 	List<ItemType> _itemsLostFromInventory = new List<ItemType>();
 	List<ItemType> _itemsGainedToIventory = new List<ItemType>();
 	ItemCreateLocation _itemCreateLocation;
+	public bool RequiresPower{ get; }
 	
 	public ItemUse(String description, List<ItemType> requiredItems,
 		List<ItemType> producedItems, List<ItemType> destroyedItems,
-		ItemCreateLocation createLocation)
+		ItemCreateLocation createLocation, bool requiresPower = false)
 	{
 		_description = description;
 		_itemCreateLocation = createLocation;
 		_requiredItems.AddRange(requiredItems);
 		_producedItems.AddRange(producedItems);
 		_destroyedItems.AddRange(destroyedItems);
+		RequiresPower = requiresPower;
 	}
 	
 	public List<ItemType> RequiredItems

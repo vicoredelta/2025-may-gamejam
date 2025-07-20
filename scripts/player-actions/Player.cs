@@ -5,12 +5,14 @@ using System.Collections.Generic;
 public partial class Player : Inventory
 {
 	Room _currentRoom;
+	private World _world;
 	List<ItemUse> _uses = new List<ItemUse>(); 
 	List<InputAction> _inputActions = new List<InputAction>();
 	
-	public Player(Room startingRoom)
+	public Player(Room startingRoom, World world = null)
 	{
 		_currentRoom = startingRoom;
+		_world = world;
 	}
 	
 	public String GetRoomName()

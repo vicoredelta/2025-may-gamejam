@@ -59,6 +59,9 @@ public partial class Game : Node
 		world.CreateItemType("Rubble",
 		"A mound of splintered blackstone and smashed machinery. Some kind of [color=7b84ff]Inventory[/color] lies half-buried under the mess.",
 		false);
+		world.CreateItemType("Console",
+		"Some kind of console. There is a open hatch under it that seem to be where the power source used to be placed...",
+		false);
 		world.CreateItemType("Carcass",
 		"The remains of a small animal, possibly a rodent. It might have sought shelter from the sweltering heat, " +
 		"but was unable to claw its way out again.",
@@ -78,17 +81,17 @@ public partial class Game : Node
 		world.CreateItemType("Green_Cable", "It's a green cable.", true);
 		world.CreateItemType("Purple_Cable", "It's a purple cable.", true);
 		
-		// Define uses (required items, produced items, destroyed items, create location, description)
+		// Define uses (required items, produced items, destroyed items, create location, requires power, description)
 		world.CreateUse(
-			["Rubble"], ["Storage"], ["Rubble"], ItemCreateLocation.Room,
+			["Rubble"], ["Storage"], ["Rubble"], ItemCreateLocation.Room,false,
 			"With little effort the rubble is cleared, revealing a [color=7b84ff]storage box[/color] with a simple electronic lock."
 		);
 		world.CreateUse(
-			["Wracker", "Storage"], ["Red_Cable", "Blue_Cable", "Green_Cable", "Purple_Cable"], ["Storage"], ItemCreateLocation.Room,
+			["Wracker", "Storage"], ["Red_Cable", "Blue_Cable", "Green_Cable", "Purple_Cable"], ["Storage"], ItemCreateLocation.Room, false,
 			"With a click and a chime the lock is undone and the box lid opens to reveal a large assortment of coloured cables. The box contains green, purple, red, and blue cables."
 		);
 		world.CreateUse(
-			["Door"], [], ["Door"], ItemCreateLocation.Room,
+			["Door"], [], ["Door"], ItemCreateLocation.Room, false,
 			"You open the door without difficulty."
 		);
 		

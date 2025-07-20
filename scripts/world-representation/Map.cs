@@ -27,7 +27,7 @@ public partial class Map : Node
 		Sprite2D instance = scene.Instantiate<Sprite2D>();
 		RoomHolder.AddChild(instance);
 		instance.Position = position;
-		instance.Name = name;		
+		instance.Name = name;
 		roomSprites[name] = instance;
 	}
 	

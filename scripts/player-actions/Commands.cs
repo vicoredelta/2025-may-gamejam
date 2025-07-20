@@ -18,6 +18,10 @@ public partial class Player
 		
 			if (foundUse != null)
 			{
+				if (foundUse.RequiresPower && !_world.IsPowerOn)
+				{
+					return new CommandOutput("Nothing happens. Maybe it needs power?");
+				}
 				return foundUse.Use(this, _currentRoom);
 			}
 			
