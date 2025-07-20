@@ -70,7 +70,7 @@ public class World
 		return _player.GetRoomName();
 	}
 	
-	public void CreateUse(String[] requiredItems, String[] producedItems,
+	public ItemUse CreateUse(String[] requiredItems, String[] producedItems,
 		String[] destroyedItems, ItemCreateLocation createLocation,
 		bool reqPower, String description)
 	{
@@ -93,8 +93,12 @@ public class World
 			dstItems.Add(_itemTypes[itemName]);
 		}
 		
-		_player.AddItemUse(new ItemUse(description, reqItems, prdItems,
-			dstItems, createLocation, reqPower));
+		ItemUse use = new ItemUse(description, reqItems, prdItems,
+			dstItems, createLocation, reqPower);
+		
+		_player.AddItemUse(use);
+			
+		return use;
 	}
 	
 	public void CreateInputAction(String requiredItem, List<String> producedItems,

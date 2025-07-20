@@ -70,6 +70,6 @@ public class ItemUse
 			}
 		}
 		
-		return new CommandOutput(_description, _itemsGainedToIventory, _itemsLostFromInventory);
+		return new CommandOutput(_description, this, _itemsGainedToIventory, _itemsLostFromInventory);
 	}
 }
