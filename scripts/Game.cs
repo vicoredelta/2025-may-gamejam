@@ -15,6 +15,8 @@ public partial class Game : Node
 		
 	Parser parser;
 	
+	ItemUse openDoor;
+	
 	[Signal]
 	public delegate void TextOutputEventHandler();
 	
@@ -90,7 +92,7 @@ public partial class Game : Node
 			["Wracker", "Storage"], ["Red_Cable", "Blue_Cable", "Green_Cable", "Purple_Cable"], ["Storage"], ItemCreateLocation.Room, false,
 			"With a click and a chime the lock is undone and the box lid opens to reveal a large assortment of coloured cables. The box contains green, purple, red, and blue cables."
 		);
-		world.CreateUse(
+		openDoor = world.CreateUse(
 			["Door"], [], ["Door"], ItemCreateLocation.Room, false,
 			"You open the door without difficulty."
 		);
@@ -185,6 +187,11 @@ public partial class Game : Node
 			
 			// Play walking sound
 			AudioManager.Instance.PlaySFX("walk");
+		}
+		
+		if (result.ItemUse == openDoor)
+		{
+			// do thing
 		}
 	}
 }
