@@ -51,30 +51,7 @@ public class Parser
 		else if (_moveAlias.Contains(words[0]))
 		{
 			command = Command.Move;
-			
-			foreach(String word in words.Skip(1))
-			{
-				if (_northAlias.Contains(word))
-				{
-					direction = Direction.North;
-					break;
-				}
-				if (_southAlias.Contains(word))
-				{
-					direction = Direction.South;
-					break;
-				}
-				if (_westAlias.Contains(word))
-				{
-					direction = Direction.West;
-					break;
-				}
-				if (_eastAlias.Contains(word))
-				{
-					direction = Direction.East;
-					break;
-				}
-			}
+			direction = GetDirection(words.Skip(1).ToArray());
 		}
 		else if (_inputAlias.Contains(words[0]))
 		{
@@ -94,12 +71,26 @@ public class Parser
 		return new CommandInput(command, items, direction, entryText);
 	}
 	
+	private Direction GetDirection(String[] words)
+	{
+		foreach(String word in words)
+		{
+			if (_northAlias.Contains(word)) return Direction.North;
+			if (_southAlias.Contains(word)) return Direction.South;
+			if (_westAlias.Contains(word)) return Direction.West;
+			if (_eastAlias.Contains(word)) return Direction.East;
+		}
+		
+		return Direction.InvalidDirection;
+	}
+	
 	private void AddAllItems(String[] words, List<ItemType> items)
 	{
 		String[] remainingWords = words;
 		while ((remainingWords = AddNextItem(remainingWords, items)).Length != 0);
 	}
 	
+	// Returns remaining words after an item has been found
 	private String[] AddNextItem(String[] words, List<ItemType> items)
 	{
 		int i = AddNextItemHelper(words, items);
@@ -112,6 +103,7 @@ public class Parser
 		return words.Skip(i).ToArray();
 	}
 	
+	// Returns remaining words after an item has been found
 	private int AddNextItemHelper(String[] words, List<ItemType> items)
 	{
 		for (int i = 1; i <= words.Length; i++)
