@@ -22,7 +22,7 @@ public class Room
 	}
 	
 	public String Name { get; }
-	public String Description { get; }
+	public String Description { get; set; }
 	public bool Visited { get; set; } = false;
 	public String FirstTimeDescription { get; }
 	

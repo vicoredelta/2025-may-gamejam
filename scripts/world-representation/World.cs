@@ -18,9 +18,11 @@ public class World
 		_player = new Player(startingRoom, this);
 	}
 	
-	public void CreateRoom(String name, String description, String firstTimeDescription = "")
+	public Room CreateRoom(String name, String description, String firstTimeDescription = "")
 	{
-		_rooms.Add(name, new Room(name, description, firstTimeDescription));
+		Room room = new Room(name, description, firstTimeDescription);
+		_rooms.Add(name, room);
+		return room;
 	}
 	
 	public void ConnectRooms(String room1Name, String room2Name, Direction direction)
