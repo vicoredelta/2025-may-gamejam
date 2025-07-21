@@ -47,7 +47,8 @@ public partial class Game : Node
 		"from where networked idola could operate the machinery. There are no windows, " +
 		"but you can see four large [color=7b84ff]doors[/color] in each direction. In the middle of the room, " +
 		"you can see some kind of control panel.",
-		"You enter a large, important-looking chamber. Lucky! This must be the spacecraft's [color=efad42]main bridge[/color]. " +
+		"You enter a large, important-looking chamber. Lucky! This must be the spacecraft's main bridge, " +
+		"a room also known as a [color=efad42]heart chamber[/color]. " +
 		"There's a large [color=7b84ff]console[/color] with several monitors and panels. You also spot three [color=7b84ff]doors[/color], " +
 		"excluding the one you just passed through, at opposing ends of the chamber."
 		);
@@ -90,11 +91,11 @@ public partial class Game : Node
 		world.ConnectRooms("Heart Chamber", "Strange Panels", Direction.East);
 		world.ConnectRooms("Strange Panels", "Kitchen Alcove", Direction.South);
 		
-
 		// Define every unique type of item (item name, item description, can be picked up, is visible [optional], icon path [optional])
 		
 		world.CreateItemType("Wracker", // Starting inventory
-		"It's a [color=38a868]wracker[/color], a transforming multitool. It's almost brand new, " + 
+		"It's a [color=38a868]wracker[/color], a transforming multitool. You've rigged it for bypassing " +
+		"older, low-leveled passwords and locks. It's almost brand new, " + 
 		"but the attached gemstone have been in your family for generations.",
 		true);
 		
@@ -157,6 +158,10 @@ public partial class Game : Node
 		world.CreateItemType("Ladder", // Room: Elevator Shaft
 		"You spot bolt holes in the wall where a ladder should be.",
 		false, false);
+		world.CreateItemType("Body", // Room: Elevator Shaft
+		"The corpse of a looter, presumably. You can't make out any distinct features, but it appears to be an adult. " +
+		"Judging by the stench, they likely died about a week ago.",
+		false, false);
 		
 		world.CreateItemType("Code Lock", // Room: Heart Chamber
 		"A metal door with a small terminal is blocking the way. " + 
@@ -207,6 +212,7 @@ public partial class Game : Node
 		world.AddItemToRoom("Console", "Heart Chamber");
 		world.AddItemToRoom("Rubble", "Heart Chamber");
 		world.AddItemToRoom("Corpse", "Elevator Shaft");
+		world.AddItemToRoom("Body", "Elevator Shaft"); // Hidden item
 		world.AddItemToRoom("Ladder", "Elevator Shaft"); // Hidden item
 		world.AddItemToRoom("Mummified Corpse", "Kitchen Alcove");
 		

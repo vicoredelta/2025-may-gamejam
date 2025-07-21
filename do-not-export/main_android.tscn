@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://bo7kwqjslb3lb"]
+
+[ext_resource type="PackedScene" uid="uid://sba8x8chfxni" path="res://do-not-export/user_interface_android.tscn" id="1_cuhm4"]
+
+[node name="MainAndroid" type="Node"]
+
+[node name="UserInterface" parent="." instance=ExtResource("1_cuhm4")]

@@ -5,7 +5,7 @@ using System.Linq;
 
 public class Parser
 {
-	String[] _creditsAlias = ["credits", "csp", "author", "authors", "developer", "developer", "dev", "devs"];
+	String[] _creditsAlias = ["author", "authors", "credits", "csp", "dev", "devs", "developer", "developers"];
 	String[] _helpAlias = ["advice", "guide", "help", "hint", "manual", "tutorial"];
 	String[] _inputAlias = ["input", "entry", "write"];
 	String[] _lookAlias = ["check", "examine", "inspect", "look", "observe", "see", "view"];
@@ -13,7 +13,7 @@ public class Parser
 	String[] _useAlias = ["use", "activate"];
 	
 	// Movement parsers
-	String[] _moveAlias = ["move", "walk"];
+	String[] _moveAlias = ["go", "move", "sneak", "travel", "walk"];
 	
 	String[] _eastAlias = ["east", "e", "right", "r"];
 	String[] _northAlias = ["north", "n", "up", "u"];
