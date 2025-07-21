@@ -5,7 +5,7 @@ public partial class TextOutput : RichTextLabel
 {
 	TextOutput()
 	{
-		// Set Intro text here
+		// The strings below appear when the game boots up for the first time.
 		AppendText("Few know of the [color=efad42]antique spacecraft[/color] you stand before. It " +
 			"crash-landed from its derelict orbit years ago, into an arid " +
 			"basin, far from civilisation. Looters who tried their luck on " +

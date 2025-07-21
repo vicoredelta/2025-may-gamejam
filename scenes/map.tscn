@@ -2,19 +2,23 @@
 
 [ext_resource type="Script" uid="uid://ci1jy75un2vyy" path="res://scripts/world-representation/Map.cs" id="2_0cso3"]
 [ext_resource type="Texture2D" uid="uid://d2itebp8dcjyj" path="res://assets/tileset_frame_0.png" id="2_2klcf"]
-[ext_resource type="PackedScene" uid="uid://beedews6es7ag" path="res://scenes/player_marker.tscn" id="3_gldc4"]
+[ext_resource type="PackedScene" uid="uid://beedews6es7ag" path="res://scenes/player_map_marker.tscn" id="3_gldc4"]
 [ext_resource type="FontFile" uid="uid://bp277mpbyjl8y" path="res://assets/fonts/Jersey25-Regular.ttf" id="5_2klcf"]
 
 [node name="Map" type="Node2D"]
+editor_description = "Root node in the map scene.
+Contains everything related to rendering and updating the mini map."
 script = ExtResource("2_0cso3")
 
-[node name="Bakgrund" type="Polygon2D" parent="."]
+[node name="BGMap" type="Polygon2D" parent="."]
+editor_description = "A 2D node, which displays a single colour.
+Used as bg for the Map window."
 position = Vector2(-183, -130)
 scale = Vector2(1.22, 0.866667)
 color = Color(0.0941176, 0.133333, 0.14902, 1)
 polygon = PackedVector2Array(300, 0, 300, 300, 149.558, 300, 0, 300, 0, 149.75, 0, 0)
 
-[node name="Boundry" type="Control" parent="."]
+[node name="MapBoundary" type="Control" parent="."]
 clip_contents = true
 layout_mode = 3
 anchors_preset = 0
@@ -24,22 +28,28 @@ offset_right = 180.0
 offset_bottom = 130.0
 metadata/_edit_use_anchors_ = true
 
-[node name="Holder" type="Node2D" parent="Boundry"]
-position = Vector2(180, 131.11)
+[node name="MapHolder" type="Node2D" parent="MapBoundary"]
+position = Vector2(180, 130)
 
-[node name="RoomsHolder" type="Node2D" parent="Boundry/Holder"]
+[node name="RoomHolder" type="Node2D" parent="MapBoundary/MapHolder"]
 unique_name_in_owner = true
 
-[node name="Sprite2D" type="Sprite2D" parent="Boundry/Holder"]
+[node name="RoomSpriteStatic" type="Sprite2D" parent="MapBoundary/MapHolder"]
+editor_description = "A 2D node, which renders a texture.
+Used to display the \"current room\" texture."
 position = Vector2(0, -1.11)
 scale = Vector2(1.5, 1.5)
 texture = ExtResource("2_2klcf")
 region_enabled = true
 region_rect = Rect2(32, 32, 32, 32)
 
-[node name="PlayerMarker" parent="Boundry/Holder" instance=ExtResource("3_gldc4")]
+[node name="PlayerMarker" parent="MapBoundary/MapHolder" instance=ExtResource("3_gldc4")]
+editor_description = "An instance of the player_map_marker scene.
+Includes only a 2D texture."
 
-[node name="Label" type="Label" parent="Boundry/Holder/PlayerMarker"]
+[node name="PlayerTooltip" type="Label" parent="MapBoundary/MapHolder/PlayerMarker"]
+editor_description = "A control node, used to render labels.
+Intentionally empty, only used for displaying a tooltip above the PlayerMarker texture."
 offset_left = -44.0
 offset_top = -52.0
 offset_right = 44.0
@@ -50,6 +60,7 @@ mouse_default_cursor_shape = 16
 metadata/_edit_use_anchors_ = true
 
 [node name="CurrentRoomText" type="RichTextLabel" parent="."]
+editor_description = "A control node, used for displaying the 'Current Room' header above the Map window."
 offset_left = -180.0
 offset_top = -164.0
 offset_right = 180.0

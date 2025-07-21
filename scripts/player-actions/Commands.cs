@@ -11,7 +11,7 @@ public partial class Player
 		case Command.Use:
 			if (input.Items.Count == 0)
 			{
-				return new CommandOutput("You must specify one or several items.");
+				return new CommandOutput("You must specify one, or several, [color=7b84ff]items[/color].");
 			}
 			
 			ItemUse foundUse = FindUse(input.Items);
@@ -44,10 +44,9 @@ public partial class Player
 			{
 				return new CommandOutput(Command.Look, input.Items[0].Description);
 			}
-			
 		case Command.Move:
 			if (input.Direction == Direction.InvalidDirection)
-				return new CommandOutput("You must specify a direction.");
+				return new CommandOutput("You must specify a [color=7b84ff]direction[/color].");
 			
 			Room connectingRoom = _currentRoom.GetConnectingRoom(input.Direction);
 			
@@ -72,6 +71,7 @@ public partial class Player
 			
 			return new CommandOutput("There is nowhere to go " + input.Direction.ToString().ToLower() + ".");
 			
+		// The 'help' command is typed to explain basic controls to the player.
 		case Command.Help:
 			return new CommandOutput(Command.Help,
 			"Type [color=de6ba5]look[/color] for a description of your current " +
@@ -85,10 +85,19 @@ public partial class Player
 			"[color=de6ba5]take[/color] must be followed by an item in the vicinity, such as [color=38a868]key[/color].\n" +
 			"[color=de6ba5]use[/color] must be followed by one or more items.");
 			
+		// The 'credits' command is typed to display the game's title and authors.	
+		case Command.Credits:
+			return new CommandOutput(Command.Credits,
+			"[color=efad42]Raid on the Sarcophagus Engine[/color]" + "\n [color=7b84ff]Programming:[/color] Emil Åberg & Gillis Gröndahl" +
+			"\n [color=7b84ff]Design & Graphics:[/color] Christoffer Eriksson & Isac Berg" + 
+			"\n [color=7b84ff]Text:[/color] David Sundqvist & Isac Berg" +
+			"\n [color=7b84ff]Audio:[/color] David Sundqvist" +
+			"\n [color=7b84ff]Game by:[/color] Chen Space Program");
+			
 		case Command.Take:
 			if (input.Items.Count == 0 || !_currentRoom.HasItem(input.Items[0]))
 			{
-				return new CommandOutput("You must specify an item in the room.");
+				return new CommandOutput("You must specify an [color=7b84ff]item[/color] in the room.");
 			}
 			else if (!input.Items[0].CanBePickedUp)
 			{
@@ -103,7 +112,7 @@ public partial class Player
 		case Command.Input:
 			if (input.Items.Count == 0)
 			{
-				return new CommandOutput("You must specify an item.");
+				return new CommandOutput("You must specify an [color=7b84ff]item[/color].");
 			}
 			else if (!this.HasItem(input.Items[0]) && !_currentRoom.HasItem(input.Items[0]))
 			{
@@ -111,7 +120,7 @@ public partial class Player
 			}
 			else if (input.EntryText == "")
 			{
-				return new CommandOutput("You need write some input for " + input.Items[0] + ".");
+				return new CommandOutput("You need write some [color=de6ba5]input[/color] for " + input.Items[0] + ".");
 			}
 			else
 			{

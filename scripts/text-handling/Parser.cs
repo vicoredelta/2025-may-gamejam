@@ -5,16 +5,21 @@ using System.Linq;
 
 public class Parser
 {
-	String[] _lookAlias = ["check", "examine", "inspect", "look", "see", "view"];
-	String[] _useAlias = ["use", "activate"];
-	String[] _takeAlias = ["get", "grab", "pick", "take"];
-	String[] _moveAlias = ["move", "walk"];
+	String[] _creditsAlias = ["credits", "csp", "author", "authors", "developer", "developer", "dev", "devs"];
 	String[] _helpAlias = ["advice", "guide", "help", "hint", "manual", "tutorial"];
+	String[] _inputAlias = ["input", "entry", "write"];
+	String[] _lookAlias = ["check", "examine", "inspect", "look", "observe", "see", "view"];
+	String[] _takeAlias = ["get", "grab", "pick", "take"];
+	String[] _useAlias = ["use", "activate"];
+	
+	// Movement parsers
+	String[] _moveAlias = ["move", "walk"];
+	
+	String[] _eastAlias = ["east", "e", "right", "r"];
 	String[] _northAlias = ["north", "n", "up", "u"];
 	String[] _southAlias = ["south", "s", "down", "d"];
 	String[] _westAlias = ["west", "w", "left", "l"];
-	String[] _eastAlias = ["east", "e", "right", "r"];
-	String[] _inputAlias = ["input", "entry", "write"];
+	
 	Dictionary<String, ItemType> _itemTypes = new Dictionary<String, ItemType>();
 	
 	public Parser(List<ItemType> itemTypes)
@@ -62,6 +67,10 @@ public class Parser
 		else if (_helpAlias.Contains(words[0]))
 		{
 			command = Command.Help;
+		}
+		else if (_creditsAlias.Contains(words[0]))
+		{
+			command = Command.Credits;
 		}
 		else
 		{

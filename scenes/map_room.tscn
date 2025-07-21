@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://bpb815lf1ws17"]
+
+[ext_resource type="Texture2D" uid="uid://d2itebp8dcjyj" path="res://assets/tileset_frame_0.png" id="1_akf3s"]
+
+[node name="MapRoom" type="Sprite2D"]
+editor_description = "A 2D node, used to render the \"visited rooms\" texture.
+Instanced through code in the map scene."
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("1_akf3s")
+region_enabled = true
+region_rect = Rect2(0, 32, 32, 32)
+metadata/Description = ""
+metadata/Name = ""

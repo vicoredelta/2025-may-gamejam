@@ -1,6 +1,7 @@
 using Godot;
 using System;
 
+// Public enums that are used for player movement. Called by 'Parser.cs'
 public enum Direction
 {
 	North,
@@ -16,13 +17,17 @@ public enum ItemCreateLocation
 	Room
 }
 
+// Public enums that are used for player interaction. Called by 'Parser.cs'
 public enum Command
 {
-	Use,
+	Credits,
+	Help,
+	Input,
+	Listen,
 	Look,
 	Move,
 	Take,
-	Input,
-	Help,
+	Use,
+	
 	InvalidCommand
 }

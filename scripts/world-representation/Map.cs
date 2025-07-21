@@ -17,13 +17,13 @@ public partial class Map : Node
 	
 	public override void _Ready()
 	{
-		RoomHolder = GetNode<Node2D>("Boundry/Holder/RoomsHolder");
+		RoomHolder = GetNode<Node2D>("MapBoundary/MapHolder/RoomHolder/");
 		CurrentRoomText = GetNode<RichTextLabel>("CurrentRoomText");
 	}
 	
 	public void TileCoordinateReceived(String name, Vector2 position)
 	{
-		var scene = GD.Load<PackedScene>("res://scenes/room.tscn");
+		var scene = GD.Load<PackedScene>("res://scenes/map_room.tscn");
 		Sprite2D instance = scene.Instantiate<Sprite2D>();
 		RoomHolder.AddChild(instance);
 		instance.Position = position;
@@ -34,7 +34,7 @@ public partial class Map : Node
 	public void setRoom (String currentRoom, Godot.Collections.Dictionary<string, bool> visitedStatusForAllRooms)
 	{
 		CurrentRoomText.Text = currentRoom;	
-		Sprite2D node = GetNode<Sprite2D>("Boundry/Holder/RoomsHolder/" + currentRoom);
+		Sprite2D node = GetNode<Sprite2D>("MapBoundary/MapHolder/RoomHolder/" + currentRoom);
 		RoomHolder.Position = InvertPosition(node.Position);
 		SetAllRoomOpacities(currentRoom, visitedStatusForAllRooms);
 	}
