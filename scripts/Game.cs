@@ -106,7 +106,7 @@ public partial class Game : Node
 		"It's a [color=38a868]wracker[/color], a transforming multitool. You've rigged it for bypassing " +
 		"older, low-leveled passwords and locks. It's almost brand new, " + 
 		"but the attached gemstone have been in your family for generations.",
-		true);
+		true, "res://assets/tileset_items.png");
 		
 		world.CreateItemType("Stolen Power Cell", // Starting inventory
 		"An outmode, clockwork [color=38a868]generator[/color]. A low, " +
@@ -278,7 +278,7 @@ public partial class Game : Node
 		foreach (String item in itemNames)
 		{
 			world.AddItemToPlayer(item);
-			EmitSignal(SignalName.ModifyInventory, item, "", true);
+			EmitSignal(SignalName.ModifyInventory, item, world.GetItem(item).IconPath, true);
 		}
 	}
 	

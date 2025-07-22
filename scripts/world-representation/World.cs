@@ -74,6 +74,11 @@ public class World
 		return _player.GetRoomName();
 	}
 	
+	public ItemType GetItem(String itemName)
+	{
+		return _itemTypes[itemName];
+	}
+	
 	public ItemUse CreateUse(String[] requiredItems, String[] producedItems,
 		String[] destroyedItems, ItemCreateLocation createLocation,
 		bool reqPower, String description)
