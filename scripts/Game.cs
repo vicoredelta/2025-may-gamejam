@@ -106,12 +106,12 @@ public partial class Game : Node
 		"It's a [color=38a868]wracker[/color], a transforming multitool. You've rigged it for bypassing " +
 		"older, low-leveled passwords and locks. It's almost brand new, " + 
 		"but the attached gemstone have been in your family for generations.",
-		true, "res://assets/tileset_items.png");
+		true, "res://assets/item_multitool_0.png");
 		
 		world.CreateItemType("Stolen Power Cell", // Starting inventory
 		"An outmode, clockwork [color=38a868]generator[/color]. A low, " +
 		"hurried ticking and a faint glow suggest that it's still functional.",
-		true);
+		true, "res://assets/item_powercell_0.png");
 		
 		world.CreateItemType("Carcass", // Room: Breached Entrance
 		"The remains of a small animal, possibly a rodent. It might have sought shelter from the sweltering heat, " +

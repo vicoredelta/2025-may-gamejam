@@ -217,10 +217,10 @@ script = ExtResource("1_l2bgj")
 [node name="TextInput" type="TextEdit" parent="."]
 editor_description = "A control node, which is used for player input.
 It sends a signal every time the 'accept' action is pressed."
-offset_left = 38.0
-offset_top = 686.0
-offset_right = 730.0
-offset_bottom = 802.0
+offset_left = 39.0
+offset_top = 687.0
+offset_right = 729.0
+offset_bottom = 803.0
 theme_override_fonts/font = ExtResource("2_xsrv6")
 theme_override_font_sizes/font_size = 22
 placeholder_text = "What is your next command?"
