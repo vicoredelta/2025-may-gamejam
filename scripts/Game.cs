@@ -15,7 +15,7 @@ public partial class Game : Node
 		
 	Parser parser;
 	
-	ItemUse attachPowerCell;
+	
 	ItemType console;
 	
 	[Signal]
@@ -192,6 +192,8 @@ public partial class Game : Node
 			["Rubble"], ["Storage"], ["Rubble"], ItemCreateLocation.Room,false,
 			"With little effort the rubble is cleared, revealing a [color=7b84ff]storage box[/color] with a simple electronic lock."
 		);
+		
+		ItemUse attachPowerCell;
 		attachPowerCell = world.CreateUse(
 			["Stolen Power Cell", "Console"], [], ["Stolen Power Cell"], ItemCreateLocation.Room, false,
 			"You place the power cell into the hatch and attach the cables. There is a small hiss as the ships power returns."
@@ -201,7 +203,8 @@ public partial class Game : Node
 			"With a click and a chime the lock is undone and the box lid opens to reveal a large assortment of coloured [color=38a868]cables[/color]. " + 
 			"The box contains green, purple, red, and blue cables."
 		);
-		world.CreateUse(
+		ItemUse openDoor;
+		openDoor = world.CreateUse(
 			["Door"], [], ["Door"], ItemCreateLocation.Room, false,
 			"Although you're somewhat drained from the journey through the wasteland, you still manage to pry the door open. Phew!"
 		);
@@ -322,6 +325,10 @@ public partial class Game : Node
 			world.IsPowerOn = true;
 			console.Description = "Some kind of console. You hear the humm of its fan working beneath the casing.";
 			AudioManager.Instance.PlaySFX("event_powercell");
+		}
+		if (result.ItemUse == openDoor)
+		{
+			//AudioManager.Instance.PlaySFX("event_powercell");
 		}
 	}
 }

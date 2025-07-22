@@ -2,8 +2,9 @@
 
 [ext_resource type="Script" uid="uid://tf3m5e18mj6v" path="res://scripts/AudioManager.cs" id="1_jisk1"]
 
-[node name="AudioManager" type="Node" node_paths=PackedStringArray("SFXPlayer")]
+[node name="AudioManager" type="Node" node_paths=PackedStringArray("bgAmbiencePlayer", "SFXPlayer")]
 script = ExtResource("1_jisk1")
+bgAmbiencePlayer = NodePath("bgAmbiencePlayer")
 SFXPlayer = NodePath("SFXPlayer")
 
 [node name="bgAmbiencePlayer" type="AudioStreamPlayer" parent="."]
