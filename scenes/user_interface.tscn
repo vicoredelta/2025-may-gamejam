@@ -195,13 +195,13 @@ polygon = PackedVector2Array(300, 0, 300, 145.906, 300, 300, 149.558, 300, 0, 30
 [node name="TextOutput" type="RichTextLabel" parent="."]
 editor_description = "A control node, used for game output.
 Displays most information that the player needs to play the game."
-offset_left = 44.0
-offset_top = 65.0
+offset_left = 48.0
+offset_top = 72.0
 offset_right = 727.0
-offset_bottom = 655.0
+offset_bottom = 648.0
 focus_mode = 2
 theme = ExtResource("2_prbuy")
-theme_override_colors/default_color = Color(0.848666, 0.880868, 0.876862, 1)
+theme_override_colors/default_color = Color(0.761653, 0.904011, 0.923048, 1)
 theme_override_colors/selection_color = Color(0.32309, 0.578478, 0.607494, 1)
 theme_override_constants/line_separation = 2
 theme_override_fonts/normal_font = ExtResource("2_xsrv6")

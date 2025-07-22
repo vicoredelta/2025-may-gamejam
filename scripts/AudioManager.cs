@@ -23,6 +23,10 @@ public partial class AudioManager : Node
 		sfxLibrary["walk"] = GD.Load<AudioStream>("res://assets/audio/sfx_walk_0.ogg");
 		sfxLibrary["door_open"] = GD.Load<AudioStream>("res://assets/audio/sfx_door_open_0.ogg");
 		sfxLibrary["event_powercell"] = GD.Load<AudioStream>("res://assets/audio/sfx_event_powercell_0.ogg");
+		sfxLibrary["keycard_correct_2"] = GD.Load<AudioStream>("res://assets/audio/sfx_event_keycard_2.ogg");
+		sfxLibrary["item_multitool"] = GD.Load<AudioStream>("res://assets/audio/sfx_item_multitool_0.ogg");
+		sfxLibrary["pickup_0"] = GD.Load<AudioStream>("res://assets/audio/sfx_pickup_0.ogg");
+
 		// Dictionary with background sound (bgs) used by the game
 		bgAmbienceLibrary["loop_0"] = GD.Load<AudioStream>("res://assets/audio/bgs_ambience_loop_0.ogg");
 		bgAmbienceLibrary["loop_1"] = GD.Load<AudioStream>("res://assets/audio/bgs_ambience_loop_1.ogg");

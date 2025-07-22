@@ -15,8 +15,11 @@ public partial class Game : Node
 		
 	Parser parser;
 	
-	
-	ItemType console;
+		ItemType console;
+		ItemUse attachPowerCell;
+		ItemUse openDoor;
+		ItemUse openStorageBox;
+		ItemUse removeRubble;
 	
 	[Signal]
 	public delegate void TextOutputEventHandler();
@@ -137,7 +140,7 @@ public partial class Game : Node
 		false, false);
 		
 		world.CreateItemType("Rubble", // Room: Heart Chamber
-		"A mound of splintered blackstone and smashed machinery. Some kind of [color=7b84ff]container[/color] " + 
+		"A mound of splintered blackstone and smashed machinery. Some kind of [color=7b84ff]storage box[/color] " + 
 		"lies half-buried under the mess.",
 		false);
 		
@@ -188,22 +191,22 @@ public partial class Game : Node
 		world.CreateItemType("Purple Cable", "It's a purple cable.", true);
 		
 		// Define uses (required items, produced items, destroyed items, create location, requires power, description)
-		world.CreateUse(
+		removeRubble = world.CreateUse(
 			["Rubble"], ["Storage"], ["Rubble"], ItemCreateLocation.Room,false,
 			"With little effort the rubble is cleared, revealing a [color=7b84ff]storage box[/color] with a simple electronic lock."
 		);
 		
-		ItemUse attachPowerCell;
 		attachPowerCell = world.CreateUse(
 			["Stolen Power Cell", "Console"], [], ["Stolen Power Cell"], ItemCreateLocation.Room, false,
 			"You place the power cell into the hatch and attach the cables. There is a small hiss as the ships power returns."
 		);
-		world.CreateUse(
+		
+		openStorageBox = world.CreateUse(
 			["Wracker", "Storage"], ["Red Cable", "Blue Cable", "Green Cable", "Purple Cable"], ["Storage"], ItemCreateLocation.Room, false,
 			"With a click and a chime the lock is undone and the box lid opens to reveal a large assortment of coloured [color=38a868]cables[/color]. " + 
 			"The box contains green, purple, red, and blue cables."
 		);
-		ItemUse openDoor;
+		
 		openDoor = world.CreateUse(
 			["Door"], [], ["Door"], ItemCreateLocation.Room, false,
 			"Although you're somewhat drained from the journey through the wasteland, you still manage to pry the door open. Phew!"
@@ -328,7 +331,15 @@ public partial class Game : Node
 		}
 		if (result.ItemUse == openDoor)
 		{
-			//AudioManager.Instance.PlaySFX("event_powercell");
+			AudioManager.Instance.PlaySFX("door_open");
+		}
+		if (result.ItemUse == openStorageBox)
+		{
+			AudioManager.Instance.PlaySFX("item_multitool");
+		}
+		if (result.ItemUse == removeRubble)
+		{
+			AudioManager.Instance.PlaySFX("pickup_0");
 		}
 	}
 }
