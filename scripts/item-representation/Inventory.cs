@@ -40,7 +40,7 @@ public class Inventory
 		
 		if (filteredList.Count != 0)
 		{
-			output += "There is ";
+			output += "\nThere is ";
 			
 			if (filteredList.Count > 1)
 			{

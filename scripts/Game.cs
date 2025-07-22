@@ -37,49 +37,55 @@ public partial class Game : Node
 		
 		// Create rooms (name, descripion, first time description [optional]), starting room is created further up
 		world.CreateRoom("Cramped Hallway",
-		"A straight path with only two [color=7b84ff]doors[/color]. There wouldn't be any need for empty halls in this type of spacecraft. " +
-		"What could it have been used for?",
-		"You walk into a small and cramped hallway. You can see another [color=7b84ff]door[/color], just a short distance ahead."
+		"A straight path with only two doors. There wouldn't be any need for empty halls in this type of spacecraft. " +
+		"What could it have been used for? " + 
+		"There is one door to the [color=7b84ff]north[/color], and one to the [color=7b84ff]south[/color].",
+		"You walk into a small and [color=efad42]cramped hallway[/color]. You can see another door, just a short distance ahead."
 		);
 		
 		world.CreateRoom("Heart Chamber",
 		"The Mäejrans usually built their [color=efad42]ship bridges[/color] in the middle, " +
 		"from where networked idola could operate the machinery. There are no windows, " +
-		"but you can see four large [color=7b84ff]doors[/color] in each direction. In the middle of the room, " +
+		"but you can see four large doors in each direction. In the middle of the room, " +
 		"you can see some kind of control panel.",
 		"You enter a large, important-looking chamber. Lucky! This must be the spacecraft's main bridge, " +
 		"a room also known as a [color=efad42]heart chamber[/color]. " +
-		"There's a large [color=7b84ff]console[/color] with several monitors and panels. You also spot three [color=7b84ff]doors[/color], " +
+		"There's a large [color=7b84ff]console[/color] with several monitors and panels. You also spot three doors, " +
 		"excluding the one you just passed through, at opposing ends of the chamber."
 		);
 		
 		world.CreateRoom("Elevator Shaft",
 		"An elevator shaft. What remains of the elevator itself lies about two floors down. " +
 		"There's no maintenance ladder either. You could probably survive the fall, " +
-		"possibly even without breaking any bones, but how would you get up again?",
-		"As you approach a wide open elevator shaft, an awful stench belches from the depths. " +
-		"At the bottom of the shaft, you spot a cruelly contorted [color=7b84ff]body[/color], lying under a broken [color=7b84ff]ladder[/color]. " +
-		"You're relieved that the shadows conceal most of this misfortune, but you can easily deduce that," +
+		"possibly even without breaking any bones, but how would you get up again? " +
+		"Your only option, for now, is to head back from where you came.",
+		"As you approach a wide open [color=efad42]elevator shaft[/color], an awful stench belches from the depths. " +
+		"At the bottom of the shaft, you spot a cruelly contorted body, lying under a broken [color=7b84ff]ladder[/color]. " +
+		"You're relieved that the shadows conceal most of this misfortune, but you can easily deduce that, " +
 		"whoever this was, they're now definitely dead."
 		);
 		
 		world.CreateRoom("Captain's Quarters",
-		"The [color=efad42]Captain's Quarters[/color]. Must have been cozy, once upon a time.",
+		"The [color=efad42]Captain's Quarters[/color]. Must have been cozy, once upon a time. " +
+		"The room's only door is to the [color=7b84ff]south[/color].",
 		"You walk into room with eerily out-of-place ornaments. " +
-		"Perhaps this was the [color=efad42]captain's quarters[/color], some two thousand years ago."
+		"Perhaps this was the [color=efad42]captain's quarters[/color], some two thousand years ago. " +
+		"There are no other doors than the one you entered through."
 		);
 		
 		world.CreateRoom("Strange Panels", 
 		"The walls in this room are covered with unfamiliar knobs, levers, and screens. " +
 		"To you, it looks like submarine controls, only built in stone and strange metals, " +
-		"by people who didn't even have a word for electricity.",
-		"This area looks like some kind of control room. You see two [color=7b84ff]doors[/color], one to the west, and one to the south."
+		"by people who didn't even have a word for electricity. You see two doors, one to the " +
+		"[color=7b84ff]west[/color], and one to the [color=7b84ff]south[/color].",
+		"This area looks like some kind of [color=efad42]control room[/color]. You see two doors, " +
+		"one to the [color=7b84ff]west[/color], and one to the [color=7b84ff]south[/color]."
 		);
 		
 		world.CreateRoom("Kitchen Alcove",
 		"A small compartment for preparing food. You can't see anything resembling cold storage, " +
-		"so preserving food might've been to advanced even for the ancients. " +
-		"What a peculiar culture.",
+		"so preserving food might've been to advanced even for the ancients. What a peculiar culture. " +
+		"There is only one door, to the [color=7b84ff]north[/color].",
 		"You walk into a [color=efad42]small alcove[/color]. There's a stove and a number of broken kitchenware scattered around the room."
 		);
 		
@@ -158,14 +164,18 @@ public partial class Game : Node
 		world.CreateItemType("Ladder", // Room: Elevator Shaft
 		"You spot bolt holes in the wall where a ladder should be.",
 		false, false);
+		
 		world.CreateItemType("Body", // Room: Elevator Shaft
 		"The corpse of a looter, presumably. You can't make out any distinct features, but it appears to be an adult. " +
 		"Judging by the stench, they likely died about a week ago.",
 		false, false);
 		
 		world.CreateItemType("Code Lock", // Room: Heart Chamber
-		"A metal door with a small terminal is blocking the way. " + 
-		"There is a small post-it note with the numbers '[color=7b84ff]123[/color]' written on it.",
+		"A metal door with a keypad terminal is blocking the way east.",
+		false);
+		
+		world.CreateItemType("Note", // Room: Captain's Quarters
+		"A small note with the letters '[color=7b84ff]CXXIII[/color]' written on it.",
 		false);
 		
 		world.CreateItemType("Storage", // Room: Heart Chamber
@@ -188,7 +198,7 @@ public partial class Game : Node
 		);
 		world.CreateUse(
 			["Wracker", "Storage"], ["Red Cable", "Blue Cable", "Green Cable", "Purple Cable"], ["Storage"], ItemCreateLocation.Room, false,
-			"With a click and a chime the lock is undone and the box lid opens to reveal a large assortment of coloured cables. " + 
+			"With a click and a chime the lock is undone and the box lid opens to reveal a large assortment of coloured [color=38a868]cables[/color]. " + 
 			"The box contains green, purple, red, and blue cables."
 		);
 		world.CreateUse(
@@ -211,6 +221,7 @@ public partial class Game : Node
 		world.AddItemToRoom("Wall", "Cramped Hallway"); // Hidden item
 		world.AddItemToRoom("Console", "Heart Chamber");
 		world.AddItemToRoom("Rubble", "Heart Chamber");
+		world.AddItemToRoom("Note", "Captain's Quarters");
 		world.AddItemToRoom("Corpse", "Elevator Shaft");
 		world.AddItemToRoom("Body", "Elevator Shaft"); // Hidden item
 		world.AddItemToRoom("Ladder", "Elevator Shaft"); // Hidden item
