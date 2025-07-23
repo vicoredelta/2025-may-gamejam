@@ -2,17 +2,9 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public class Room
+public class Room : ItemHolder
 {
-	Inventory _items = new Inventory();
-	Inventory _obstaclesNorth = null;
-	Inventory _obstaclesSouth = null;
-	Inventory _obstaclesEast = null;
-	Inventory _obstaclesWest = null;
-	Room _connectingRoomNorth = null;
-	Room _connectingRoomSouth = null;
-	Room _connectingRoomEast = null;
-	Room _connectingRoomWest = null;
+	Dictionary<Direction, Connection> _connections = new Dictionary<Direction, Connection>();
 	
 	public Room(String name, String description, String firstTimeDescription)
 	{
@@ -26,96 +18,79 @@ public class Room
 	public bool Visited { get; set; } = false;
 	public String FirstTimeDescription { get; }
 	
-	public void Connect(Room destinationRoom, Direction direction)
+	public void Connect(Room destination, Direction direction)
 	{
-		Inventory obstacles = new Inventory();
-		
-		switch (direction)
-		{
-			case Direction.North:
-				_connectingRoomNorth = destinationRoom;
-				destinationRoom._connectingRoomSouth = this;
-				_obstaclesNorth = obstacles;
-				destinationRoom._obstaclesSouth = obstacles;
-				break;
-			case Direction.South:
-				_connectingRoomSouth = destinationRoom;
-				destinationRoom._connectingRoomNorth = this;
-				_obstaclesSouth = obstacles;
-				destinationRoom._obstaclesNorth = obstacles;
-				break;
-			case Direction.East:
-				_connectingRoomEast = destinationRoom;
-				destinationRoom._connectingRoomWest = this;
-				_obstaclesEast = obstacles;
-				destinationRoom._obstaclesWest = obstacles;
-				break;
-			case Direction.West:
-				_connectingRoomWest = destinationRoom;
-				destinationRoom._connectingRoomEast = this;
-				_obstaclesWest = obstacles;
-				destinationRoom._obstaclesEast = obstacles;
-				break;
-		}
-	}
-	
-	public void AddItem(Item item)
-	{
-		_items.Add(item);
+		Connection connection = new Connection(this, destination, direction);
+		this._connections.Add(direction, connection);
+		destination._connections.Add(Reverse(direction), connection);		
 	}
 	
 	public void AddObstacle(Item item, Direction direction)
 	{
-		GetObstacles(direction).Add(item);
+		if (_connections.ContainsKey(direction)) _connections[direction].Add(item);
 	}
 	
-	public Room GetConnectingRoom(Direction direction) => direction switch 
+	public Room GetConnectingRoom(Direction direction) 
 	{
-		Direction.North => _connectingRoomNorth,
-		Direction.South => _connectingRoomSouth,
-		Direction.East => _connectingRoomEast,
-		Direction.West => _connectingRoomWest,
-		_ => null
-	};
+		if (_connections.ContainsKey(direction))
+		{
+			return _connections[direction].GetDestination(this);
+		}
+		else
+		{
+			return null;
+		}
+	}
 	
-	public Item TakeItem(ItemType itemType)
+	public Item Take(ItemType itemType)
 	{
-		if (_items.HasItem(itemType)) return _items.Take(itemType);
-		if (_obstaclesNorth != null && _obstaclesNorth.HasItem(itemType)) return _obstaclesNorth.Take(itemType);
-		if (_obstaclesSouth != null && _obstaclesSouth.HasItem(itemType)) return _obstaclesSouth.Take(itemType);
-		if (_obstaclesEast != null && _obstaclesEast.HasItem(itemType)) return _obstaclesEast.Take(itemType);
-		if (_obstaclesWest != null && _obstaclesWest.HasItem(itemType)) return _obstaclesWest.Take(itemType);
+		if (base.HasItem(itemType)) return base.Take(itemType);
+		
+		foreach (Direction dir in Enum.GetValues(typeof(Direction)))
+		{
+			if (_connections.ContainsKey(dir))
+			{
+				return _connections[dir].Take(itemType);
+			}
+		}
+		
 		return null;
 	}
 	
 	public bool HasItem(ItemType itemType)
 	{
-		return (_items.HasItem(itemType)
-			|| (_obstaclesNorth != null && _obstaclesNorth.HasItem(itemType))
-			|| (_obstaclesSouth != null && _obstaclesSouth.HasItem(itemType))
-			|| (_obstaclesEast != null && _obstaclesEast.HasItem(itemType))
-			|| (_obstaclesWest != null && _obstaclesWest.HasItem(itemType)));
+		if (base.HasItem(itemType) == true) return true;
+		
+		foreach (Direction dir in Enum.GetValues(typeof(Direction)))
+		{
+			if (_connections.ContainsKey(dir) && _connections[dir].HasItem(itemType))
+			{
+				return true;
+			}
+		}
+		
+		return false;
 	}
 	
 	public bool ObstaclesExist(Direction direction)
 	{
-		Inventory obstacles = GetObstacles(direction);
-		
-		if (obstacles != null && obstacles.Count > 0)
+		if (_connections.ContainsKey(direction) && _connections[direction].Count > 0)
 		{
 			return true;
 		}
-		
-		return false;
+		else
+		{
+			return false;
+		}
 	}
 	
 	public String ListItems()
 	{
 		String text = "";
 		
-		if (_items.ListItems() != "") 
+		if (base.ListItems() != "") 
 		{
-			text = text + _items.ListItems() + ".";
+			text = text + base.ListItems() + ".";
 		}
 		
 		foreach (var dir in Enum.GetValues<Direction>())
@@ -131,9 +106,9 @@ public class Room
 	
 	public String ListObstacles(Direction direction)
 	{
-		if (GetConnectingRoom(direction) != null && GetObstacles(direction).ListItems() != "")
+		if (_connections.ContainsKey(direction) && _connections[direction].ListItems() != "")
 		{
-			return GetObstacles(direction).ListItems() + " blocking the way " + direction.ToString().ToLower() + ".";
+			return _connections[direction].ListItems() + " blocking the way " + direction.ToString().ToLower() + ".";
 		}
 		else
 		{
@@ -154,22 +129,22 @@ public class Room
 		{
 			visitedRooms.Add(refRoom);
 			list.Add(new TileCoordinate(refRoom.Name, refPosX, refPosY));
-			list.AddRange(GenerateTileCoordinates(refRoom._connectingRoomSouth, refPosX, refPosY + 54, visitedRooms));
-			list.AddRange(GenerateTileCoordinates(refRoom._connectingRoomNorth, refPosX, refPosY - 54, visitedRooms));
-			list.AddRange(GenerateTileCoordinates(refRoom._connectingRoomWest, refPosX - 54, refPosY, visitedRooms));
-			list.AddRange(GenerateTileCoordinates(refRoom._connectingRoomEast, refPosX + 54, refPosY, visitedRooms));
+			list.AddRange(GenerateTileCoordinates(refRoom.GetConnectingRoom(Direction.South), refPosX, refPosY + 54, visitedRooms));
+			list.AddRange(GenerateTileCoordinates(refRoom.GetConnectingRoom(Direction.North), refPosX, refPosY - 54, visitedRooms));
+			list.AddRange(GenerateTileCoordinates(refRoom.GetConnectingRoom(Direction.West), refPosX - 54, refPosY, visitedRooms));
+			list.AddRange(GenerateTileCoordinates(refRoom.GetConnectingRoom(Direction.East), refPosX + 54, refPosY, visitedRooms));
 		}
 		
 		return list;
 	}
 	
-	private Inventory GetObstacles(Direction direction) => direction switch 
+	private Direction Reverse(Direction direction) => direction switch
 	{
-		Direction.North => _obstaclesNorth,
-		Direction.South => _obstaclesSouth,
-		Direction.East => _obstaclesEast,
-		Direction.West => _obstaclesWest,
-		_ => null
+		Direction.North => Direction.South,
+		Direction.South => Direction.North,
+		Direction.East => Direction.West,
+		Direction.West => Direction.East,
+		_ => Direction.InvalidDirection
 	};
 }
 

@@ -44,7 +44,7 @@ public class World
 	
 	public void AddItemToRoom(String itemName, String roomName)
 	{
-		_rooms[roomName].AddItem(new Item(_itemTypes[itemName]));
+		_rooms[roomName].Add(new Item(_itemTypes[itemName]));
 	}
 	
 	public void AddItemToPlayer(String itemName)

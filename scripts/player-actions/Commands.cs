@@ -117,7 +117,7 @@ public partial class Player
 			}
 			else
 			{
-				_currentRoom.TakeItem(input.Items[0]);
+				_currentRoom.Take(input.Items[0]);
 				return new CommandOutput("You pick up the " + input.Items[0].Name.ToLower() + ".", input.Items[0]);
 			}
 			

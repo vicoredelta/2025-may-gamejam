@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public class Inventory
+public abstract class ItemHolder
 {
 	List<Item> _items = new List<Item>();
 	

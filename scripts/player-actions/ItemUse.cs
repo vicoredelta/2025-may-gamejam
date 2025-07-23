@@ -52,7 +52,7 @@ public class ItemUse
 			}
 			else
 			{
-				currentRoom.AddItem(new Item(producedItem));
+				currentRoom.Add(new Item(producedItem));
 			}
 		}
 		
@@ -66,7 +66,7 @@ public class ItemUse
 			}
 			else if (currentRoom.HasItem(destroyedItem))
 			{
-				currentRoom.TakeItem(destroyedItem);
+				currentRoom.Take(destroyedItem);
 			}
 		}
 		

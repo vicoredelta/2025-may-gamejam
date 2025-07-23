@@ -60,7 +60,7 @@ public class InputAction
 			}
 			else
 			{
-				currentRoom.AddItem(new Item(producedItem));
+				currentRoom.Add(new Item(producedItem));
 			}
 		}
 		
@@ -71,7 +71,7 @@ public class InputAction
 		}
 		else if (currentRoom.HasItem(_requiredItem))
 		{
-			currentRoom.TakeItem(_requiredItem);
+			currentRoom.Take(_requiredItem);
 		}
 		
 		return new CommandOutput(_description, ItemsGainedToinventory, itemLostFromInventory);
