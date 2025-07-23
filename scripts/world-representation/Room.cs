@@ -74,14 +74,7 @@ public class Room : ItemHolder
 	
 	public bool ObstaclesExist(Direction direction)
 	{
-		if (_connections.ContainsKey(direction) && _connections[direction].Count > 0)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+		return (_connections.ContainsKey(direction) && _connections[direction].Count > 0);
 	}
 	
 	public String ListItems()
