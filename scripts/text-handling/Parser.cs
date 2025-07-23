@@ -102,7 +102,7 @@ public class Parser
 	// Returns remaining words after an item has been found
 	private String[] AddNextItem(String[] words, List<ItemType> items)
 	{
-		int i = AddNextItemHelper(words, items);
+		int i = AddNextItemReturnIndex(words, items);
 		
 		if (i == -1)
 		{
@@ -113,7 +113,7 @@ public class Parser
 	}
 	
 	// Returns index of next element in array after an item has been found
-	private int AddNextItemHelper(String[] words, List<ItemType> items)
+	private int AddNextItemReturnIndex(String[] words, List<ItemType> items)
 	{
 		for (int i = 1; i <= words.Length; i++)
 		{
