@@ -112,7 +112,7 @@ public class Parser
 		return words.Skip(i).ToArray();
 	}
 	
-	// Returns remaining words after an item has been found
+	// Returns index of next element in array after an item has been found
 	private int AddNextItemHelper(String[] words, List<ItemType> items)
 	{
 		for (int i = 1; i <= words.Length; i++)
