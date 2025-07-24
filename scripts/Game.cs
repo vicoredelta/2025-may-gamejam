@@ -10,8 +10,8 @@ public partial class Game : Node
 		"The scant beams of sunlight piercing through the broken hull and " +
 		"gives life to the coffin-like silence. Had the ship crashed " +
 		"elsewhere it might've been taken back by nature, but as it stands, " +
-		"the craft remains is somehow even more silent than the wasteland " +
-		"surrounding it. A mechanical cave devoid of life.");
+		"what remains of the craft is somehow even more silent than the wasteland " +
+		"surrounding it. A mechanical cave, devoid of life.");
 		
 	Parser parser;
 	
@@ -105,7 +105,7 @@ public partial class Game : Node
 		world.CreateItemType("Wracker", // Starting inventory
 		"It's a [color=38a868]wracker[/color], a transforming multitool. You've rigged it for bypassing " +
 		"older, low-leveled passwords and locks. It's almost brand new, " + 
-		"but the attached gemstone have been in your family for generations.",
+		"but the attached gemstone has been with your family for generations.",
 		true, "res://assets/item_multitool_0.png");
 		
 		world.CreateItemType("Stolen Power Cell", // Starting inventory
