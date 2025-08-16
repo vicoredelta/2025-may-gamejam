@@ -18,7 +18,8 @@ public class CommandInput
 	}
 }
 
-public class CommandResult
+// Struct to hold information about an executed command
+public struct CommandResult
 {
 	public String Text { get; } = "Nothing interesting happens.";
 	public Command Command { get; } = Command.InvalidCommand;

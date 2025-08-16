@@ -90,6 +90,18 @@ public class Room : ItemHolder
 		return (_connections.ContainsKey(direction) && _connections[direction].Count > 0);
 	}
 	
+	public String GetRoomAndItemDescription()
+	{
+		String text = Description;
+			
+		if (ListItems() != "")
+		{
+			text = text + "\n" + ListItems();
+		}
+	
+		return text;
+	}
+	
 	public new String ListItems()
 	{
 		String text = "";

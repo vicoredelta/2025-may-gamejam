@@ -5,7 +5,6 @@ using System.Collections.Generic;
 public abstract class ItemHolder
 {
 	List<Item> _items = new List<Item>();
-	
 	public int Count { get { return _items.Count; } }
 	
 	public bool HasItem(ItemType itemType)
