@@ -30,14 +30,14 @@ public class ItemUse
 		get { return _requiredItems; }
 	}
 	
-	public CommandOutput Use(Player player, Room currentRoom)
+	public CommandResult Use(Player player, Room currentRoom)
 	{
 		// Check that required items are available
 		foreach (ItemType requiredItem in _requiredItems)
 		{
 			if (!(player.HasItem(requiredItem) || currentRoom.HasItem(requiredItem)))
 			{
-				return new CommandOutput("There is no " + requiredItem.Name.ToLower() +
+				return new CommandResult("There is no " + requiredItem.Name.ToLower() +
 					" in vicinity.");
 			}
 		}
@@ -70,6 +70,6 @@ public class ItemUse
 			}
 		}
 		
-		return new CommandOutput(_description, this, _itemsGainedToIventory, _itemsLostFromInventory);
+		return new CommandResult(_description, this, _itemsGainedToIventory, _itemsLostFromInventory);
 	}
 }

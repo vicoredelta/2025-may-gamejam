@@ -13,6 +13,22 @@ public abstract class ItemHolder
 		return _items.Exists(x => x.Type == itemType);
 	}
 	
+	public List<ItemType> GetItemTypes()
+	{
+		List<ItemType> list = new List<ItemType>();
+		List<ItemType> alreadyAdded = new List<ItemType>();
+		
+		foreach (Item item in _items)
+		{
+			if (!alreadyAdded.Contains(item.Type))
+			{
+				list.Add(item.Type);
+			}
+		}
+		
+		return list;
+	}
+	
 	public Item Take(ItemType itemType)
 	{
 		if (HasItem(itemType))

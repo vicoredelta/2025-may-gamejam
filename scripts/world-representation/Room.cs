@@ -42,7 +42,7 @@ public class Room : ItemHolder
 		}
 	}
 	
-	public Item Take(ItemType itemType)
+	public new Item Take(ItemType itemType)
 	{
 		if (base.HasItem(itemType)) return base.Take(itemType);
 		
@@ -57,7 +57,7 @@ public class Room : ItemHolder
 		return null;
 	}
 	
-	public bool HasItem(ItemType itemType)
+	public new bool HasItem(ItemType itemType)
 	{
 		if (base.HasItem(itemType) == true) return true;
 		
@@ -72,12 +72,25 @@ public class Room : ItemHolder
 		return false;
 	}
 	
+	public new List<ItemType> GetItemTypes()
+	{
+		List<ItemType> list = new List<ItemType>();
+		list.AddRange(base.GetItemTypes());
+		
+		foreach (var conn in _connections)
+		{
+			list.AddRange(conn.Value.GetItemTypes());
+		}
+		
+		return list;
+	}
+	
 	public bool ObstaclesExist(Direction direction)
 	{
 		return (_connections.ContainsKey(direction) && _connections[direction].Count > 0);
 	}
 	
-	public String ListItems()
+	public new String ListItems()
 	{
 		String text = "";
 		

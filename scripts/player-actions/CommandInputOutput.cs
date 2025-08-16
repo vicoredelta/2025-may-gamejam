@@ -18,7 +18,7 @@ public class CommandInput
 	}
 }
 
-public class CommandOutput
+public class CommandResult
 {
 	public String Text { get; } = "Nothing interesting happens.";
 	public Command Command { get; } = Command.InvalidCommand;
@@ -27,34 +27,34 @@ public class CommandOutput
 	public Direction Direction { get; } = Direction.InvalidDirection;
 	public ItemUse ItemUse { get; } = null;
 	
-	public CommandOutput() { }
+	public CommandResult() { }
 	
-	public CommandOutput(Command command, String text)
+	public CommandResult(Command command, String text)
 	{
 		Command = command;
 		Text = text;
 	}
 	
-	public CommandOutput(Direction direction, String text)
+	public CommandResult(Direction direction, String text)
 	{
 		Command = Command.Move;
 		Direction = direction;
 		Text = text;
 	}
 	
-	public CommandOutput(String text)
+	public CommandResult(String text)
 	{
 		Text = text;
 	}
 	
-	public CommandOutput(String text, ItemType itemType)
+	public CommandResult(String text, ItemType itemType)
 	{
 		Command = Command.Take;
 		Text = text;
 		ItemsObtained.Add(itemType);
 	}
 	
-	public CommandOutput(String text, ItemUse itemUse, List<ItemType> itemsObtained, List<ItemType> itemsLost)
+	public CommandResult(String text, ItemUse itemUse, List<ItemType> itemsObtained, List<ItemType> itemsLost)
 	{
 		Command = Command.Use;
 		Text = text;
@@ -63,7 +63,7 @@ public class CommandOutput
 		ItemUse = itemUse;
 	}
 	
-	public CommandOutput(String text, List<ItemType> itemsObtained, ItemType itemLost)
+	public CommandResult(String text, List<ItemType> itemsObtained, ItemType itemLost)
 	{
 		Command = Command.Input;
 		Text = text;

@@ -291,7 +291,7 @@ public partial class Game : Node
 		CommandInput input = parser.GetCommand(textInput);
 		
 		// Execute command
-		CommandOutput result = world.ExecuteCommand(input);
+		CommandResult result = world.ExecuteCommand(input);
 		
 		// Output text
 		OutputText(result.Text + "\n");

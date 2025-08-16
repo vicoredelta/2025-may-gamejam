@@ -64,7 +64,7 @@ public class World
 		return itemTypeList;
 	}
 	
-	public CommandOutput ExecuteCommand (CommandInput commandInput)
+	public CommandResult ExecuteCommand (CommandInput commandInput)
 	{
 		return _player.ExecuteCommand(commandInput);
 	}
