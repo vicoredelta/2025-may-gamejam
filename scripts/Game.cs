@@ -168,6 +168,11 @@ public partial class Game : Node
 		"You spot bolt holes in the wall where a ladder should be.",
 		false, false);
 		
+		world.CreateItemType("Bolt Holes", // Room: Elevator Shaft
+		"Holes in the wall of the elevator shaft, were a maintenance ladder used to be. " +
+		"The bolt holes are of no use to you now.",
+		false, false);
+		
 		world.CreateItemType("Body", // Room: Elevator Shaft
 		"The corpse of a looter, presumably. You can't make out any distinct features, but it appears to be an adult. " +
 		"Judging by the stench, they likely died about a week ago.",
@@ -231,6 +236,7 @@ public partial class Game : Node
 		world.AddItemToRoom("Corpse", "Elevator Shaft");
 		world.AddItemToRoom("Body", "Elevator Shaft"); // Hidden item
 		world.AddItemToRoom("Ladder", "Elevator Shaft"); // Hidden item
+		world.AddItemToRoom("Bolt Holes", "Elevator Shaft"); // Hidden item
 		world.AddItemToRoom("Mummified Corpse", "Kitchen Alcove");
 		
 		// 'Self' is a hidden item, added to every room individually
@@ -326,7 +332,7 @@ public partial class Game : Node
 		if (result.ItemUse == attachPowerCell)
 		{
 			world.IsPowerOn = true;
-			console.Description = "Some kind of console. You hear the humm of its fan working beneath the casing.";
+			console.Description = "Some kind of console. You hear the hum of its fan working beneath the casing.";
 			AudioManager.Instance.PlaySFX("event_powercell");
 		}
 		if (result.ItemUse == openDoor)
