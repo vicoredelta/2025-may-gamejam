@@ -30,6 +30,15 @@ public partial class Player : ItemHolder
 		_inputActions.Add(inputAction);
 	}
 	
+	public List<ItemType> GetItemsInVicinity()
+	{
+		List<ItemType> list = new List<ItemType>();
+		
+		list.AddRange(this.GetItemTypes());
+		list.AddRange(_currentRoom.GetItemTypes());
+		return list;
+	}
+	
 	private ItemUse FindUse(List<ItemType> itemsProvided)
 	{
 		foreach (ItemUse use in _uses)
