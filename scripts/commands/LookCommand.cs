@@ -8,9 +8,6 @@ public class LookCommand : CommandX
 	private LookCommand() { }
 	public static LookCommand Instance { get; private set; } = new LookCommand();
 	
-	public override String[] Aliases { get; } =
-		["check", "examine", "inspect", "look", "observe", "see", "view"];
-	
 	public override CommandResult Execute(String[] words, Player player, Room currentRoom)
 	{
 		List <ItemType> list = new List<ItemType>();
@@ -18,15 +15,18 @@ public class LookCommand : CommandX
 		
 		if (list.Count > 0)
 		{
+			// Output description of item if an item was specified
 			return new CommandResult(Command.Look, list[0].Description);
 		}
 		else if (remainderText.Length > 0)
 		{
+			// Output error message if command was followed by text that does not include an item
 			return new CommandResult(Command.Look, remainderText[0] + " does not specify an " +
 				"item in vicinity.");
 		}
 		else
 		{
+			// Output description of room otherwise
 			return new CommandResult(Command.Look, currentRoom.GetRoomAndItemDescription());
 		}
 	}

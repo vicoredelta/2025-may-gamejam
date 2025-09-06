@@ -39,7 +39,7 @@ public partial class Player : ItemHolder
 		return list;
 	}
 	
-	private ItemUse FindUse(List<ItemType> itemsProvided)
+	public ItemUse FindUse(List<ItemType> itemsProvided)
 	{
 		foreach (ItemUse use in _uses)
 		{
@@ -63,7 +63,7 @@ public partial class Player : ItemHolder
 		return null;
 	}
 	
-	private InputAction FindInputAction(ItemType requiredItem)
+	public InputAction FindInputAction(ItemType requiredItem)
 	{
 		return _inputActions.Find(x => x.RequiredItem == requiredItem);
 	}

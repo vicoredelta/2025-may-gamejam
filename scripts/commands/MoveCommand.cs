@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-/*
 public class MoveCommand : CommandX
 {
 	// Make singleton
@@ -12,31 +11,39 @@ public class MoveCommand : CommandX
 	
 	public override CommandResult Execute(String[] words, Player player, Room currentRoom)
 	{
-		if (input.Direction == Direction.InvalidDirection)
-				return new CommandResult("You must specify a [color=7b84ff]direction[/color].");
-			
-		Room connectingRoom = _currentRoom.GetConnectingRoom(input.Direction);
+		Direction direction = ParserX.GetDirection(words);
+		
+		// Output error message if no direction was given
+		if (direction == Direction.InvalidDirection)
+		{
+			return new CommandResult("You must specify a [color=7b84ff]direction[/color].");
+		}
+		
+		Room connectingRoom = currentRoom.GetConnectingRoom(direction);
 		
 		if (connectingRoom != null)
 		{
-			if (_currentRoom.ObstaclesExist(input.Direction))
+			if (currentRoom.ObstaclesExist(direction))
 			{
-				return new CommandResult(_currentRoom.ListObstacles(input.Direction));
+				// Output list of obstacles if there are any blocking the way
+				return new CommandResult(currentRoom.ListObstacles(direction));
 			}
 			
-			_currentRoom = connectingRoom;
-			String outText = "You move " + input.Direction.ToString().ToLower() + ".";
+			currentRoom = connectingRoom;
+			String outText = "You move " + direction.ToString().ToLower() + ".";
 			
-			if (!_currentRoom.Visited)
+			if (!currentRoom.Visited)
 			{
-				outText += " " + _currentRoom.FirstTimeDescription;
-				_currentRoom.Visited = true;
+				outText += " " + currentRoom.FirstTimeDescription;
+				currentRoom.Visited = true;
 			}
 			
-			return new CommandResult(input.Direction, outText);
+			return new CommandResult(direction, outText);
 		}
-		
-		return new CommandResult("There is nowhere to go " + input.Direction.ToString().ToLower() + ".");
+		else
+		{
+			// Output message if there was no room in the specifed direction
+			return new CommandResult("There is nowhere to go " + direction.ToString().ToLower() + ".");
+		}
 	}
 }
-*/

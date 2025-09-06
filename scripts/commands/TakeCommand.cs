@@ -1,0 +1,35 @@
+using Godot;
+using System;
+using System.Collections.Generic;
+
+public class TakeCommand : CommandX
+{
+	// Make singleton
+	private TakeCommand() { }
+	public static TakeCommand Instance { get; private set; } = new TakeCommand();
+	
+	public override CommandResult Execute(String[] words, Player player, Room currentRoom)
+	{
+		List<ItemType> itemsFound = new List<ItemType>();
+		ParserX.AddNextItem(words, itemsFound, player.GetItemsInVicinity());
+		
+		if (itemsFound.Count == 0)
+		{
+			return new CommandResult("You must specify an [color=7b84ff]item[/color] in the room.");
+		}
+		else
+		{
+			ItemType itemFound = itemsFound[0];
+			
+			if (!itemFound.CanBePickedUp)
+			{
+				return new CommandResult("You can not pick up the " + itemFound.Name.ToLower() + ".");
+			}
+			else
+			{
+				currentRoom.Take(itemFound);
+				return new CommandResult("You pick up the " + itemFound.Name.ToLower() + ".", itemFound);
+			}
+		}
+	}
+}
