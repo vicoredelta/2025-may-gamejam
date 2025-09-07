@@ -5,24 +5,25 @@ using System.Collections.Generic;
 // Class to represent the entire game world
 public class World
 {
+	// Make singleton, starting room is created here
+	private World() { }
+	public static World Instance { get; private set; } = new  World();
+	
 	Dictionary<String, Room> _rooms = new Dictionary<String, Room>();
 	Dictionary<String, ItemType> _itemTypes = new Dictionary<String, ItemType>();
 	public bool IsPowerOn { get; set; } = false;
-	Player _player;
-	
-	public World(String startingRoomName, String startingRoomDescription)
-	{
-		Room startingRoom = new Room(startingRoomName, startingRoomDescription, "");
-		startingRoom.Visited = true;
-		_rooms.Add(startingRoomName, startingRoom);
-		_player = new Player(startingRoom, this);
-	}
 	
 	public Room CreateRoom(String name, String description, String firstTimeDescription = "")
 	{
 		Room room = new Room(name, description, firstTimeDescription);
 		_rooms.Add(name, room);
 		return room;
+	}
+	
+	public void SetCurrentRoom(String roomName)
+	{
+		Player.Instance.CurrentRoom = _rooms[roomName];
+		Player.Instance.CurrentRoom.Visited = true;
 	}
 	
 	public void ConnectRooms(String room1Name, String room2Name, Direction direction)
@@ -49,7 +50,7 @@ public class World
 	
 	public void AddItemToPlayer(String itemName)
 	{
-		_player.Add(new Item(_itemTypes[itemName]));
+		Player.Instance.Add(new Item(_itemTypes[itemName]));
 	}
 	
 	public void AddItemAsObstacle(String itemName, String room, Direction direction)
@@ -57,29 +58,12 @@ public class World
 		_rooms[room].AddObstacle(new Item(_itemTypes[itemName]), direction);
 	}
 	
-	public List<ItemType> GetItemTypes()
-	{
-		List<ItemType> itemTypeList = new List<ItemType>();
-		itemTypeList.AddRange(_itemTypes.Values);
-		return itemTypeList;
-	}
-	
-	public CommandOutput ExecuteCommand (CommandInput commandInput)
-	{
-		return _player.ExecuteCommand(commandInput);
-	}
-	
-	public String GetRoomName()
-	{
-		return _player.GetRoomName();
-	}
-	
 	public ItemType GetItem(String itemName)
 	{
 		return _itemTypes[itemName];
 	}
 	
-	public ItemUse CreateUse(String[] requiredItems, String[] producedItems,
+	public UseAction CreateUse(String[] requiredItems, String[] producedItems,
 		String[] destroyedItems, ItemCreateLocation createLocation,
 		bool reqPower, String description)
 	{
@@ -102,10 +86,10 @@ public class World
 			dstItems.Add(_itemTypes[itemName]);
 		}
 		
-		ItemUse use = new ItemUse(description, reqItems, prdItems,
+		UseAction use = new UseAction(description, reqItems, prdItems,
 			dstItems, createLocation, reqPower);
 		
-		_player.AddItemUse(use);
+		Player.Instance.AddUseAction(use);
 			
 		return use;
 	}
@@ -121,7 +105,7 @@ public class World
 			prdItems.Add(_itemTypes[itemName]);
 		}
 		
-		_player.AddInputAction(new InputAction(description, requiredText, wrongInputText,
+		Player.Instance.AddInputAction(new InputAction(description, requiredText, wrongInputText,
 			_itemTypes[requiredItem], prdItems, createLocation, reqPower));
 	}
 	
@@ -138,10 +122,5 @@ public class World
 		}
 		
 		return visitedStatus;
-	}
-	
-	public List<TileCoordinate> GenerateTileCoordinates()
-	{
-		return 	_rooms[_player.GetRoomName()].GenerateTileCoordinates();
 	}
 }

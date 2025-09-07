@@ -3,84 +3,58 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-public class Parser
+public static class Parser
 {
-	String[] _creditsAlias = ["author", "authors", "credits", "csp", "dev", "devs", "developer", "developers"];
-	String[] _helpAlias = ["advice", "guide", "help", "hint", "manual", "tutorial"];
-	String[] _inputAlias = ["input", "entry", "write"];
-	String[] _lookAlias = ["check", "examine", "inspect", "look", "observe", "see", "view"];
-	String[] _takeAlias = ["get", "grab", "pick", "take"];
-	String[] _useAlias = ["use", "activate"];
+	// Command aliases
+	static String[] _creditsAlias = ["author", "authors", "credits", "csp", "dev", "devs", "developer", "developers"];
+	static String[] _helpAlias = ["advice", "guide", "help", "hint", "manual", "tutorial"];
+	static String[] _inputAlias = ["input", "entry", "write"];
+	static String[] _lookAlias = ["check", "examine", "inspect", "look", "observe", "see", "view"];
+	static String[] _takeAlias = ["get", "grab", "pick", "take"];
+	static String[] _useAlias = ["use", "activate"];
+	static String[] _moveAlias = ["go", "move", "sneak", "travel", "walk"];
 	
-	// Movement parsers
-	String[] _moveAlias = ["go", "move", "sneak", "travel", "walk"];
+	// Direction aliases
+	static String[] _eastAlias = ["east", "e", "right", "r"];
+	static String[] _northAlias = ["north", "n", "up", "u"];
+	static String[] _southAlias = ["south", "s", "down", "d"];
+	static String[] _westAlias = ["west", "w", "left", "l"];
 	
-	String[] _eastAlias = ["east", "e", "right", "r"];
-	String[] _northAlias = ["north", "n", "up", "u"];
-	String[] _southAlias = ["south", "s", "down", "d"];
-	String[] _westAlias = ["west", "w", "left", "l"];
-	
-	Dictionary<String, ItemType> _itemTypes = new Dictionary<String, ItemType>();
-	
-	public Parser(List<ItemType> itemTypes)
+	public static IExecutable GetCommand(String word)
 	{
-		foreach (ItemType itemType in itemTypes)
-		{
-			_itemTypes.Add(itemType.Name.ToLower(), itemType);
-		}
+		if (_creditsAlias.Contains(word)) return CreditsCommand.Instance;
+		if (_helpAlias.Contains(word)) return HelpCommand.Instance;
+		if (_inputAlias.Contains(word)) return InputCommand.Instance;
+		if (_lookAlias.Contains(word)) return LookCommand.Instance;
+		if (_takeAlias.Contains(word)) return TakeCommand.Instance;
+		if (_useAlias.Contains(word)) return UseCommand.Instance;
+		if (_moveAlias.Contains(word)) return MoveCommand.Instance;
+		return InvalidCommand.Instance;
 	}
 	
-	public CommandInput GetCommand(String text)
+	// Add all items in 'itemsToSearch' to 'itemsFound' whose name match any element in 'words'
+	public static void AddAllItems(String[] words, List<ItemType> itemsFound, List<ItemType> itemsToSearch)
 	{
-		String[] words = text.ToLower().Split(' ');
-		List<ItemType> items = new List<ItemType>();
-		Command command;
-		Direction direction = Direction.InvalidDirection;
-		String entryText = "";
-		
-		if (_useAlias.Contains(words[0]))
-		{
-			command = Command.Use;
-			AddAllItems(words.Skip(1).ToArray(), items);
-		}
-		else if (_lookAlias.Contains(words[0]))
-		{
-			command = Command.Look;
-			AddNextItem(words.Skip(1).ToArray(), items);
-		}
-		else if (_takeAlias.Contains(words[0]))
-		{
-			command = Command.Take;
-			AddNextItem(words.Skip(1).ToArray(), items);
-		}
-		else if (_moveAlias.Contains(words[0]))
-		{
-			command = Command.Move;
-			direction = GetDirection(words.Skip(1).ToArray());
-		}
-		else if (_inputAlias.Contains(words[0]))
-		{
-			command = Command.Input;
-			String[] remainingText = AddNextItem(words.Skip(1).ToArray(), items);
-			entryText += String.Join(" ", remainingText);
-		}
-		else if (_helpAlias.Contains(words[0]))
-		{
-			command = Command.Help;
-		}
-		else if (_creditsAlias.Contains(words[0]))
-		{
-			command = Command.Credits;
-		}
-		else
-		{
-			command = Command.InvalidCommand;
-		}
-		
-		return new CommandInput(command, items, direction, entryText);
+		String[] remainingWords = words;
+		while ((remainingWords = AddNextItem(remainingWords, itemsFound, itemsToSearch)).Length != 0);
 	}
 	
-	private Direction GetDirection(String[] words)
+	// Add next first item in  'itemsToSearch' to 'itemsFound' whose name match any element in 'words'
+	// 'words' is array is iterated incrementally and this method returns remaining elements after an
+	// item has been found
+	public static String[] AddNextItem(String[] words, List<ItemType> itemsFound, List<ItemType> itemsToSearch)
+	{
+		int i = AddNextItemReturnIndex(words, itemsFound, itemsToSearch);
+		
+		if (i == -1)
+		{
+			return [];
+		}
+		
+		return words.Skip(i).ToArray();
+	}
+	
+	public static Direction GetDirection(String[] words)
 	{
 		foreach(String word in words)
 		{
@@ -93,27 +67,9 @@ public class Parser
 		return Direction.InvalidDirection;
 	}
 	
-	private void AddAllItems(String[] words, List<ItemType> items)
-	{
-		String[] remainingWords = words;
-		while ((remainingWords = AddNextItem(remainingWords, items)).Length != 0);
-	}
-	
-	// Returns remaining words after an item has been found
-	private String[] AddNextItem(String[] words, List<ItemType> items)
-	{
-		int i = AddNextItemReturnIndex(words, items);
-		
-		if (i == -1)
-		{
-			return [];
-		}
-		
-		return words.Skip(i).ToArray();
-	}
-	
-	// Returns index of next element in array after an item has been found
-	private int AddNextItemReturnIndex(String[] words, List<ItemType> items)
+	// Search 'itemsToSearch' for an item whose name is found in 'words' and add to 'itemsFound'.
+	// Iterates through 'words' and returns index of next element in that array after an item has been found.
+	private static int AddNextItemReturnIndex(String[] words, List<ItemType> itemsFound, List<ItemType> itemsToSearch)
 	{
 		for (int i = 1; i <= words.Length; i++)
 		{
@@ -121,11 +77,12 @@ public class Parser
 			
 			for (int j = 0; j < segment.Length; j++)
 			{
-				String potentialKey = String.Join(" ", segment.Skip(j).ToArray());
+				String potentialItemName = String.Join(" ", segment.Skip(j).ToArray());
+				ItemType foundItem = itemsToSearch.Find(x => x.Name.ToLower() == potentialItemName);
 				
-				if (_itemTypes.ContainsKey(potentialKey))
+				if (foundItem != null)
 				{
-					items.Add(_itemTypes[potentialKey]);
+					itemsFound.Add(foundItem);
 					return i;
 				}
 			}

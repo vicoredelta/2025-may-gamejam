@@ -5,12 +5,27 @@ using System.Collections.Generic;
 public abstract class ItemHolder
 {
 	List<Item> _items = new List<Item>();
-	
 	public int Count { get { return _items.Count; } }
 	
 	public bool HasItem(ItemType itemType)
 	{
 		return _items.Exists(x => x.Type == itemType);
+	}
+	
+	public List<ItemType> GetItemTypes()
+	{
+		List<ItemType> list = new List<ItemType>();
+		List<ItemType> alreadyAdded = new List<ItemType>();
+		
+		foreach (Item item in _items)
+		{
+			if (!alreadyAdded.Contains(item.Type))
+			{
+				list.Add(item.Type);
+			}
+		}
+		
+		return list;
 	}
 	
 	public Item Take(ItemType itemType)

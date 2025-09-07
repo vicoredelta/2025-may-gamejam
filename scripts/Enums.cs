@@ -16,18 +16,3 @@ public enum ItemCreateLocation
 	Player,
 	Room
 }
-
-// Public enums that are used for player interaction. Called by 'Parser.cs'
-public enum Command
-{
-	Credits,
-	Help,
-	Input,
-	Listen,
-	Look,
-	Move,
-	Take,
-	Use,
-	
-	InvalidCommand
-}
