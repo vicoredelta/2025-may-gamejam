@@ -12,7 +12,6 @@ public class World
 	Dictionary<String, Room> _rooms = new Dictionary<String, Room>();
 	Dictionary<String, ItemType> _itemTypes = new Dictionary<String, ItemType>();
 	public bool IsPowerOn { get; set; } = false;
-	public List<bool> Flags { get; set; } = new List<bool>();
 	
 	public Room CreateRoom(String name, String description, String firstTimeDescription = "")
 	{
@@ -57,18 +56,6 @@ public class World
 	public void AddItemAsObstacle(String itemName, String room, Direction direction)
 	{
 		_rooms[room].AddObstacle(new Item(_itemTypes[itemName]), direction);
-	}
-	
-	public List<ItemType> GetItemTypes()
-	{
-		List<ItemType> itemTypeList = new List<ItemType>();
-		itemTypeList.AddRange(_itemTypes.Values);
-		return itemTypeList;
-	}
-	
-	public String GetCurrentRoomName()
-	{
-		return Player.Instance.CurrentRoom.Name;
 	}
 	
 	public ItemType GetItem(String itemName)
@@ -135,10 +122,5 @@ public class World
 		}
 		
 		return visitedStatus;
-	}
-	
-	public List<TileCoordinate> GenerateTileCoordinates()
-	{
-		return  Player.Instance.CurrentRoom.GenerateTileCoordinates();
 	}
 }

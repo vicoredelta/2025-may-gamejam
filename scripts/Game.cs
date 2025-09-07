@@ -251,7 +251,7 @@ public partial class Game : Node
 		AddStartingItems(["Wracker", "Stolen Power Cell"]);
 		
 		// Generate room tiles in minimap
-		foreach (TileCoordinate coord in World.Instance.GenerateTileCoordinates())
+		foreach (TileCoordinate coord in Player.Instance.CurrentRoom.GenerateTileCoordinates())
 		{
 			EmitSignal(SignalName.GenerateMapTile, coord.Name, coord.Position);	
 		}
@@ -263,7 +263,7 @@ public partial class Game : Node
 		{
 			godotDict[kvp.Key] = kvp.Value;
 		}
-		EmitSignal(SignalName.MapMove, World.Instance.GetCurrentRoomName(), godotDict);
+		EmitSignal(SignalName.MapMove, Player.Instance.CurrentRoom.Name, godotDict);
 	}
 	
 	private void OutputText(String text)
@@ -311,7 +311,7 @@ public partial class Game : Node
 			{
 				godotDict[kvp.Key] = kvp.Value;
 			}
-			EmitSignal(SignalName.MapMove, World.Instance.GetCurrentRoomName(), godotDict);
+			EmitSignal(SignalName.MapMove, Player.Instance.CurrentRoom.Name, godotDict);
 			
 			// Play walking sound
 			AudioManager.Instance.PlaySFX("walk");
