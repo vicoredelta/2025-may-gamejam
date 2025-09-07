@@ -28,7 +28,7 @@ public partial class Game : Node
 	{
 		// Room and item names must be unique!
 		
-		// Create rooms (name, descripion, first time description [optional]), starting room is created in World.cs
+		// Create rooms (name, descripion, first time description [optional])
 		World.Instance.CreateRoom("Breached Entrance",
 		"The scant beams of sunlight piercing through the broken hull and " +
 		"gives life to the coffin-like silence. Had the ship crashed " +
