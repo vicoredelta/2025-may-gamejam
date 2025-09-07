@@ -5,10 +5,20 @@ using System.Collections.Generic;
 // Class to represent the entire game world
 public class World
 {
+	// Make singleton, starting room is created here
+	private World() { }
+	public static World Instance { get; private set; } = new  World("Breached Entrance",
+		"The scant beams of sunlight piercing through the broken hull and " +
+		"gives life to the coffin-like silence. Had the ship crashed " +
+		"elsewhere it might've been taken back by nature, but as it stands, " +
+		"what remains of the craft is somehow even more silent than the wasteland " +
+		"surrounding it. A mechanical cave, devoid of life.");
+	
 	Dictionary<String, Room> _rooms = new Dictionary<String, Room>();
 	Dictionary<String, ItemType> _itemTypes = new Dictionary<String, ItemType>();
 	public bool IsPowerOn { get; set; } = false;
 	Player _player;
+	public List<bool> Flags { get; set; } = new List<bool>();
 	
 	public World(String startingRoomName, String startingRoomDescription)
 	{
@@ -64,14 +74,14 @@ public class World
 		return itemTypeList;
 	}
 	
-	public CommandResult ExecuteCommand (CommandInput commandInput)
+	public CommandResult ExecuteCommand(String textInput)
 	{
-		return _player.ExecuteCommand(commandInput);
+		return _player.ExecuteCommand(textInput);
 	}
 	
 	public String GetRoomName()
 	{
-		return _player.GetRoomName();
+		return _player.CurrentRoom.Name;
 	}
 	
 	public ItemType GetItem(String itemName)
@@ -79,7 +89,7 @@ public class World
 		return _itemTypes[itemName];
 	}
 	
-	public ItemUse CreateUse(String[] requiredItems, String[] producedItems,
+	public UseAction CreateUse(String[] requiredItems, String[] producedItems,
 		String[] destroyedItems, ItemCreateLocation createLocation,
 		bool reqPower, String description)
 	{
@@ -102,10 +112,10 @@ public class World
 			dstItems.Add(_itemTypes[itemName]);
 		}
 		
-		ItemUse use = new ItemUse(description, reqItems, prdItems,
+		UseAction use = new UseAction(description, reqItems, prdItems,
 			dstItems, createLocation, reqPower);
 		
-		_player.AddItemUse(use);
+		_player.AddUseAction(use);
 			
 		return use;
 	}
@@ -142,6 +152,6 @@ public class World
 	
 	public List<TileCoordinate> GenerateTileCoordinates()
 	{
-		return 	_rooms[_player.GetRoomName()].GenerateTileCoordinates();
+		return  _player.CurrentRoom.GenerateTileCoordinates();
 	}
 }

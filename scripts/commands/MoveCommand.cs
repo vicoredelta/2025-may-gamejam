@@ -11,7 +11,7 @@ public class MoveCommand : CommandX
 	
 	public override CommandResult Execute(String[] words, Player player, Room currentRoom)
 	{
-		Direction direction = ParserX.GetDirection(words);
+		Direction direction = Parser.GetDirection(words);
 		
 		// Output error message if no direction was given
 		if (direction == Direction.InvalidDirection)
@@ -29,7 +29,7 @@ public class MoveCommand : CommandX
 				return new CommandResult(currentRoom.ListObstacles(direction));
 			}
 			
-			currentRoom = connectingRoom;
+			player.CurrentRoom = connectingRoom;
 			String outText = "You move " + direction.ToString().ToLower() + ".";
 			
 			if (!currentRoom.Visited)

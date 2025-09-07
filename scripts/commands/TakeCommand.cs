@@ -11,7 +11,7 @@ public class TakeCommand : CommandX
 	public override CommandResult Execute(String[] words, Player player, Room currentRoom)
 	{
 		List<ItemType> itemsFound = new List<ItemType>();
-		ParserX.AddNextItem(words, itemsFound, player.GetItemsInVicinity());
+		Parser.AddNextItem(words, itemsFound, player.GetItemsInVicinity());
 		
 		if (itemsFound.Count == 0)
 		{

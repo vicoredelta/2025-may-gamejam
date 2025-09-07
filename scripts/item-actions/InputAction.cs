@@ -2,22 +2,18 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public class InputAction
+public class InputAction : ItemAction
 {
-	String _description;
 	ItemType _requiredItem;
-	List<ItemType> _producedItems = new List<ItemType>();
-	ItemCreateLocation _itemCreateLocation;
 	String _requiredText;
 	String _wrongInputText;
-	public bool RequiresPower{ get; }
 	
 	public InputAction(String description, String requiredText, String wrongInputText, ItemType requiredItem,
 		List<ItemType> producedItems, ItemCreateLocation createLocation, bool requiresPower = false)
 	{
-		_description = description;
+		Description = description;
 		_requiredText = requiredText;
-		_itemCreateLocation = createLocation;
+		ItemCreateLocation = createLocation;
 		_requiredItem = requiredItem;
 		_wrongInputText = wrongInputText;
 		RequiresPower = requiresPower;
@@ -28,7 +24,7 @@ public class InputAction
 		get { return _requiredItem; }
 	}
 	
-	public CommandResult Activate(Player player, Room currentRoom, String inputText)
+	public override CommandResult Execute(Player player, Room currentRoom, String inputText)
 	{
 		
 		if (RequiresPower && !player._world.IsPowerOn)
@@ -51,9 +47,9 @@ public class InputAction
 		}
 		
 		// Produce new items
-		foreach (ItemType producedItem in _producedItems)
+		foreach (ItemType producedItem in ProducedItems)
 		{
-			if (_itemCreateLocation == ItemCreateLocation.Player)
+			if (ItemCreateLocation == ItemCreateLocation.Player)
 			{
 				player.Add(new Item(producedItem));
 				ItemsGainedToinventory.Add(producedItem);
@@ -74,6 +70,6 @@ public class InputAction
 			currentRoom.Take(_requiredItem);
 		}
 		
-		return new CommandResult(_description, ItemsGainedToinventory, itemLostFromInventory);
+		return new CommandResult(Description, ItemsGainedToinventory, itemLostFromInventory);
 	}
 }

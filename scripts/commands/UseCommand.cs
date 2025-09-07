@@ -11,7 +11,7 @@ public class UseCommand : CommandX
 	public override CommandResult Execute(String[] words, Player player, Room currentRoom)
 	{
 		List <ItemType> itemsFound = new List<ItemType>();
-		ParserX.AddAllItems(words, itemsFound, player.GetItemsInVicinity());
+		Parser.AddAllItems(words, itemsFound, player.GetItemsInVicinity());
 		
 		if (itemsFound.Count == 0)
 		{
@@ -19,16 +19,16 @@ public class UseCommand : CommandX
 		}
 		else
 		{
-			ItemUse foundUse = player.FindUse(itemsFound);
+			UseAction foundUse = player.FindUse(itemsFound);
 	
 			if (foundUse != null)
 			{
-				if (foundUse.RequiresPower && !world.IsPowerOn)
+				if (foundUse.RequiresPower && !World.Instance.IsPowerOn)
 				{
 					return new CommandResult("Nothing happens. Maybe it needs power?");
 				}
 				
-				return foundUse.Use(player, currentRoom);
+				return foundUse.Execute(player, currentRoom);
 			}
 			
 			return new CommandResult();

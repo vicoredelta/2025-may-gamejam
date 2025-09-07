@@ -48,7 +48,7 @@ public class Room : ItemHolder
 		
 		foreach (Direction dir in Enum.GetValues(typeof(Direction)))
 		{
-			if (_connections.ContainsKey(dir))
+			if (_connections.ContainsKey(dir) && _connections[dir].HasItem(itemType))
 			{
 				return _connections[dir].Take(itemType);
 			}

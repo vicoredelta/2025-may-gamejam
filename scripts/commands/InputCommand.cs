@@ -11,7 +11,7 @@ public class InputCommand : CommandX
 	public override CommandResult Execute(String[] words, Player player, Room currentRoom)
 	{
 		List<ItemType> itemsFound = new List<ItemType>();
-		String[] remainderText = ParserX.AddNextItem(words, itemsFound, player.GetItemsInVicinity());
+		String[] remainderText = Parser.AddNextItem(words, itemsFound, player.GetItemsInVicinity());
 		
 		if (itemsFound.Count == 0)
 		{
@@ -35,7 +35,7 @@ public class InputCommand : CommandX
 				}
 				else
 				{
-					return action.Activate(player, currentRoom, remainderText[0]);
+					return action.Execute(player, currentRoom, remainderText[0]);
 				}
 			}
 		}

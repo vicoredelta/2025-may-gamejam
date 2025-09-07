@@ -1,26 +1,23 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 public partial class Player : ItemHolder
 {
-	Room _currentRoom;
 	public World _world;
-	List<ItemUse> _uses = new List<ItemUse>(); 
+	List<UseAction> _uses = new List<UseAction>(); 
 	List<InputAction> _inputActions = new List<InputAction>();
+	
+	public Room CurrentRoom { get; set; }
 	
 	public Player(Room startingRoom, World world = null)
 	{
-		_currentRoom = startingRoom;
+		CurrentRoom = startingRoom;
 		_world = world;
 	}
 	
-	public String GetRoomName()
-	{
-		return _currentRoom.Name;
-	}
-	
-	public void AddItemUse(ItemUse itemUse)
+	public void AddUseAction(UseAction itemUse)
 	{
 		_uses.Add(itemUse);
 	}
@@ -35,13 +32,13 @@ public partial class Player : ItemHolder
 		List<ItemType> list = new List<ItemType>();
 		
 		list.AddRange(this.GetItemTypes());
-		list.AddRange(_currentRoom.GetItemTypes());
+		list.AddRange(CurrentRoom.GetItemTypes());
 		return list;
 	}
 	
-	public ItemUse FindUse(List<ItemType> itemsProvided)
+	public UseAction FindUse(List<ItemType> itemsProvided)
 	{
-		foreach (ItemUse use in _uses)
+		foreach (UseAction use in _uses)
 		{
 			bool itemsFound = true;
 			
@@ -66,5 +63,20 @@ public partial class Player : ItemHolder
 	public InputAction FindInputAction(ItemType requiredItem)
 	{
 		return _inputActions.Find(x => x.RequiredItem == requiredItem);
+	}
+	
+	public CommandResult ExecuteCommand(String inputText)
+	{
+		String[] words = inputText.ToLower().Split(' ');
+		
+		if (words.Length == 0)
+		{
+			return new CommandResult();
+		}
+		else
+		{
+			IExecutable command = Parser.GetCommand(words[0]);
+			return command.Execute(words.Skip(1).ToArray(), this, CurrentRoom);
+		}
 	}
 }

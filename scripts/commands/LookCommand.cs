@@ -11,7 +11,7 @@ public class LookCommand : CommandX
 	public override CommandResult Execute(String[] words, Player player, Room currentRoom)
 	{
 		List <ItemType> list = new List<ItemType>();
-		String[] remainderText = ParserX.AddNextItem(words, list, player.GetItemsInVicinity());
+		String[] remainderText = Parser.AddNextItem(words, list, player.GetItemsInVicinity());
 		
 		if (list.Count > 0)
 		{
