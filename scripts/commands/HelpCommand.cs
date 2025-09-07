@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public class HelpCommand : CommandX
+public class HelpCommand : Command
 {
 	// Make singleton
 	private HelpCommand() { }
@@ -10,7 +10,7 @@ public class HelpCommand : CommandX
 	
 	public override CommandResult Execute(String[] words, Player player, Room currentRoom)
 	{
-		return new CommandResult(Command.Help,
+		return new CommandResult(HelpCommand.Instance,
 			"[color=efad42]===Movement commands===[/color]" +
 			"\nThe [color=de6ba5]Move[/color] command must be followed by a direction, such as [color=7b84ff]north[/color]. " +
 			"You may also type [color=de6ba5]go[/color] or [color=7b84ff]up[/color]." +

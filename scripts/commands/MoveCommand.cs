@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-public class MoveCommand : CommandX
+public class MoveCommand : Command
 {
 	// Make singleton
 	private MoveCommand() { }

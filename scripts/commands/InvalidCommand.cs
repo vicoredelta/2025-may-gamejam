@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public class InvalidCommand : CommandX
+public class InvalidCommand : Command
 {
 	// Make singleton
 	private InvalidCommand() { }

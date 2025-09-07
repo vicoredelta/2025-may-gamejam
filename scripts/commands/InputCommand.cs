@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public class InputCommand : CommandX
+public class InputCommand : Command
 {
 	// Make singleton
 	private InputCommand() { }

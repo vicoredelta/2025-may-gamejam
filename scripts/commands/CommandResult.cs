@@ -6,7 +6,7 @@ using System.Collections.Generic;
 public struct CommandResult
 {
 	public String Text { get; } = "Nothing interesting happens.";
-	public Command Command { get; } = Command.InvalidCommand;
+	public IExecutable Command { get; } = InvalidCommand.Instance;
 	public List<ItemType> ItemsObtained { get; } = new List<ItemType>();
 	public List<ItemType> ItemsLost { get; } = new List<ItemType>();
 	public Direction Direction { get; } = Direction.InvalidDirection;
@@ -14,7 +14,7 @@ public struct CommandResult
 	
 	public CommandResult() { }
 	
-	public CommandResult(Command command, String text)
+	public CommandResult(IExecutable command, String text)
 	{
 		Command = command;
 		Text = text;
@@ -22,7 +22,7 @@ public struct CommandResult
 	
 	public CommandResult(Direction direction, String text)
 	{
-		Command = Command.Move;
+		Command = MoveCommand.Instance;
 		Direction = direction;
 		Text = text;
 	}
@@ -34,14 +34,14 @@ public struct CommandResult
 	
 	public CommandResult(String text, ItemType itemType)
 	{
-		Command = Command.Take;
+		Command = TakeCommand.Instance;
 		Text = text;
 		ItemsObtained.Add(itemType);
 	}
 	
 	public CommandResult(String text, UseAction itemUse, List<ItemType> itemsObtained, List<ItemType> itemsLost)
 	{
-		Command = Command.Use;
+		Command = UseCommand.Instance;
 		Text = text;
 		ItemsObtained.AddRange(itemsObtained);
 		ItemsLost.AddRange(itemsLost);
@@ -50,7 +50,7 @@ public struct CommandResult
 	
 	public CommandResult(String text, List<ItemType> itemsObtained, ItemType itemLost)
 	{
-		Command = Command.Input;
+		Command = InputCommand.Instance;
 		Text = text;
 		ItemsObtained.AddRange(itemsObtained);
 		if (itemLost != null) ItemsLost.Add(itemLost);

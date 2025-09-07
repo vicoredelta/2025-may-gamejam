@@ -290,7 +290,7 @@ public partial class Game : Node
 			EmitSignal(SignalName.ModifyInventory, item.Name, item.IconPath, false);
 		}
 		
-		if (result.Command == Command.Move)
+		if (result.Command == MoveCommand.Instance)
 		{
 			// Update minimap
 			var visitedStatus = World.Instance.GetVisitedStatusForAllRooms();

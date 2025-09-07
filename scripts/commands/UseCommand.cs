@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public class UseCommand : CommandX
+public class UseCommand : Command
 {
 	// Make singleton
 	private UseCommand() { }
