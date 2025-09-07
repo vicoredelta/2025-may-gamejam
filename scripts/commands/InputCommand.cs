@@ -8,10 +8,10 @@ public class InputCommand : Command
 	private InputCommand() { }
 	public static InputCommand Instance { get; private set; } = new InputCommand();
 	
-	public override CommandResult Execute(String[] words, Player player, Room currentRoom)
+	public override CommandResult Execute(String[] words)
 	{
 		List<ItemType> itemsFound = new List<ItemType>();
-		String[] remainderText = Parser.AddNextItem(words, itemsFound, player.GetItemsInVicinity());
+		String[] remainderText = Parser.AddNextItem(words, itemsFound, Player.Instance.GetItemsInVicinity());
 		
 		if (itemsFound.Count == 0)
 		{
@@ -27,7 +27,7 @@ public class InputCommand : Command
 			}
 			else
 			{
-				InputAction action = player.FindInputAction(itemFound);
+				InputAction action = Player.Instance.FindInputAction(itemFound);
 				
 				if (action == null)
 				{
@@ -35,7 +35,7 @@ public class InputCommand : Command
 				}
 				else
 				{
-					return action.Execute(player, currentRoom, remainderText[0]);
+					return action.Execute(remainderText[0]);
 				}
 			}
 		}

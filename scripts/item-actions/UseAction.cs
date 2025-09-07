@@ -16,12 +16,12 @@ public class UseAction : ItemAction
 		RequiresPower = requiresPower;
 	}
 	
-	public override CommandResult Execute(Player player, Room currentRoom, String inputText = "")
+	public override CommandResult Execute(String inputText = "")
 	{
 		// Check that required items are available
 		foreach (ItemType requiredItem in RequiredItems)
 		{
-			if (!(player.HasItem(requiredItem) || currentRoom.HasItem(requiredItem)))
+			if (!(Player.Instance.HasItem(requiredItem) || Player.Instance.CurrentRoom.HasItem(requiredItem)))
 			{
 				return new CommandResult("There is no " + requiredItem.Name.ToLower() +
 					" in vicinity.");
@@ -33,26 +33,26 @@ public class UseAction : ItemAction
 		{
 			if (ItemCreateLocation == ItemCreateLocation.Player)
 			{
-				player.Add(new Item(producedItem));
+				Player.Instance.Add(new Item(producedItem));
 				ItemsGainedToIventory.Add(producedItem);
 			}
 			else
 			{
-				currentRoom.Add(new Item(producedItem));
+				Player.Instance.CurrentRoom.Add(new Item(producedItem));
 			}
 		}
 		
 		// Destroy items
 		foreach (ItemType destroyedItem in DestroyedItems)
 		{
-			if (player.HasItem(destroyedItem))
+			if (Player.Instance.HasItem(destroyedItem))
 			{
-				player.Take(destroyedItem);
+				Player.Instance.Take(destroyedItem);
 				ItemsLostFromInventory.Add(destroyedItem);
 			}
-			else if (currentRoom.HasItem(destroyedItem))
+			else if (Player.Instance.CurrentRoom.HasItem(destroyedItem))
 			{
-				currentRoom.Take(destroyedItem);
+				Player.Instance.CurrentRoom.Take(destroyedItem);
 			}
 		}
 		

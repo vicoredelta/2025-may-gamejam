@@ -8,10 +8,10 @@ public class UseCommand : Command
 	private UseCommand() { }
 	public static UseCommand Instance { get; private set; } = new UseCommand();
 	
-	public override CommandResult Execute(String[] words, Player player, Room currentRoom)
+	public override CommandResult Execute(String[] words)
 	{
 		List <ItemType> itemsFound = new List<ItemType>();
-		Parser.AddAllItems(words, itemsFound, player.GetItemsInVicinity());
+		Parser.AddAllItems(words, itemsFound, Player.Instance.GetItemsInVicinity());
 		
 		if (itemsFound.Count == 0)
 		{
@@ -19,7 +19,7 @@ public class UseCommand : Command
 		}
 		else
 		{
-			UseAction foundUse = player.FindUse(itemsFound);
+			UseAction foundUse = Player.Instance.FindUse(itemsFound);
 	
 			if (foundUse != null)
 			{
@@ -28,7 +28,7 @@ public class UseCommand : Command
 					return new CommandResult("Nothing happens. Maybe it needs power?");
 				}
 				
-				return foundUse.Execute(player, currentRoom);
+				return foundUse.Execute();
 			}
 			
 			return new CommandResult();

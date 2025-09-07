@@ -24,10 +24,10 @@ public class InputAction : ItemAction
 		get { return _requiredItem; }
 	}
 	
-	public override CommandResult Execute(Player player, Room currentRoom, String inputText)
+	public override CommandResult Execute(String inputText)
 	{
 		
-		if (RequiresPower && !player._world.IsPowerOn)
+		if (RequiresPower && !World.Instance.IsPowerOn)
 		{
 			return new CommandResult("Nothing happens. It seems there's no power.");
 		}
@@ -35,7 +35,7 @@ public class InputAction : ItemAction
 		List<ItemType> ItemsGainedToinventory = new List<ItemType>();
 		
 		// Check that required item is available
-		if (!player.HasItem(_requiredItem) && !currentRoom.HasItem(_requiredItem))
+		if (!Player.Instance.HasItem(_requiredItem) && !Player.Instance.CurrentRoom.HasItem(_requiredItem))
 		{
 			return new CommandResult("There is no " + _requiredItem.Name.ToLower() + " in vicinity.");
 		}
@@ -51,23 +51,23 @@ public class InputAction : ItemAction
 		{
 			if (ItemCreateLocation == ItemCreateLocation.Player)
 			{
-				player.Add(new Item(producedItem));
+				Player.Instance.Add(new Item(producedItem));
 				ItemsGainedToinventory.Add(producedItem);
 			}
 			else
 			{
-				currentRoom.Add(new Item(producedItem));
+				Player.Instance.CurrentRoom.Add(new Item(producedItem));
 			}
 		}
 		
 		// Destroy item
-		if (player.HasItem(_requiredItem))
+		if (Player.Instance.HasItem(_requiredItem))
 		{
-			itemLostFromInventory = player.Take(_requiredItem).Type;
+			itemLostFromInventory = Player.Instance.Take(_requiredItem).Type;
 		}
-		else if (currentRoom.HasItem(_requiredItem))
+		else if (Player.Instance.CurrentRoom.HasItem(_requiredItem))
 		{
-			currentRoom.Take(_requiredItem);
+			Player.Instance.CurrentRoom.Take(_requiredItem);
 		}
 		
 		return new CommandResult(Description, ItemsGainedToinventory, itemLostFromInventory);

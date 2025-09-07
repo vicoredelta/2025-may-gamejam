@@ -5,17 +5,14 @@ using System.Linq;
 
 public partial class Player : ItemHolder
 {
-	public World _world;
+	// Make singleton
+	private Player() { }
+	public static Player Instance { get; } = new Player();
+	
 	List<UseAction> _uses = new List<UseAction>(); 
 	List<InputAction> _inputActions = new List<InputAction>();
 	
 	public Room CurrentRoom { get; set; }
-	
-	public Player(Room startingRoom, World world = null)
-	{
-		CurrentRoom = startingRoom;
-		_world = world;
-	}
 	
 	public void AddUseAction(UseAction itemUse)
 	{
@@ -76,7 +73,7 @@ public partial class Player : ItemHolder
 		else
 		{
 			IExecutable command = Parser.GetCommand(words[0]);
-			return command.Execute(words.Skip(1).ToArray(), this, CurrentRoom);
+			return command.Execute(words.Skip(1).ToArray());
 		}
 	}
 }

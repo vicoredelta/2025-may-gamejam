@@ -9,7 +9,7 @@ public class MoveCommand : Command
 	private MoveCommand() { }
 	public static MoveCommand Instance { get; private set; } = new MoveCommand();
 	
-	public override CommandResult Execute(String[] words, Player player, Room currentRoom)
+	public override CommandResult Execute(String[] words)
 	{
 		Direction direction = Parser.GetDirection(words);
 		
@@ -19,24 +19,25 @@ public class MoveCommand : Command
 			return new CommandResult("You must specify a [color=7b84ff]direction[/color].");
 		}
 		
-		Room connectingRoom = currentRoom.GetConnectingRoom(direction);
+		Room connectingRoom = Player.Instance.CurrentRoom.GetConnectingRoom(direction);
 		
 		if (connectingRoom != null)
 		{
-			if (currentRoom.ObstaclesExist(direction))
+			if (Player.Instance.CurrentRoom.ObstaclesExist(direction))
 			{
 				// Output list of obstacles if there are any blocking the way
-				return new CommandResult(currentRoom.ListObstacles(direction));
+				return new CommandResult(Player.Instance.CurrentRoom.ListObstacles(direction));
 			}
 			
-			player.CurrentRoom = connectingRoom;
 			String outText = "You move " + direction.ToString().ToLower() + ".";
 			
-			if (!currentRoom.Visited)
+			if (!connectingRoom.Visited)
 			{
-				outText += " " + currentRoom.FirstTimeDescription;
-				currentRoom.Visited = true;
+				outText += " " + Player.Instance.CurrentRoom.FirstTimeDescription;
 			}
+			connectingRoom.Visited = true;
+			
+			Player.Instance.CurrentRoom = connectingRoom;
 			
 			return new CommandResult(direction, outText);
 		}

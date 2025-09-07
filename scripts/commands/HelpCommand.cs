@@ -8,7 +8,7 @@ public class HelpCommand : Command
 	private HelpCommand() { }
 	public static HelpCommand Instance { get; private set; } = new HelpCommand();
 	
-	public override CommandResult Execute(String[] words, Player player, Room currentRoom)
+	public override CommandResult Execute(String[] words)
 	{
 		return new CommandResult(HelpCommand.Instance,
 			"[color=efad42]===Movement commands===[/color]" +

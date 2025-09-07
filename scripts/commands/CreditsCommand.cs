@@ -8,7 +8,7 @@ public class CreditsCommand : Command
 	private CreditsCommand() { }
 	public static CreditsCommand Instance { get; private set; } = new CreditsCommand();
 	
-	public override CommandResult Execute(String[] words, Player player, Room currentRoom)
+	public override CommandResult Execute(String[] words)
 	{
 		return new CommandResult(CreditsCommand.Instance,
 			"[color=efad42]Raid on the Sarcophagus Engine[/color]" + "\n [color=7b84ff]Programming:[/color] Emil Åberg & Gillis Gröndahl" +

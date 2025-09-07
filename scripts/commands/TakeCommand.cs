@@ -8,10 +8,10 @@ public class TakeCommand : Command
 	private TakeCommand() { }
 	public static TakeCommand Instance { get; private set; } = new TakeCommand();
 	
-	public override CommandResult Execute(String[] words, Player player, Room currentRoom)
+	public override CommandResult Execute(String[] words)
 	{
 		List<ItemType> itemsFound = new List<ItemType>();
-		Parser.AddNextItem(words, itemsFound, player.GetItemsInVicinity());
+		Parser.AddNextItem(words, itemsFound, Player.Instance.GetItemsInVicinity());
 		
 		if (itemsFound.Count == 0)
 		{
@@ -27,7 +27,7 @@ public class TakeCommand : Command
 			}
 			else
 			{
-				currentRoom.Take(itemFound);
+				Player.Instance.CurrentRoom.Take(itemFound);
 				return new CommandResult("You pick up the " + itemFound.Name.ToLower() + ".", itemFound);
 			}
 		}

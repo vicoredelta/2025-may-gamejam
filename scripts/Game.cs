@@ -29,6 +29,14 @@ public partial class Game : Node
 		// Room and item names must be unique!
 		
 		// Create rooms (name, descripion, first time description [optional]), starting room is created in World.cs
+		World.Instance.CreateRoom("Breached Entrance",
+		"The scant beams of sunlight piercing through the broken hull and " +
+		"gives life to the coffin-like silence. Had the ship crashed " +
+		"elsewhere it might've been taken back by nature, but as it stands, " +
+		"what remains of the craft is somehow even more silent than the wasteland " +
+		"surrounding it. A mechanical cave, devoid of life."
+		);
+		
 		World.Instance.CreateRoom("Cramped Hallway",
 		"A straight path with only two doors. There wouldn't be any need for empty halls in this type of spacecraft. " +
 		"What could it have been used for? " + 
@@ -81,6 +89,9 @@ public partial class Game : Node
 		"There is only one door, to the [color=7b84ff]north[/color].",
 		"You walk into a [color=efad42]small alcove[/color]. There's a stove and a number of broken kitchenware scattered around the room."
 		);
+		
+		// Set starting room
+		World.Instance.SetCurrentRoom("Breached Entrance");
 		
 		// Define connections between rooms (room 1, room 2, direction when moving from room 1 to room 2)
 		World.Instance.ConnectRooms("Breached Entrance", "Cramped Hallway", Direction.North);
@@ -252,7 +263,7 @@ public partial class Game : Node
 		{
 			godotDict[kvp.Key] = kvp.Value;
 		}
-		EmitSignal(SignalName.MapMove, World.Instance.GetRoomName(), godotDict);
+		EmitSignal(SignalName.MapMove, World.Instance.GetCurrentRoomName(), godotDict);
 	}
 	
 	private void OutputText(String text)
@@ -275,7 +286,7 @@ public partial class Game : Node
 		OutputText(">" + textInput + "\n");
 		
 		// Execute command
-		CommandResult result = World.Instance.ExecuteCommand(textInput.ToLower());
+		CommandResult result = Player.Instance.ExecuteCommand(textInput.ToLower());
 		
 		// Output text
 		OutputText(result.Text + "\n");
@@ -300,7 +311,7 @@ public partial class Game : Node
 			{
 				godotDict[kvp.Key] = kvp.Value;
 			}
-			EmitSignal(SignalName.MapMove, World.Instance.GetRoomName(), godotDict);
+			EmitSignal(SignalName.MapMove, World.Instance.GetCurrentRoomName(), godotDict);
 			
 			// Play walking sound
 			AudioManager.Instance.PlaySFX("walk");

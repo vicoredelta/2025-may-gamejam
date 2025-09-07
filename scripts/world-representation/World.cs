@@ -7,32 +7,24 @@ public class World
 {
 	// Make singleton, starting room is created here
 	private World() { }
-	public static World Instance { get; private set; } = new  World("Breached Entrance",
-		"The scant beams of sunlight piercing through the broken hull and " +
-		"gives life to the coffin-like silence. Had the ship crashed " +
-		"elsewhere it might've been taken back by nature, but as it stands, " +
-		"what remains of the craft is somehow even more silent than the wasteland " +
-		"surrounding it. A mechanical cave, devoid of life.");
+	public static World Instance { get; private set; } = new  World();
 	
 	Dictionary<String, Room> _rooms = new Dictionary<String, Room>();
 	Dictionary<String, ItemType> _itemTypes = new Dictionary<String, ItemType>();
 	public bool IsPowerOn { get; set; } = false;
-	Player _player;
 	public List<bool> Flags { get; set; } = new List<bool>();
-	
-	public World(String startingRoomName, String startingRoomDescription)
-	{
-		Room startingRoom = new Room(startingRoomName, startingRoomDescription, "");
-		startingRoom.Visited = true;
-		_rooms.Add(startingRoomName, startingRoom);
-		_player = new Player(startingRoom, this);
-	}
 	
 	public Room CreateRoom(String name, String description, String firstTimeDescription = "")
 	{
 		Room room = new Room(name, description, firstTimeDescription);
 		_rooms.Add(name, room);
 		return room;
+	}
+	
+	public void SetCurrentRoom(String roomName)
+	{
+		Player.Instance.CurrentRoom = _rooms[roomName];
+		Player.Instance.CurrentRoom.Visited = true;
 	}
 	
 	public void ConnectRooms(String room1Name, String room2Name, Direction direction)
@@ -59,7 +51,7 @@ public class World
 	
 	public void AddItemToPlayer(String itemName)
 	{
-		_player.Add(new Item(_itemTypes[itemName]));
+		Player.Instance.Add(new Item(_itemTypes[itemName]));
 	}
 	
 	public void AddItemAsObstacle(String itemName, String room, Direction direction)
@@ -74,14 +66,9 @@ public class World
 		return itemTypeList;
 	}
 	
-	public CommandResult ExecuteCommand(String textInput)
+	public String GetCurrentRoomName()
 	{
-		return _player.ExecuteCommand(textInput);
-	}
-	
-	public String GetRoomName()
-	{
-		return _player.CurrentRoom.Name;
+		return Player.Instance.CurrentRoom.Name;
 	}
 	
 	public ItemType GetItem(String itemName)
@@ -115,7 +102,7 @@ public class World
 		UseAction use = new UseAction(description, reqItems, prdItems,
 			dstItems, createLocation, reqPower);
 		
-		_player.AddUseAction(use);
+		Player.Instance.AddUseAction(use);
 			
 		return use;
 	}
@@ -131,7 +118,7 @@ public class World
 			prdItems.Add(_itemTypes[itemName]);
 		}
 		
-		_player.AddInputAction(new InputAction(description, requiredText, wrongInputText,
+		Player.Instance.AddInputAction(new InputAction(description, requiredText, wrongInputText,
 			_itemTypes[requiredItem], prdItems, createLocation, reqPower));
 	}
 	
@@ -152,6 +139,6 @@ public class World
 	
 	public List<TileCoordinate> GenerateTileCoordinates()
 	{
-		return  _player.CurrentRoom.GenerateTileCoordinates();
+		return  Player.Instance.CurrentRoom.GenerateTileCoordinates();
 	}
 }

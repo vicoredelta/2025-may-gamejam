@@ -8,10 +8,10 @@ public class LookCommand : Command
 	private LookCommand() { }
 	public static LookCommand Instance { get; private set; } = new LookCommand();
 	
-	public override CommandResult Execute(String[] words, Player player, Room currentRoom)
+	public override CommandResult Execute(String[] words)
 	{
 		List <ItemType> list = new List<ItemType>();
-		String[] remainderText = Parser.AddNextItem(words, list, player.GetItemsInVicinity());
+		String[] remainderText = Parser.AddNextItem(words, list, Player.Instance.GetItemsInVicinity());
 		
 		if (list.Count > 0)
 		{
@@ -27,7 +27,7 @@ public class LookCommand : Command
 		else
 		{
 			// Output description of room otherwise
-			return new CommandResult(this, currentRoom.GetRoomAndItemDescription());
+			return new CommandResult(this, Player.Instance.CurrentRoom.GetRoomAndItemDescription());
 		}
 	}
 }

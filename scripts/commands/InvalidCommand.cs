@@ -8,7 +8,7 @@ public class InvalidCommand : Command
 	private InvalidCommand() { }
 	public static InvalidCommand Instance { get; private set; } = new InvalidCommand();
 	
-	public override CommandResult Execute(String[] words, Player player, Room currentRoom)
+	public override CommandResult Execute(String[] words)
 	{
 		return new CommandResult();
 	}
