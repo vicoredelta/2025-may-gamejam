@@ -35,10 +35,9 @@ public class MoveCommand : Command
 			{
 				outText += " " + Player.Instance.CurrentRoom.FirstTimeDescription;
 			}
+			
 			connectingRoom.Visited = true;
-			
 			Player.Instance.CurrentRoom = connectingRoom;
-			
 			return new CommandResult(direction, outText);
 		}
 		else
