@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 public class InputCommand : Command
 {
@@ -10,12 +11,15 @@ public class InputCommand : Command
 	
 	public override CommandResult Execute(String[] words)
 	{
+		// Skip first word
+		words = words.Skip(1).ToArray();
+		
 		List<ItemType> itemsFound = new List<ItemType>();
 		String[] remainderText = Parser.AddNextItem(words, itemsFound, Player.Instance.GetItemsInVicinity());
 		
 		if (itemsFound.Count == 0)
 		{
-			return new CommandResult("You must specify an [color=7b84ff]item[/color] in vicinity.");
+			return new CommandResult(this, "You must specify an [color=7b84ff]item[/color] in vicinity.");
 		}
 		else
 		{
@@ -23,7 +27,7 @@ public class InputCommand : Command
 			
 			if (remainderText.Length == 0)
 			{
-				return new CommandResult("You need write some [color=de6ba5]input[/color] for " + itemFound.Name + ".");
+				return new CommandResult(this, "You need write some [color=de6ba5]input[/color] for " + itemFound.Name + ".");
 			}
 			else
 			{

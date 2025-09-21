@@ -29,7 +29,7 @@ public class InputAction : ItemAction
 		
 		if (RequiresPower && !World.Instance.IsPowerOn)
 		{
-			return new CommandResult("Nothing happens. It seems there's no power.");
+			return new CommandResult(InputCommand.Instance, "Nothing happens. It seems there's no power.");
 		}
 		ItemType itemLostFromInventory = null;
 		List<ItemType> ItemsGainedToinventory = new List<ItemType>();
@@ -37,13 +37,13 @@ public class InputAction : ItemAction
 		// Check that required item is available
 		if (!Player.Instance.HasItem(_requiredItem) && !Player.Instance.CurrentRoom.HasItem(_requiredItem))
 		{
-			return new CommandResult("There is no " + _requiredItem.Name.ToLower() + " in vicinity.");
+			return new CommandResult(InputCommand.Instance, "There is no " + _requiredItem.Name.ToLower() + " in vicinity.");
 		}
 		
 		// Check if input text matches
 		if (inputText.ToLower() != _requiredText.ToLower())
 		{
-			return new CommandResult(_wrongInputText);
+			return new CommandResult(InputCommand.Instance, _wrongInputText);
 		}
 		
 		// Produce new items

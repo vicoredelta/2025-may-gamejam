@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 public class TakeCommand : Command
 {
@@ -10,12 +11,15 @@ public class TakeCommand : Command
 	
 	public override CommandResult Execute(String[] words)
 	{
+		// Skip first word
+		words = words.Skip(1).ToArray();
+		
 		List<ItemType> itemsFound = new List<ItemType>();
 		Parser.AddNextItem(words, itemsFound, Player.Instance.GetItemsInVicinity());
 		
 		if (itemsFound.Count == 0)
 		{
-			return new CommandResult("You must specify an [color=7b84ff]item[/color] in the room.");
+			return new CommandResult(this, "You must specify an [color=7b84ff]item[/color] in the room.");
 		}
 		else
 		{
@@ -23,7 +27,7 @@ public class TakeCommand : Command
 			
 			if (!itemFound.CanBePickedUp)
 			{
-				return new CommandResult("You can not pick up the " + itemFound.Name.ToLower() + ".");
+				return new CommandResult(this, "You can not pick up the " + itemFound.Name.ToLower() + ".");
 			}
 			else
 			{

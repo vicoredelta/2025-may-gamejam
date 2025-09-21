@@ -6,11 +6,12 @@ using System.Collections.Generic;
 public struct CommandResult
 {
 	public String Text { get; } = "Nothing interesting happens.";
-	public IExecutable Command { get; } = InvalidCommand.Instance;
+	public IExecutable Command { get; } = InvalidCommand.Instance;		// Indicates which command was attempted
 	public List<ItemType> ItemsObtained { get; } = new List<ItemType>();
 	public List<ItemType> ItemsLost { get; } = new List<ItemType>();
-	public Direction Direction { get; } = Direction.InvalidDirection;
+	public Direction Direction { get; } = Direction.InvalidDirection;	// Indicates direction in case of a 'move' command
 	public UseAction UseAction { get; } = null;
+	public bool Success { get; } = false;								// Indicates wheter the attempted command was sucessfull
 	
 	public CommandResult() { }
 	
@@ -25,11 +26,11 @@ public struct CommandResult
 		Command = MoveCommand.Instance;
 		Direction = direction;
 		Text = text;
-	}
-	
-	public CommandResult(String text)
-	{
-		Text = text;
+		
+		if (direction != Direction.InvalidDirection)
+		{
+			Success = true;
+		}
 	}
 	
 	public CommandResult(String text, ItemType itemType)
@@ -37,6 +38,7 @@ public struct CommandResult
 		Command = TakeCommand.Instance;
 		Text = text;
 		ItemsObtained.Add(itemType);
+		Success = true;
 	}
 	
 	public CommandResult(String text, UseAction itemUse, List<ItemType> itemsObtained, List<ItemType> itemsLost)
@@ -46,6 +48,7 @@ public struct CommandResult
 		ItemsObtained.AddRange(itemsObtained);
 		ItemsLost.AddRange(itemsLost);
 		UseAction = itemUse;
+		Success = true;
 	}
 	
 	public CommandResult(String text, List<ItemType> itemsObtained, ItemType itemLost)
@@ -54,5 +57,6 @@ public struct CommandResult
 		Text = text;
 		ItemsObtained.AddRange(itemsObtained);
 		if (itemLost != null) ItemsLost.Add(itemLost);
+		Success = true;
 	}
 }

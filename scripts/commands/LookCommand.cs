@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 public class LookCommand : Command
 {	
@@ -10,6 +11,9 @@ public class LookCommand : Command
 	
 	public override CommandResult Execute(String[] words)
 	{
+		// Skip first word
+		words = words.Skip(1).ToArray();
+		
 		List <ItemType> list = new List<ItemType>();
 		String[] remainderText = Parser.AddNextItem(words, list, Player.Instance.GetItemsInVicinity());
 		

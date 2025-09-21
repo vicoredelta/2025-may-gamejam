@@ -23,7 +23,7 @@ public class UseAction : ItemAction
 		{
 			if (!(Player.Instance.HasItem(requiredItem) || Player.Instance.CurrentRoom.HasItem(requiredItem)))
 			{
-				return new CommandResult("There is no " + requiredItem.Name.ToLower() +
+				return new CommandResult(UseCommand.Instance, "There is no " + requiredItem.Name.ToLower() +
 					" in vicinity.");
 			}
 		}

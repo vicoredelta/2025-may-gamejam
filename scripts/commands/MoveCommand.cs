@@ -11,12 +11,15 @@ public class MoveCommand : Command
 	
 	public override CommandResult Execute(String[] words)
 	{
+		// Skip first word
+		words = words.Skip(1).ToArray();
+		
 		Direction direction = Parser.GetDirection(words);
 		
 		// Output error message if no direction was given
 		if (direction == Direction.InvalidDirection)
 		{
-			return new CommandResult("You must specify a [color=7b84ff]direction[/color].");
+			return new CommandResult(this, "You must specify a [color=7b84ff]direction[/color].");
 		}
 		
 		Room connectingRoom = Player.Instance.CurrentRoom.GetConnectingRoom(direction);
@@ -26,7 +29,7 @@ public class MoveCommand : Command
 			if (Player.Instance.CurrentRoom.ObstaclesExist(direction))
 			{
 				// Output list of obstacles if there are any blocking the way
-				return new CommandResult(Player.Instance.CurrentRoom.ListObstacles(direction));
+				return new CommandResult(this, Player.Instance.CurrentRoom.ListObstacles(direction));
 			}
 			
 			String outText = "You move " + direction.ToString().ToLower() + ".";
@@ -43,7 +46,7 @@ public class MoveCommand : Command
 		else
 		{
 			// Output message if there was no room in the specifed direction
-			return new CommandResult("There is nowhere to go " + direction.ToString().ToLower() + ".");
+			return new CommandResult(this, "There is nowhere to go " + direction.ToString().ToLower() + ".");
 		}
 	}
 }

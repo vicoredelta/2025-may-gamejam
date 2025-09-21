@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 public class UseCommand : Command
 {
@@ -10,12 +11,15 @@ public class UseCommand : Command
 	
 	public override CommandResult Execute(String[] words)
 	{
+		// Skip first word
+		words = words.Skip(1).ToArray();
+		
 		List <ItemType> itemsFound = new List<ItemType>();
 		Parser.AddAllItems(words, itemsFound, Player.Instance.GetItemsInVicinity());
 		
 		if (itemsFound.Count == 0)
 		{
-			return new CommandResult("You must specify one, or several, [color=7b84ff]items[/color].");
+			return new CommandResult(this, "You must specify one or several [color=7b84ff]items[/color].");
 		}
 		else
 		{
@@ -25,7 +29,7 @@ public class UseCommand : Command
 			{
 				if (foundUse.RequiresPower && !World.Instance.IsPowerOn)
 				{
-					return new CommandResult("Nothing happens. Maybe it needs power?");
+					return new CommandResult(this, "Nothing happens. Maybe it needs power?");
 				}
 				
 				return foundUse.Execute();

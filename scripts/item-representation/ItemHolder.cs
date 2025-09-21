@@ -55,7 +55,7 @@ public abstract class ItemHolder
 		
 		if (filteredList.Count != 0)
 		{
-			output += "\nThere is ";
+			output += "There is ";
 			
 			if (filteredList.Count > 1)
 			{

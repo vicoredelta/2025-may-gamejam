@@ -10,6 +10,7 @@ public partial class Game : Node
 	UseAction openDoor;
 	UseAction openStorageBox;
 	UseAction removeRubble;
+	int invalidCommandCount = 0;
 	
 	[Signal]
 	public delegate void TextOutputEventHandler();
@@ -307,13 +308,13 @@ public partial class Game : Node
 			EmitSignal(SignalName.ModifyInventory, item.Name, item.IconPath, false);
 		}
 		
-		if (result.Command == MoveCommand.Instance)
+		if (result.Command == MoveCommand.Instance && result.Success == true)
 		{
 			// Update minimap
 			var visitedStatus = World.Instance.GetVisitedStatusForAllRooms();
 			var godotDict = new Godot.Collections.Dictionary<string, bool>();
 
-				foreach (var kvp in visitedStatus)
+			foreach (var kvp in visitedStatus)
 			{
 				godotDict[kvp.Key] = kvp.Value;
 			}
@@ -321,6 +322,16 @@ public partial class Game : Node
 			
 			// Play walking sound
 			AudioManager.Instance.PlaySFX("walk");
+		}
+		
+		// Output hint when player enters three consecutive invalid commands
+		if (result.Command != InvalidCommand.Instance)
+		{
+			invalidCommandCount = 0;
+		}
+		else if (++invalidCommandCount > 2)
+		{
+			OutputText("Type 'help' for a description of available commands.\n");
 		}
 		
 		// Use specific happenings

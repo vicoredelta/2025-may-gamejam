@@ -73,7 +73,7 @@ public partial class Player : ItemHolder
 		else
 		{
 			IExecutable command = Parser.GetCommand(words[0]);
-			return command.Execute(words.Skip(1).ToArray());
+			return command.Execute(words);
 		}
 	}
 }

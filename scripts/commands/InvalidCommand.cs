@@ -10,6 +10,13 @@ public class InvalidCommand : Command
 	
 	public override CommandResult Execute(String[] words)
 	{
-		return new CommandResult();
+		if (words.Length > 0)
+		{
+			return new CommandResult(InvalidCommand.Instance, "'" + words[0] + "' is not a valid command.");
+		}
+		else
+		{
+			return new CommandResult();
+		}
 	}
 }
