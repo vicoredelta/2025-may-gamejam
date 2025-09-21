@@ -25,7 +25,7 @@ public class LookCommand : Command
 		else if (words.Length > 0)
 		{
 			// Output error message if command was followed by text that does not include an item
-			return new CommandResult(this, "'" + words[0] + "' does not specify an " +
+			return new CommandResult(this, "'" + String.Join(" ", words) + "' does not specify an " +
 				"item in vicinity.");
 		}
 		else
