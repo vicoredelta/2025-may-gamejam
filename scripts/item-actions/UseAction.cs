@@ -6,7 +6,7 @@ public class UseAction : ItemAction
 {	
 	public UseAction(String description, List<ItemType> requiredItems,
 		List<ItemType> producedItems, List<ItemType> destroyedItems,
-		ItemCreateLocation createLocation, bool requiresPower = false)
+		ItemCreateLocation createLocation, bool requiresPower, bool requiresCell)
 	{
 		Description = description;
 		ItemCreateLocation = createLocation;
@@ -14,6 +14,7 @@ public class UseAction : ItemAction
 		ProducedItems.AddRange(producedItems);
 		DestroyedItems.AddRange(destroyedItems);
 		RequiresPower = requiresPower;
+		RequiresCell = requiresCell;
 	}
 	
 	public override CommandResult Execute(String inputText = "")

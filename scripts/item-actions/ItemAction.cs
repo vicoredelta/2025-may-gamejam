@@ -13,6 +13,7 @@ public abstract class ItemAction
 	
 	public List<ItemType> RequiredItems { get; } = new List<ItemType>();
 	public bool RequiresPower{ get; protected set; }
+	public bool RequiresCell{ get; protected set; }
 	
 	public abstract CommandResult Execute(String inputText);
 }

@@ -12,6 +12,8 @@ public class World
 	Dictionary<String, Room> _rooms = new Dictionary<String, Room>();
 	Dictionary<String, ItemType> _itemTypes = new Dictionary<String, ItemType>();
 	public bool IsPowerOn { get; set; } = false;
+	public bool CellIsPlaced { get; set; } = false;
+	public int GeneratorPowerLevel { get; set; } = 0;
 	
 	public Room CreateRoom(String name, String description, String firstTimeDescription = "")
 	{
@@ -67,7 +69,7 @@ public class World
 	
 	public UseAction CreateUse(String[] requiredItems, String[] producedItems,
 		String[] destroyedItems, ItemCreateLocation createLocation,
-		bool reqPower, String description)
+		String description, bool requiresPower = false, bool requiresCell = false)
 	{
 		List<ItemType> reqItems = new List<ItemType>();
 		List<ItemType> prdItems = new List<ItemType>();
@@ -89,7 +91,7 @@ public class World
 		}
 		
 		UseAction use = new UseAction(description, reqItems, prdItems,
-			dstItems, createLocation, reqPower);
+			dstItems, createLocation, requiresPower, requiresCell);
 		
 		Player.Instance.AddUseAction(use);
 			
@@ -97,8 +99,8 @@ public class World
 	}
 	
 	public void CreateInputAction(String requiredItem, List<String> producedItems,
-		ItemCreateLocation createLocation, bool reqPower, String description, String wrongInputText,
-		String requiredText)
+		ItemCreateLocation createLocation, String description, String wrongInputText,
+		String requiredText, bool requiresPower = false, bool requiresCell = false)
 	{
 		List<ItemType> prdItems = new List<ItemType>();
 		
@@ -108,7 +110,7 @@ public class World
 		}
 		
 		Player.Instance.AddInputAction(new InputAction(description, requiredText, wrongInputText,
-			_itemTypes[requiredItem], prdItems, createLocation, reqPower));
+			_itemTypes[requiredItem], prdItems, createLocation, requiresPower, requiresCell));
 	}
 	
 	public Dictionary<string, bool> GetVisitedStatusForAllRooms()
