@@ -204,11 +204,11 @@ public partial class Game : Node
 		"A storage box, with a simple [color=7b84ff]electronic lock[/color]. " +
 		"The box is made of some heat resistant, lightweight metal. We still haven't been able to replicate anything like it.",
 		false);
-		redTablets = World.Instance.CreateItemType("Red Tablets", [],
+		redTablets = World.Instance.CreateItemType("Red Tablets", ["Red", "Red Tablet"],
 		"A handful of red stone tablets. They carry an uncomfortably high current.", true);
-		blueTablets = World.Instance.CreateItemType("Blue Tablets", [],
+		blueTablets = World.Instance.CreateItemType("Blue Tablets", ["Blue", "Blue Tablet"],
 		"A handful of blue stone tablets. They carry a medium current, mildly irritating to the touch.", true);
-		greenTablets = World.Instance.CreateItemType("Green Tablets", [], 
+		greenTablets = World.Instance.CreateItemType("Green Tablets", ["Green", "Green Tablet"], 
 		"A handful of blue stone tablets. They carry a medium current, mildly irritating to the touch.", true);
 		
 		// Define uses (required items, produced items, destroyed items, create location, description, requires power on [optional], requires power cell [optional])
@@ -224,8 +224,8 @@ public partial class Game : Node
 		
 		openStorageBox = World.Instance.CreateUse(
 			["Wracker", "Storage"], ["Red Tablets", "Blue Tablets", "Green Tablets"], ["Storage"], ItemCreateLocation.Room,
-			"With a click and a chime the lock is undone and the box lid opens to reveal a large assortment of coloured [color=38a868]tablets[/color]. " + 
-			"The box contains red, green, and blue tablets."
+			"With a click and a chime the lock is undone and the box lid opens to reveal a large assortment of coloured tablets. " + 
+			"The box contains [color=38a868]red[/color], [color=38a868]green[/color], and [color=38a868]blue tablets[/color]."
 		);
 		
 		useRedTablets = World.Instance.CreateUse(
