@@ -12,7 +12,7 @@ config_version=5
 
 config/name="Raid on the Sarcophagus Engine"
 config/description="A game by Chen Space Program!"
-config/version="1.1.4"
+config/version="1.2.0"
 run/main_scene="uid://dmjkevj2v08uh"
 config/features=PackedStringArray("4.4", "C#", "Forward Plus")
 boot_splash/show_image=false
