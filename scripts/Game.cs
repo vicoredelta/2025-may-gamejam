@@ -204,7 +204,6 @@ public partial class Game : Node
 		World.Instance.CreateItemType("Red Cable", [], "It's a red cable.", true);
 		World.Instance.CreateItemType("Blue Cable", [], "It's a blue cable.", true);
 		World.Instance.CreateItemType("Green Cable", [], "It's a green cable.", true);
-		World.Instance.CreateItemType("Purple Cable", [], "It's a purple cable.", true);
 		
 		// Define uses (required items, produced items, destroyed items, create location, description, requires power on [optional], requires power cell [optional])
 		removeRubble = World.Instance.CreateUse(
@@ -218,9 +217,9 @@ public partial class Game : Node
 		);
 		
 		openStorageBox = World.Instance.CreateUse(
-			["Wracker", "Storage"], ["Red Cable", "Blue Cable", "Green Cable", "Purple Cable"], ["Storage"], ItemCreateLocation.Room,
+			["Wracker", "Storage"], ["Red Cable", "Blue Cable", "Green Cable"], ["Storage"], ItemCreateLocation.Room,
 			"With a click and a chime the lock is undone and the box lid opens to reveal a large assortment of coloured [color=38a868]cables[/color]. " + 
-			"The box contains green, purple, red, and blue cables."
+			"The box contains green, red, and blue cables."
 		);
 		
 		useRedCable = World.Instance.CreateUse(
