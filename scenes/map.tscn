@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://b4o68g4jvup3j"]
+[gd_scene load_steps=7 format=3 uid="uid://b4o68g4jvup3j"]
 
 [ext_resource type="Script" uid="uid://ci1jy75un2vyy" path="res://scripts/world-representation/Map.cs" id="2_0cso3"]
 [ext_resource type="Texture2D" uid="uid://d2itebp8dcjyj" path="res://assets/tileset_frame_0.png" id="2_2klcf"]
 [ext_resource type="PackedScene" uid="uid://beedews6es7ag" path="res://scenes/player_map_marker.tscn" id="3_gldc4"]
 [ext_resource type="FontFile" uid="uid://bp277mpbyjl8y" path="res://assets/fonts/Jersey25-Regular.ttf" id="5_2klcf"]
+[ext_resource type="Texture2D" uid="uid://ddx2237iivehy" path="res://assets/red_knob.png" id="5_2lpho"]
+[ext_resource type="Texture2D" uid="uid://iamaoosfwibd" path="res://assets/green_knob.png" id="6_2lpho"]
 
 [node name="Map" type="Node2D"]
 editor_description = "Root node in the map scene.
@@ -72,3 +74,49 @@ theme_override_font_sizes/normal_font_size = 28
 text = "Breached Entrance"
 horizontal_alignment = 1
 metadata/_edit_use_anchors_ = true
+
+[node name="NorthArrowRed" type="Sprite2D" parent="."]
+position = Vector2(1.0842e-19, -37)
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("5_2lpho")
+
+[node name="SouthArrowRed" type="Sprite2D" parent="."]
+position = Vector2(3.8147e-06, 34)
+rotation = 3.14159
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("5_2lpho")
+
+[node name="EastArrowRed" type="Sprite2D" parent="."]
+position = Vector2(38, -3.8147e-06)
+rotation = 1.5708
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("5_2lpho")
+
+[node name="WestArrowRed" type="Sprite2D" parent="."]
+position = Vector2(-37, -3.8147e-06)
+rotation = 4.71239
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("5_2lpho")
+
+[node name="SouthArrowGreen" type="Sprite2D" parent="."]
+position = Vector2(3.8147e-06, 34)
+rotation = 3.14159
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("6_2lpho")
+
+[node name="NorthArrowGreen" type="Sprite2D" parent="."]
+position = Vector2(1.0842e-19, -37)
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("6_2lpho")
+
+[node name="EastArrowGreen" type="Sprite2D" parent="."]
+position = Vector2(38, -3.8147e-06)
+rotation = 1.5708
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("6_2lpho")
+
+[node name="WestArrowGreen" type="Sprite2D" parent="."]
+position = Vector2(-37, -3.8147e-06)
+rotation = 4.71239
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("6_2lpho")

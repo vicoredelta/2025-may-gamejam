@@ -24,6 +24,9 @@ public partial class Game : Node
 	[Signal]
 	public delegate void GenerateMapTileEventHandler();
 	
+	[Signal]
+	public delegate void ArrowUpdateEventHandler();
+	
 	// Instantiate world objects here
 	public override void _Ready()
 	{
@@ -271,6 +274,7 @@ public partial class Game : Node
 			godotDict[kvp.Key] = kvp.Value;
 		}
 		EmitSignal(SignalName.MapMove, Player.Instance.CurrentRoom.Name, godotDict);
+		EmitSignal(SignalName.ArrowUpdate);
 	}
 	
 	private void OutputText(String text)
@@ -310,7 +314,7 @@ public partial class Game : Node
 		
 		if (result.Command == MoveCommand.Instance && result.Success == true)
 		{
-			// Update minimap
+			// Update room grid on minimap
 			var visitedStatus = World.Instance.GetVisitedStatusForAllRooms();
 			var godotDict = new Godot.Collections.Dictionary<string, bool>();
 
@@ -323,6 +327,9 @@ public partial class Game : Node
 			// Play walking sound
 			AudioManager.Instance.PlaySFX("walk");
 		}
+		
+		// Update arrows on minimap
+		EmitSignal(SignalName.ArrowUpdate);
 		
 		// Output hint when player enters three consecutive invalid commands
 		if (result.Command != InvalidCommand.Instance)

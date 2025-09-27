@@ -12,7 +12,7 @@ public partial class Map : Node
 	
 	public void MapMove(String destinationRoom, Godot.Collections.Dictionary<string, bool> visitedStatusForAllRooms)
 	{
-		setRoom(destinationRoom, visitedStatusForAllRooms);
+		SetRoom(destinationRoom, visitedStatusForAllRooms);
 	}
 	
 	public override void _Ready()
@@ -31,7 +31,7 @@ public partial class Map : Node
 		roomSprites[name] = instance;
 	}
 	
-	public void setRoom (String currentRoom, Godot.Collections.Dictionary<string, bool> visitedStatusForAllRooms)
+	public void SetRoom (String currentRoom, Godot.Collections.Dictionary<string, bool> visitedStatusForAllRooms)
 	{
 		CurrentRoomText.Text = currentRoom;	
 		Sprite2D node = GetNode<Sprite2D>("MapBoundary/MapHolder/RoomHolder/" + currentRoom);
@@ -76,4 +76,32 @@ public partial class Map : Node
 		return new Vector2(-position.X, -position.Y);
 	}
 	
+	public void UpdateArrows()
+	{
+		Sprite2D nodeGreen;
+		Sprite2D nodeRed;
+		
+		foreach (Direction dir in Enum.GetValues(typeof(Direction)))
+		{
+			if (dir != Direction.InvalidDirection)
+			{
+				nodeGreen = GetNode<Sprite2D>(dir.ToString() + "ArrowGreen");
+				nodeRed = GetNode<Sprite2D>(dir.ToString() + "ArrowRed");
+				nodeGreen.Visible = false;
+				nodeRed.Visible = false;
+				
+				if (Player.Instance.CurrentRoom.GetConnectingRoom(dir) != null)
+				{
+					if (Player.Instance.CurrentRoom.ObstaclesExist(dir))
+					{
+						nodeRed.Visible = true;
+					}
+					else
+					{
+						nodeGreen.Visible = true;
+					}
+				}
+			}
+		}
+	}
 }
