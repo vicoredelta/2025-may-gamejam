@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://247nf83r602"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+position = Vector2(-631, -683)
+color = Color(0.101961, 0.152941, 0.180392, 1)
+polygon = PackedVector2Array(631, 683, 729, 683, 733, 687, 733, 800, 729, 804, 651, 804, 651, 759, 648, 756, 635, 756, 631, 752)
+
+[node name="Label" type="Label" parent="."]
+offset_right = 102.0
+offset_bottom = 121.0
+tooltip_text = "Click here, or press the Enter key, to execute a command."
+mouse_filter = 1
+mouse_default_cursor_shape = 16
