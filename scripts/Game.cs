@@ -6,6 +6,9 @@ using Godot.Collections;
 public partial class Game : Node
 {
 	ItemType console;
+	ItemType redCable;
+	ItemType blueCable;
+	ItemType greenCable;
 	UseAction attachPowerCell;
 	UseAction openDoor;
 	UseAction openStorageBox;
@@ -25,7 +28,7 @@ public partial class Game : Node
 	public delegate void MapMoveEventHandler();
 	
 	[Signal]
-	public delegate void ModifyInventoryEventHandler();
+	public delegate void UpdateInventoryEventHandler();
 	
 	[Signal]
 	public delegate void GenerateMapTileEventHandler();
@@ -201,9 +204,9 @@ public partial class Game : Node
 		"A storage box, with a simple [color=7b84ff]electronic lock[/color]. " +
 		"The box is made of some heat resistant, lightweight metal. We still haven't been able to replicate anything like it.",
 		false);
-		World.Instance.CreateItemType("Red Cable", [], "It's a red cable.", true);
-		World.Instance.CreateItemType("Blue Cable", [], "It's a blue cable.", true);
-		World.Instance.CreateItemType("Green Cable", [], "It's a green cable.", true);
+		redCable = World.Instance.CreateItemType("Red Cable", [], "It's a red cable.", true);
+		blueCable = World.Instance.CreateItemType("Blue Cable", [], "It's a blue cable.", true);
+		greenCable = World.Instance.CreateItemType("Green Cable", [], "It's a green cable.", true);
 		
 		// Define uses (required items, produced items, destroyed items, create location, description, requires power on [optional], requires power cell [optional])
 		removeRubble = World.Instance.CreateUse(
@@ -307,8 +310,9 @@ public partial class Game : Node
 		foreach (String item in itemNames)
 		{
 			World.Instance.AddItemToPlayer(item);
-			EmitSignal(SignalName.ModifyInventory, item, World.Instance.GetItem(item).IconPath, true);
 		}
+		
+		EmitSignal(SignalName.UpdateInventory);
 	}
 	
 	public void PlayerInputReceived(String textInput)
@@ -321,16 +325,6 @@ public partial class Game : Node
 		
 		// Output text
 		OutputText(result.Text + "\n");
-		
-		// Modify inventory screen if necessary
-		foreach (ItemType item in result.ItemsObtained)
-		{
-			EmitSignal(SignalName.ModifyInventory, item.Name, item.IconPath, true);
-		}
-		foreach (ItemType item in result.ItemsLost)
-		{
-			EmitSignal(SignalName.ModifyInventory, item.Name, item.IconPath, false);
-		}
 		
 		if (result.Command == MoveCommand.Instance && result.Success == true)
 		{
@@ -424,6 +418,12 @@ public partial class Game : Node
 				World.Instance.IsPowerOn = true;
 				AudioManager.Instance.PlaySFX("event_powercell");
 				OutputText("As power level reaches exactly 100 units power to the ship is completely restored.");
+				Player.Instance.Take(redCable);
+				Player.Instance.Take(blueCable);
+				Player.Instance.Take(greenCable);
+				Player.Instance.CurrentRoom.Take(redCable);
+				Player.Instance.CurrentRoom.Take(blueCable);
+				Player.Instance.CurrentRoom.Take(greenCable);
 			}
 			
 			OutputText("\n");
@@ -443,5 +443,8 @@ public partial class Game : Node
 		{
 			AudioManager.Instance.PlaySFX("pickup_0");
 		}
+		
+		// Update inventory screen 
+		EmitSignal(SignalName.UpdateInventory);
 	}
 }
