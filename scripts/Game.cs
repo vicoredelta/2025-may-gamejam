@@ -219,12 +219,12 @@ public partial class Game : Node
 		
 		attachPowerCell = World.Instance.CreateUse(
 			["Stolen Power Cell", "Console"], [], ["Stolen Power Cell"], ItemCreateLocation.Room,
-			"You place the power cell into the hatch and attach the cables."
+			"You place the power cell into the hatch."
 		);
 		
 		openStorageBox = World.Instance.CreateUse(
 			["Wracker", "Storage"], ["Red Tablets", "Blue Tablets", "Green Tablets"], ["Storage"], ItemCreateLocation.Room,
-			"With a click and a chime the lock is undone and the box lid opens to reveal a large assortment of coloured [color=38a868]cables[/color]. " + 
+			"With a click and a chime the lock is undone and the box lid opens to reveal a large assortment of coloured [color=38a868]tablets[/color]. " + 
 			"The box contains red, green, and blue tablets."
 		);
 		
@@ -380,7 +380,7 @@ public partial class Game : Node
 				}
 				else
 				{
-					OutputText("This cable currently won't provide more power.");
+					OutputText("This type of tablets currently won't provide more power. Try a different one!");
 				}
 			}
 			else if (result.UseAction == useRedTablets)
@@ -392,7 +392,7 @@ public partial class Game : Node
 				}
 				else
 				{
-					OutputText("This cable currently won't provide more power.");
+					OutputText("This type of tablets currently won't provide more power. Try a different one!");
 				}
 			}
 			else if (result.UseAction == useGreenTablets)
@@ -404,7 +404,7 @@ public partial class Game : Node
 				}
 				else
 				{
-					OutputText("This cable currently won't provide more power.");
+					OutputText("This type of tablets currently won't provide more power. Try a different one!");
 				}
 			}
 			
@@ -421,9 +421,9 @@ public partial class Game : Node
 				World.Instance.IsPowerOn = true;
 				AudioManager.Instance.PlaySFX("event_powercell");
 				OutputText("As power level reaches exactly 100 units power to the ship is completely restored.");
-				Player.Instance.Take(redCable);
-				Player.Instance.Take(blueCable);
-				Player.Instance.Take(greenCable);
+				Player.Instance.Take(redTablets);
+				Player.Instance.Take(blueTablets);
+				Player.Instance.Take(greenTablets);
 				Player.Instance.CurrentRoom.Take(redTablets);
 				Player.Instance.CurrentRoom.Take(blueTablets);
 				Player.Instance.CurrentRoom.Take(greenTablets);
@@ -448,7 +448,7 @@ public partial class Game : Node
 		}
 		
 		// Example to do something on specific pick up
-		if (result.Command == TakeCommand.Instance && result.ItemsObtained.Contains(redCable))
+		if (result.Command == TakeCommand.Instance && result.ItemsObtained.Contains(redTablets))
 		{
 			// Do thing
 		}
