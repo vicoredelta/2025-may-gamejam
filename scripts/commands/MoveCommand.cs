@@ -36,7 +36,7 @@ public class MoveCommand : Command
 			
 			if (!connectingRoom.Visited)
 			{
-				outText += " " + Player.Instance.CurrentRoom.FirstTimeDescription;
+				outText += " " + connectingRoom.FirstTimeDescription;
 			}
 			
 			connectingRoom.Visited = true;
