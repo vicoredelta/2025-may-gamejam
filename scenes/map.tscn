@@ -4,8 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://d2itebp8dcjyj" path="res://assets/tileset_frame_0.png" id="2_2klcf"]
 [ext_resource type="PackedScene" uid="uid://beedews6es7ag" path="res://scenes/player_map_marker.tscn" id="3_gldc4"]
 [ext_resource type="FontFile" uid="uid://bp277mpbyjl8y" path="res://assets/fonts/Jersey25-Regular.ttf" id="5_2klcf"]
-[ext_resource type="Texture2D" uid="uid://ddx2237iivehy" path="res://assets/red_knob.png" id="5_2lpho"]
-[ext_resource type="Texture2D" uid="uid://iamaoosfwibd" path="res://assets/green_knob.png" id="6_2lpho"]
+[ext_resource type="Texture2D" uid="uid://c44wdn6e1ip17" path="res://assets/locked_door.png" id="5_2lpho"]
+[ext_resource type="Texture2D" uid="uid://c0aq3ebju2ona" path="res://assets/open_door.png" id="6_nakos"]
 
 [node name="Map" type="Node2D"]
 editor_description = "Root node in the map scene.
@@ -39,7 +39,7 @@ unique_name_in_owner = true
 [node name="RoomSpriteStatic" type="Sprite2D" parent="MapBoundary/MapHolder"]
 editor_description = "A 2D node, which renders a texture.
 Used to display the \"current room\" texture."
-position = Vector2(0, -1.11)
+position = Vector2(0, -1)
 scale = Vector2(1.5, 1.5)
 texture = ExtResource("2_2klcf")
 region_enabled = true
@@ -48,6 +48,7 @@ region_rect = Rect2(32, 32, 32, 32)
 [node name="PlayerMarker" parent="MapBoundary/MapHolder" instance=ExtResource("3_gldc4")]
 editor_description = "An instance of the player_map_marker scene.
 Includes only a 2D texture."
+scale = Vector2(0.2, 0.2)
 
 [node name="PlayerTooltip" type="Label" parent="MapBoundary/MapHolder/PlayerMarker"]
 editor_description = "A control node, used to render labels.
@@ -76,47 +77,47 @@ horizontal_alignment = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="NorthArrowRed" type="Sprite2D" parent="."]
-position = Vector2(1.0842e-19, -37)
-scale = Vector2(0.05, 0.05)
+position = Vector2(-1, -50)
+scale = Vector2(1.5, 1.5)
 texture = ExtResource("5_2lpho")
 
 [node name="SouthArrowRed" type="Sprite2D" parent="."]
-position = Vector2(3.8147e-06, 34)
+position = Vector2(1.00006, 48.0001)
 rotation = 3.14159
-scale = Vector2(0.05, 0.05)
+scale = Vector2(1.5, 1.5)
 texture = ExtResource("5_2lpho")
 
 [node name="EastArrowRed" type="Sprite2D" parent="."]
-position = Vector2(38, -3.8147e-06)
+position = Vector2(49.0001, -3.8147e-06)
 rotation = 1.5708
-scale = Vector2(0.05, 0.05)
+scale = Vector2(1.5, 1.5)
 texture = ExtResource("5_2lpho")
 
 [node name="WestArrowRed" type="Sprite2D" parent="."]
-position = Vector2(-37, -3.8147e-06)
+position = Vector2(-49, -3.8147e-06)
 rotation = 4.71239
-scale = Vector2(0.05, 0.05)
+scale = Vector2(1.5, 1.5)
 texture = ExtResource("5_2lpho")
 
 [node name="SouthArrowGreen" type="Sprite2D" parent="."]
-position = Vector2(3.8147e-06, 34)
+position = Vector2(1.00006, 48.0001)
 rotation = 3.14159
-scale = Vector2(0.05, 0.05)
-texture = ExtResource("6_2lpho")
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("6_nakos")
 
 [node name="NorthArrowGreen" type="Sprite2D" parent="."]
-position = Vector2(1.0842e-19, -37)
-scale = Vector2(0.05, 0.05)
-texture = ExtResource("6_2lpho")
+position = Vector2(-1, -50)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("6_nakos")
 
 [node name="EastArrowGreen" type="Sprite2D" parent="."]
-position = Vector2(38, -3.8147e-06)
+position = Vector2(49.0001, -3.8147e-06)
 rotation = 1.5708
-scale = Vector2(0.05, 0.05)
-texture = ExtResource("6_2lpho")
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("6_nakos")
 
 [node name="WestArrowGreen" type="Sprite2D" parent="."]
-position = Vector2(-37, -3.8147e-06)
+position = Vector2(-49, -3.8147e-06)
 rotation = 4.71239
-scale = Vector2(0.05, 0.05)
-texture = ExtResource("6_2lpho")
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("6_nakos")

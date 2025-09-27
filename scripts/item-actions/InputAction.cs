@@ -9,7 +9,7 @@ public class InputAction : ItemAction
 	String _wrongInputText;
 	
 	public InputAction(String description, String requiredText, String wrongInputText, ItemType requiredItem,
-		List<ItemType> producedItems, ItemCreateLocation createLocation, bool requiresPower = false)
+		List<ItemType> producedItems, ItemCreateLocation createLocation, bool requiresPower, bool requiresCell)
 	{
 		Description = description;
 		_requiredText = requiredText;

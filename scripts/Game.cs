@@ -10,6 +10,9 @@ public partial class Game : Node
 	UseAction openDoor;
 	UseAction openStorageBox;
 	UseAction removeRubble;
+	UseAction useRedCable;
+	UseAction useBlueCable;
+	UseAction useGreenCable;
 	int invalidCommandCount = 0;
 	
 	[Signal]
@@ -200,33 +203,48 @@ public partial class Game : Node
 		World.Instance.CreateItemType("Green Cable", [], "It's a green cable.", true);
 		World.Instance.CreateItemType("Purple Cable", [], "It's a purple cable.", true);
 		
-		// Define uses (required items, produced items, destroyed items, create location, requires power, description)
+		// Define uses (required items, produced items, destroyed items, create location, description, requires power on [optional], requires power cell [optional])
 		removeRubble = World.Instance.CreateUse(
-			["Rubble"], ["Storage"], ["Rubble"], ItemCreateLocation.Room,false,
+			["Rubble"], ["Storage"], ["Rubble"], ItemCreateLocation.Room,
 			"With little effort the rubble is cleared, revealing a [color=7b84ff]storage box[/color] with a simple electronic lock."
 		);
 		
 		attachPowerCell = World.Instance.CreateUse(
-			["Stolen Power Cell", "Console"], [], ["Stolen Power Cell"], ItemCreateLocation.Room, false,
-			"You place the power cell into the hatch and attach the cables. There is a small hiss as the ships power returns."
+			["Stolen Power Cell", "Console"], [], ["Stolen Power Cell"], ItemCreateLocation.Room,
+			"You place the power cell into the hatch and attach the cables."
 		);
 		
 		openStorageBox = World.Instance.CreateUse(
-			["Wracker", "Storage"], ["Red Cable", "Blue Cable", "Green Cable", "Purple Cable"], ["Storage"], ItemCreateLocation.Room, false,
+			["Wracker", "Storage"], ["Red Cable", "Blue Cable", "Green Cable", "Purple Cable"], ["Storage"], ItemCreateLocation.Room,
 			"With a click and a chime the lock is undone and the box lid opens to reveal a large assortment of coloured [color=38a868]cables[/color]. " + 
 			"The box contains green, purple, red, and blue cables."
 		);
 		
+		useRedCable = World.Instance.CreateUse(
+			["Red Cable", "Console"], [], [], ItemCreateLocation.Room,
+			"You use the red cable to provide 30 units of power.", requiresCell: true
+		);
+		
+		useBlueCable = World.Instance.CreateUse(
+			["Blue Cable", "Console"], [], [], ItemCreateLocation.Room,
+			"You use the blue cable to provide 20 units of power.", requiresCell: true
+		);
+		
+		useGreenCable = World.Instance.CreateUse(
+			["Green Cable", "Console"], [], [], ItemCreateLocation.Room,
+			"You use the green cable to provide 15 units of power.", requiresCell: true
+		);
+		
 		openDoor = World.Instance.CreateUse(
-			["Door"], [], ["Door"], ItemCreateLocation.Room, false,
+			["Door"], [], ["Door"], ItemCreateLocation.Room,
 			"Although you're somewhat drained from the journey through the wasteland, you still manage to pry the door open. Phew!"
 		);
 		
 		// Define input actions (required item, producedItems, create location, description on correct input, description on wrong input, required input)
 		World.Instance.CreateInputAction(
-			"Code Lock", [], ItemCreateLocation.Room, true,
+			"Code Lock", [], ItemCreateLocation.Room,
 			"The terminal beeps approvingly. The door unlocks!", "The terminal beeps in disapprovement. The door remains locked.",
-			"123"
+			"123", requiresPower: true
 		);
 		
 		// Add items to rooms
@@ -345,6 +363,7 @@ public partial class Game : Node
 		if (result.UseAction == attachPowerCell)
 		{
 			World.Instance.IsPowerOn = true;
+			World.Instance.CellIsPlaced = true;
 			console.Description = "Some kind of console. You hear the hum of its fan working beneath the casing.";
 			AudioManager.Instance.PlaySFX("event_powercell");
 		}
