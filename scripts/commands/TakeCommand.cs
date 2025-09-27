@@ -15,7 +15,7 @@ public class TakeCommand : Command
 		words = words.Skip(1).ToArray();
 		
 		List<ItemType> itemsFound = new List<ItemType>();
-		Parser.AddNextItem(words, itemsFound, Player.Instance.GetItemsInVicinity());
+		Parser.AddNextItem(words, itemsFound, Player.Instance.CurrentRoom.GetItemTypes());
 		
 		if (itemsFound.Count == 0)
 		{
