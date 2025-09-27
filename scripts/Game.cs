@@ -444,6 +444,12 @@ public partial class Game : Node
 			AudioManager.Instance.PlaySFX("pickup_0");
 		}
 		
+		// Example to do something on specific pick up
+		if (result.Command == TakeCommand.Instance && result.ItemsObtained.Contains(redCable))
+		{
+			// Do thing
+		}
+		
 		// Update inventory screen 
 		EmitSignal(SignalName.UpdateInventory);
 	}
