@@ -102,100 +102,100 @@ public partial class Game : Node
 		World.Instance.ConnectRooms("Heart Chamber", "Strange Panels", Direction.East);
 		World.Instance.ConnectRooms("Strange Panels", "Kitchen Alcove", Direction.South);
 		
-		// Define every unique type of item (item name, item description, can be picked up, is visible [optional], icon path [optional])
+		// Define every unique type of item (item name, name aliases, item description, can be picked up, is visible [optional], icon path [optional])
 		
-		World.Instance.CreateItemType("Wracker", // Starting inventory
+		World.Instance.CreateItemType("Wracker", [], // Starting inventory
 		"It's a [color=38a868]wracker[/color], a transforming multitool. You've rigged it for bypassing " +
 		"older, low-leveled passwords and locks. It's almost brand new, " + 
 		"but the attached gemstone has been with your family for generations.",
 		true, "res://assets/item_multitool_0.png");
 		
-		World.Instance.CreateItemType("Stolen Power Cell", // Starting inventory
+		World.Instance.CreateItemType("Stolen Power Cell", ["Power Cell"], // Starting inventory
 		"An outmode, clockwork [color=38a868]generator[/color]. A low, " +
 		"hurried ticking and a faint glow suggest that it's still functional.",
 		true, "res://assets/item_powercell_0.png");
 		
-		World.Instance.CreateItemType("Carcass", // Room: Breached Entrance
+		World.Instance.CreateItemType("Carcass", [], // Room: Breached Entrance
 		"The remains of a small animal, possibly a rodent. It might have sought shelter from the sweltering heat, " +
 		"but was unable to claw its way out again.",
 		false);
 		
-		World.Instance.CreateItemType("Door", // Room: Breached Entrance
+		World.Instance.CreateItemType("Door", [], // Room: Breached Entrance
 		"A mangled, metal [color=7b84ff]door[/color] blocks your way forward.",
 		false);
 		
-		World.Instance.CreateItemType("Outside", // Room: Breached Entrance
+		World.Instance.CreateItemType("Outside", [], // Room: Breached Entrance
 		"You can see the outside from the hole you entered through. Ripples of heat shimmer cover the red and yellow landscape.",
 		false, false);
 		
-		World.Instance.CreateItemType("Wasteland", // Room: Breached Entrance
+		World.Instance.CreateItemType("Wasteland", [], // Room: Breached Entrance
 		"You can see the outside from the hole you entered through. Ripples of heat shimmer cover the red and yellow landscape.",
 		false, false);
 		
-		World.Instance.CreateItemType("Debris", // Room: Cramped Hallway
+		World.Instance.CreateItemType("Debris", [], // Room: Cramped Hallway
 		"There's a large, knife-edged piece of metallic wreckage in the middle of the hallway. " +
 		"Part of the floor must have ruptured in the crash. You'd better stay clear of it.",
 		false);
 		
-		World.Instance.CreateItemType("Wall", // Room: Cramped Hallway
+		World.Instance.CreateItemType("Wall", [], // Room: Cramped Hallway
 		"The walls are covered with metre-thick, cylindrical padding.",
 		false, false);
 		
-		World.Instance.CreateItemType("Rubble", // Room: Heart Chamber
+		World.Instance.CreateItemType("Rubble", [], // Room: Heart Chamber
 		"A mound of splintered blackstone and smashed machinery. Some kind of [color=7b84ff]storage box[/color] " + 
 		"lies half-buried under the mess.",
 		false);
 		
-		console = World.Instance.CreateItemType("Console", // Room: Heart Chamber
+		console = World.Instance.CreateItemType("Console", [], // Room: Heart Chamber
 		"An antique control panel. The panels around the [color=7b84ff]console[/color] are covered with primitive buttons, " +
 		"switches, and sockets for who knows what purpose. One socket in particular catches your eye; " +
 		"a [color=38a868]power cell[/color] might fit.",
 		false);
 		
-		World.Instance.CreateItemType("Corpse", // Room: Elevator Shaft
+		World.Instance.CreateItemType("Corpse", [], // Room: Elevator Shaft
 		"The corpse of a looter, presumably. You can't make out any distinct features, but it appears to be an adult. " +
 		"Judging by the stench, they likely died about a week ago.",
 		false);
 		
-		World.Instance.CreateItemType("Mummified Corpse", // Room: Kitchen Alcove
+		World.Instance.CreateItemType("Mummified Corpse", [], // Room: Kitchen Alcove
 		"You see the [color=efad42]mummified remains[/color] of an unknown person, their bones and shriveled skin mixed with debris. " +
 		"Was this person part of the crew, or a looter?",
 		false);
 		
-		World.Instance.CreateItemType("Self", // Should be in every room
+		World.Instance.CreateItemType("Self", [], // Should be in every room
 		"You take a moment to feel yourself wasting away. Better get moving.",
 		false, false);
 		
-		World.Instance.CreateItemType("Ladder", // Room: Elevator Shaft
+		World.Instance.CreateItemType("Ladder", [], // Room: Elevator Shaft
 		"You spot bolt holes in the wall where a ladder should be.",
 		false, false);
 		
-		World.Instance.CreateItemType("Bolt Holes", // Room: Elevator Shaft
+		World.Instance.CreateItemType("Bolt Holes", [], // Room: Elevator Shaft
 		"Holes in the wall of the elevator shaft, were a maintenance ladder used to be. " +
 		"The bolt holes are of no use to you now.",
 		false, false);
 		
-		World.Instance.CreateItemType("Body", // Room: Elevator Shaft
+		World.Instance.CreateItemType("Body", [], // Room: Elevator Shaft
 		"The corpse of a looter, presumably. You can't make out any distinct features, but it appears to be an adult. " +
 		"Judging by the stench, they likely died about a week ago.",
 		false, false);
 		
-		World.Instance.CreateItemType("Code Lock", // Room: Heart Chamber
+		World.Instance.CreateItemType("Code Lock", ["Lock"], // Room: Heart Chamber
 		"A metal door with a keypad terminal is blocking the way east.",
 		false);
 		
-		World.Instance.CreateItemType("Note", // Room: Captain's Quarters
+		World.Instance.CreateItemType("Note", [], // Room: Captain's Quarters
 		"A small note with the letters '[color=7b84ff]CXXIII[/color]' written on it.",
 		false);
 		
-		World.Instance.CreateItemType("Storage", // Room: Heart Chamber
+		World.Instance.CreateItemType("Storage", [], // Room: Heart Chamber
 		"A storage box, with a simple [color=7b84ff]electronic lock[/color]. " +
 		"The box is made of some heat resistant, lightweight metal. We still haven't been able to replicate anything like it.",
 		false);
-		World.Instance.CreateItemType("Red Cable", "It's a red cable.", true);
-		World.Instance.CreateItemType("Blue Cable", "It's a blue cable.", true);
-		World.Instance.CreateItemType("Green Cable", "It's a green cable.", true);
-		World.Instance.CreateItemType("Purple Cable", "It's a purple cable.", true);
+		World.Instance.CreateItemType("Red Cable", [], "It's a red cable.", true);
+		World.Instance.CreateItemType("Blue Cable", [], "It's a blue cable.", true);
+		World.Instance.CreateItemType("Green Cable", [], "It's a green cable.", true);
+		World.Instance.CreateItemType("Purple Cable", [], "It's a purple cable.", true);
 		
 		// Define uses (required items, produced items, destroyed items, create location, requires power, description)
 		removeRubble = World.Instance.CreateUse(

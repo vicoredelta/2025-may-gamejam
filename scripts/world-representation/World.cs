@@ -31,16 +31,18 @@ public class World
 		_rooms[room1Name].Connect(_rooms[room2Name], direction);
 	}
 	
-	public ItemType CreateItemType(String name, String description, bool canBePickedUp, bool visible = true, String itemPath = "")
+	public ItemType CreateItemType(String name, String[] aliases, String description, bool canBePickedUp, bool visible = true, String itemPath = "")
 	{
-		ItemType itemType = new ItemType(name, description, canBePickedUp, visible, "");
+		ItemType itemType = new ItemType(name, description, canBePickedUp, visible, itemPath, aliases);
 		_itemTypes.Add(name, itemType);
 		return itemType;
 	}
 	
-	public void CreateItemType(String name, String description, bool canBePickedUp, String itemPath)
+	public ItemType CreateItemType(String name, String[] aliases, String description, bool canBePickedUp, String itemPath)
 	{
-		_itemTypes.Add(name, new ItemType(name, description, canBePickedUp, true, itemPath));
+		ItemType itemType = new ItemType(name, description, canBePickedUp, true, itemPath, aliases);
+		_itemTypes.Add(name, itemType);
+		return itemType;
 	}
 	
 	public void AddItemToRoom(String itemName, String roomName)

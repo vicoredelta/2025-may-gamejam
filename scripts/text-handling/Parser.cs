@@ -78,7 +78,16 @@ public static class Parser
 			for (int j = 0; j < segment.Length; j++)
 			{
 				String potentialItemName = String.Join(" ", segment.Skip(j).ToArray());
-				ItemType foundItem = itemsToSearch.Find(x => x.Name.ToLower() == potentialItemName);
+				ItemType foundItem;
+				
+				// Search for item whose name matches 'potentialItemName'
+				foundItem = itemsToSearch.Find(x => x.Name.ToLower() == potentialItemName);
+				
+				if (foundItem == null)
+				{
+					// Search for item who has an alias that matches 'potentialItemName'
+					foundItem = itemsToSearch.Find(x => x.Aliases.Contains(potentialItemName));
+				}
 				
 				if (foundItem != null)
 				{
