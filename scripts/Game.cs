@@ -6,20 +6,20 @@ using Godot.Collections;
 public partial class Game : Node
 {
 	ItemType console;
-	ItemType redCable;
-	ItemType blueCable;
-	ItemType greenCable;
+	ItemType redTablets;
+	ItemType blueTablets;
+	ItemType greenTablets;
 	UseAction attachPowerCell;
 	UseAction openDoor;
 	UseAction openStorageBox;
 	UseAction removeRubble;
-	UseAction useRedCable;
-	UseAction useBlueCable;
-	UseAction useGreenCable;
+	UseAction useRedTablets;
+	UseAction useBlueTablets;
+	UseAction useGreenTablets;
 	int invalidCommandCount = 0;
-	int redCableUseCount = 0;
-	int blueCableUseCount = 0;
-	int greenCableUseCount = 0;
+	int redTabletUseCount = 0;
+	int blueTabletUseCount = 0;
+	int greenTabletUseCount = 0;
 	
 	[Signal]
 	public delegate void TextOutputEventHandler();
@@ -204,9 +204,12 @@ public partial class Game : Node
 		"A storage box, with a simple [color=7b84ff]electronic lock[/color]. " +
 		"The box is made of some heat resistant, lightweight metal. We still haven't been able to replicate anything like it.",
 		false);
-		redCable = World.Instance.CreateItemType("Red Cable", [], "It's a red cable.", true);
-		blueCable = World.Instance.CreateItemType("Blue Cable", [], "It's a blue cable.", true);
-		greenCable = World.Instance.CreateItemType("Green Cable", [], "It's a green cable.", true);
+		redTablets = World.Instance.CreateItemType("Red Tablets", [],
+		"A handful of red stone tablets. They carry an uncomfortably high current.", true);
+		blueTablets = World.Instance.CreateItemType("Blue Tablets", [],
+		"A handful of blue stone tablets. They carry a medium current, mildly irritating to the touch.", true);
+		greenTablets = World.Instance.CreateItemType("Green Tablets", [], 
+		"A handful of blue stone tablets. They carry a medium current, mildly irritating to the touch.", true);
 		
 		// Define uses (required items, produced items, destroyed items, create location, description, requires power on [optional], requires power cell [optional])
 		removeRubble = World.Instance.CreateUse(
@@ -220,24 +223,24 @@ public partial class Game : Node
 		);
 		
 		openStorageBox = World.Instance.CreateUse(
-			["Wracker", "Storage"], ["Red Cable", "Blue Cable", "Green Cable"], ["Storage"], ItemCreateLocation.Room,
+			["Wracker", "Storage"], ["Red Tablets", "Blue Tablets", "Green Tablets"], ["Storage"], ItemCreateLocation.Room,
 			"With a click and a chime the lock is undone and the box lid opens to reveal a large assortment of coloured [color=38a868]cables[/color]. " + 
-			"The box contains green, red, and blue cables."
+			"The box contains red, green, and blue tablets."
 		);
 		
-		useRedCable = World.Instance.CreateUse(
-			["Red Cable", "Console"], [], [], ItemCreateLocation.Room,
-			"You use the red cable to supply some power to the ship.", requiresCell: true
+		useRedTablets = World.Instance.CreateUse(
+			["Red Tablets", "Console"], [], [], ItemCreateLocation.Room,
+			"You use one of the red tablets to supply some power to the ship.", requiresCell: true
 		);
 		
-		useBlueCable = World.Instance.CreateUse(
-			["Blue Cable", "Console"], [], [], ItemCreateLocation.Room,
-			"You use the blue cable to supply some power to the ship.", requiresCell: true
+		useBlueTablets = World.Instance.CreateUse(
+			["Blue Tablets", "Console"], [], [], ItemCreateLocation.Room,
+			"You use one of the blue tablets to supply some power to the ship.", requiresCell: true
 		);
 		
-		useGreenCable = World.Instance.CreateUse(
-			["Green Cable", "Console"], [], [], ItemCreateLocation.Room,
-			"You use the green cable to supply some power to the ship.", requiresCell: true
+		useGreenTablets = World.Instance.CreateUse(
+			["Green Tablets", "Console"], [], [], ItemCreateLocation.Room,
+			"You use one of the green tablets to supply some power to the ship.", requiresCell: true
 		);
 		
 		openDoor = World.Instance.CreateUse(
@@ -366,11 +369,11 @@ public partial class Game : Node
 		}
 		
 		// Generator puzzle
-		if (result.UseAction == useBlueCable || result.UseAction == useRedCable || result.UseAction == useGreenCable)
+		if (result.UseAction == useBlueTablets || result.UseAction == useRedTablets || result.UseAction == useGreenTablets)
 		{
-			if (result.UseAction == useBlueCable)
+			if (result.UseAction == useBlueTablets)
 			{
-				if (blueCableUseCount++ < 2)
+				if (blueTabletUseCount++ < 2)
 				{
 					World.Instance.ShipPower += 20;
 					OutputText("Ship power is increased by 20 units. Current level is " + World.Instance.ShipPower+ ".");
@@ -380,9 +383,9 @@ public partial class Game : Node
 					OutputText("This cable currently won't provide more power.");
 				}
 			}
-			else if (result.UseAction == useRedCable)
+			else if (result.UseAction == useRedTablets)
 			{
-				if (redCableUseCount++ < 2)
+				if (redTabletUseCount++ < 2)
 				{
 					World.Instance.ShipPower += 30;
 					OutputText("Ship power is increased by 30 units. Current level is " + World.Instance.ShipPower+ ".");
@@ -392,9 +395,9 @@ public partial class Game : Node
 					OutputText("This cable currently won't provide more power.");
 				}
 			}
-			else if (result.UseAction == useGreenCable)
+			else if (result.UseAction == useGreenTablets)
 			{
-				if (greenCableUseCount++ < 2)
+				if (greenTabletUseCount++ < 2)
 				{
 					World.Instance.ShipPower += 15;
 					OutputText("Ship power is increased by 15 units. Current level is " + World.Instance.ShipPower+ ".");
@@ -409,9 +412,9 @@ public partial class Game : Node
 			{
 				World.Instance.ShipPower = 0;
 				OutputText("As power increases to over 100 units the system short circuits and power level is reset to 0.");
-				greenCableUseCount = 0;
-				redCableUseCount = 0;
-				blueCableUseCount = 0;
+				greenTabletUseCount = 0;
+				redTabletUseCount = 0;
+				blueTabletUseCount = 0;
 			}
 			else if (World.Instance.ShipPower == 100)
 			{
@@ -421,9 +424,9 @@ public partial class Game : Node
 				Player.Instance.Take(redCable);
 				Player.Instance.Take(blueCable);
 				Player.Instance.Take(greenCable);
-				Player.Instance.CurrentRoom.Take(redCable);
-				Player.Instance.CurrentRoom.Take(blueCable);
-				Player.Instance.CurrentRoom.Take(greenCable);
+				Player.Instance.CurrentRoom.Take(redTablets);
+				Player.Instance.CurrentRoom.Take(blueTablets);
+				Player.Instance.CurrentRoom.Take(greenTablets);
 			}
 			
 			OutputText("\n");
