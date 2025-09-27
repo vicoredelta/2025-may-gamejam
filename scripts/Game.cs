@@ -14,6 +14,9 @@ public partial class Game : Node
 	UseAction useBlueCable;
 	UseAction useGreenCable;
 	int invalidCommandCount = 0;
+	int redCableUseCount = 0;
+	int blueCableUseCount = 0;
+	int greenCableUseCount = 0;
 	
 	[Signal]
 	public delegate void TextOutputEventHandler();
@@ -222,17 +225,17 @@ public partial class Game : Node
 		
 		useRedCable = World.Instance.CreateUse(
 			["Red Cable", "Console"], [], [], ItemCreateLocation.Room,
-			"You use the red cable to provide 30 units of power.", requiresCell: true
+			"You use the red cable to supply some power to the ship.", requiresCell: true
 		);
 		
 		useBlueCable = World.Instance.CreateUse(
 			["Blue Cable", "Console"], [], [], ItemCreateLocation.Room,
-			"You use the blue cable to provide 20 units of power.", requiresCell: true
+			"You use the blue cable to supply some power to the ship.", requiresCell: true
 		);
 		
 		useGreenCable = World.Instance.CreateUse(
 			["Green Cable", "Console"], [], [], ItemCreateLocation.Room,
-			"You use the green cable to provide 15 units of power.", requiresCell: true
+			"You use the green cable to supply some power to the ship.", requiresCell: true
 		);
 		
 		openDoor = World.Instance.CreateUse(
@@ -359,22 +362,84 @@ public partial class Game : Node
 			OutputText("Type 'help' for a description of available commands.\n");
 		}
 		
+		//
 		// Use specific happenings
+		//
+		
 		if (result.UseAction == attachPowerCell)
 		{
-			World.Instance.IsPowerOn = true;
 			World.Instance.CellIsPlaced = true;
-			console.Description = "Some kind of console. You hear the hum of its fan working beneath the casing.";
-			AudioManager.Instance.PlaySFX("event_powercell");
+			//console.Description = "Some kind of console. You hear the hum of its fan working beneath the casing.";
 		}
+		
+		// Generator puzzle
+		if (result.UseAction == useBlueCable || result.UseAction == useRedCable || result.UseAction == useGreenCable)
+		{
+			if (result.UseAction == useBlueCable)
+			{
+				if (blueCableUseCount++ < 2)
+				{
+					World.Instance.ShipPower += 20;
+					OutputText("Ship power is increased by 20 units. Current level is " + World.Instance.ShipPower+ ".");
+				}
+				else
+				{
+					OutputText("This cable currently won't provide more power.");
+				}
+			}
+			else if (result.UseAction == useRedCable)
+			{
+				if (redCableUseCount++ < 2)
+				{
+					World.Instance.ShipPower += 30;
+					OutputText("Ship power is increased by 30 units. Current level is " + World.Instance.ShipPower+ ".");
+				}
+				else
+				{
+					OutputText("This cable currently won't provide more power.");
+				}
+			}
+			else if (result.UseAction == useGreenCable)
+			{
+				if (greenCableUseCount++ < 2)
+				{
+					World.Instance.ShipPower += 15;
+					OutputText("Ship power is increased by 15 units. Current level is " + World.Instance.ShipPower+ ".");
+				}
+				else
+				{
+					OutputText("This cable currently won't provide more power.");
+				}
+			}
+			
+			if (World.Instance.ShipPower > 100)
+			{
+				World.Instance.ShipPower = 0;
+				OutputText("As power increases to over 100 units the system short circuits and power level is reset to 0.");
+				greenCableUseCount = 0;
+				redCableUseCount = 0;
+				blueCableUseCount = 0;
+			}
+			else if (World.Instance.ShipPower == 100)
+			{
+				World.Instance.IsPowerOn = true;
+				AudioManager.Instance.PlaySFX("event_powercell");
+				OutputText("As power level reaches exactly 100 units power to the ship is completely restored.");
+			}
+			
+			OutputText("\n");
+		}
+		
 		if (result.UseAction == openDoor)
 		{
 			AudioManager.Instance.PlaySFX("door_open");
 		}
+		
 		if (result.UseAction == openStorageBox)
 		{
 			AudioManager.Instance.PlaySFX("item_multitool");
 		}
+		
 		if (result.UseAction == removeRubble)
 		{
 			AudioManager.Instance.PlaySFX("pickup_0");

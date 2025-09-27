@@ -13,7 +13,7 @@ public class World
 	Dictionary<String, ItemType> _itemTypes = new Dictionary<String, ItemType>();
 	public bool IsPowerOn { get; set; } = false;
 	public bool CellIsPlaced { get; set; } = false;
-	public int GeneratorPowerLevel { get; set; } = 0;
+	public int ShipPower { get; set; } = 0;
 	
 	public Room CreateRoom(String name, String description, String firstTimeDescription = "")
 	{
