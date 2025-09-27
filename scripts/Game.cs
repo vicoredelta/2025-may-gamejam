@@ -157,7 +157,7 @@ public partial class Game : Node
 		"Judging by the stench, they likely died about a week ago.",
 		false);
 		
-		World.Instance.CreateItemType("Mummified Corpse", [], // Room: Kitchen Alcove
+		World.Instance.CreateItemType("Mummified Corpse", ["Corpse"], // Room: Kitchen Alcove
 		"You see the [color=efad42]mummified remains[/color] of an unknown person, their bones and shriveled skin mixed with debris. " +
 		"Was this person part of the crew, or a looter?",
 		false);

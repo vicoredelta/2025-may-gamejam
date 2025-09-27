@@ -19,7 +19,14 @@ public class InputCommand : Command
 		
 		if (itemsFound.Count == 0)
 		{
-			return new CommandResult(this, "You must specify an [color=7b84ff]item[/color] in vicinity.");
+			if (remainderText.Length > 0)
+			{
+				return new CommandResult(this, "'" + remainderText[0] + "' is not an item in vicinity.");
+			}
+			else
+			{
+				return new CommandResult(this, "You must specify an [color=7b84ff]item[/color] in vicinity followed by the text input.");
+			}
 		}
 		else
 		{
