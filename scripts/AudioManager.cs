@@ -26,6 +26,10 @@ public partial class AudioManager : Node
 		sfxLibrary["keycard_correct_2"] = GD.Load<AudioStream>("res://assets/audio/sfx_event_keycard_2.ogg");
 		sfxLibrary["item_multitool"] = GD.Load<AudioStream>("res://assets/audio/sfx_item_multitool_0.ogg");
 		sfxLibrary["event_unlock_0"] = GD.Load<AudioStream>("res://assets/audio/sfx_event_unlock_0.ogg");
+		sfxLibrary["event_keycard_0"] = GD.Load<AudioStream>("res://assets/audio/sfx_event_keycard_0.ogg");
+		sfxLibrary["event_keycard_1"] = GD.Load<AudioStream>("res://assets/audio/sfx_event_keycard_1.ogg");
+		sfxLibrary["event_keycard_2"] = GD.Load<AudioStream>("res://assets/audio/sfx_event_keycard_2.ogg");
+		sfxLibrary["event_keycard_3"] = GD.Load<AudioStream>("res://assets/audio/sfx_event_keycard_3.ogg");
 		sfxLibrary["pickup_0"] = GD.Load<AudioStream>("res://assets/audio/sfx_pickup_0.ogg");
 		sfxLibrary["pickup_1"] = GD.Load<AudioStream>("res://assets/audio/sfx_pickup_1.ogg");
 		sfxLibrary["pickup_2"] = GD.Load<AudioStream>("res://assets/audio/sfx_pickup_2.ogg");

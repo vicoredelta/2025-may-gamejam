@@ -494,6 +494,14 @@ public partial class Game : Node
 		{
 			AudioManager.Instance.PlaySFX("pickup_3",0f, 0.8f);
 		}
+		if (result.Command == UseCommand.Instance && result.UseAction.RequiredItems[0].Name.Contains("Tablets"))
+		{
+			AudioManager.Instance.PlaySFX("event_keycard_0",0f, 0.7f);
+		}
+		if (result.Command == UseCommand.Instance && result.UseAction.RequiredItems[0].Name.Contains("Cell"))
+		{
+			AudioManager.Instance.PlaySFX("pickup_0",0f, 0.4f);
+		}
 		if (result.UseAction != null && result.UseAction.RequiredItems.Count == 1
 			&& result.UseAction.RequiredItems[0].Name.Contains("Pod"))
 		{
@@ -501,7 +509,7 @@ public partial class Game : Node
 		}
 		
 		// Room ambience swaps
-		if (result.Command == MoveCommand.Instance && Player.Instance.CurrentRoom.Name == "Heart Chamber")
+		if (result.Command == MoveCommand.Instance && Player.Instance.CurrentRoom.Name == "Heart Chamber" && World.Instance.IsPowerOn)
 		{
 			AudioManager.Instance.PlaybgAmbience("loop_0");
 		}

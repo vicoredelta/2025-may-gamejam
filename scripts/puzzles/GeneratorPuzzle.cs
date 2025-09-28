@@ -67,6 +67,7 @@ public partial class Game : Node
 			{
 				World.Instance.IsPowerOn = true;
 				AudioManager.Instance.PlaySFX("event_powercell");
+				AudioManager.Instance.PlaybgAmbience("loop_0");
 				OutputText("As power level reaches exactly 100 units power to the ship is completely restored.");
 				Player.Instance.Take(redTablets);
 				Player.Instance.Take(blueTablets);
