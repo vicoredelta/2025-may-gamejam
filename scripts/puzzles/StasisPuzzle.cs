@@ -36,6 +36,10 @@ public partial class Game : Node
 				stasisUnlock.Description = "There is no point in opening the stasis pods again, let the dead rest.";
 				keycardFound = true;
 			}
+			else
+			{
+				stasisUnlock.Description = stasisUnlockDescription;
+			}
 			
 			World.Instance.StasisPodsUnlocked = false;
 		}
