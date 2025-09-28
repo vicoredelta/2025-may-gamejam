@@ -101,7 +101,7 @@ public partial class Game : Node
 		);
 		
 		World.Instance.CreateRoom("Stasis Chamber",
-		"This room is very, uh, stacy."
+		"There are ten stasis pods lined up, each carrying a long since passed away passenger."
 		);
 		
 		World.Instance.CreateRoom("Stasis Control Room",
@@ -118,7 +118,7 @@ public partial class Game : Node
 		World.Instance.ConnectRooms("Heart Chamber", "Elevator Shaft", Direction.West);
 		World.Instance.ConnectRooms("Heart Chamber", "Strange Panels", Direction.East);
 		World.Instance.ConnectRooms("Strange Panels", "Kitchen Alcove", Direction.South);
-		World.Instance.ConnectRooms("Kitchen Alcove", "Stasis Chamber", Direction.East);
+		World.Instance.ConnectRooms("Breached Entrance", "Stasis Chamber", Direction.East);	// Temporaryily put Stasis Chamber close to entrance so we can easily test it
 		World.Instance.ConnectRooms("Stasis Chamber", "Stasis Control Room", Direction.East);
 		
 		// Define every unique type of item (item name, name aliases, item description, can be picked up, is visible [optional], icon path [optional])
@@ -369,7 +369,9 @@ public partial class Game : Node
 		// Use specific happenings
 		//
 		
+		// Handle puzzles
 		GeneratorPuzzle(result);
+		StasisPuzzle(result);
 		
 		if (result.UseAction == openDoor)
 		{
