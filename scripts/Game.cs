@@ -16,6 +16,8 @@ public partial class Game : Node
 	UseAction useRedTablets;
 	UseAction useBlueTablets;
 	UseAction useGreenTablets;
+	UseAction stasisUnlock;
+	UseAction getKeycard;
 	int invalidCommandCount = 0;
 	
 	[Signal]
@@ -218,6 +220,9 @@ public partial class Game : Node
 		greenTablets = World.Instance.CreateItemType("Green Tablets", ["Green", "Green Tablet"], 
 		"A handful of blue stone tablets. They carry a medium current, mildly irritating to the touch.", true);
 		
+		// Items for stasis puzzle
+		World.Instance.CreateItemType("Stasis Control Terminal", ["Terminal"], 
+		"The stasis pod locking mechanism is controlled from here.", false);
 		World.Instance.CreateItemType("Stasis Pod 1", ["Pod 1", "1"], 
 		"A stasis pod containing a long since passed away passenger.", false, false);
 		World.Instance.CreateItemType("Stasis Pod 2", ["Pod 2", "2"], 
@@ -238,6 +243,8 @@ public partial class Game : Node
 		"A stasis pod containing a long since passed away passenger.", false, false);
 		World.Instance.CreateItemType("Stasis Pod 10", ["Pod 10", "10"], 
 		"A stasis pod containing a long since passed away passenger.", false, false);
+		World.Instance.CreateItemType("Captain's Keycard", ["Keycard"], 
+		"The keycard belonging to the captain of this ship.", true);
 		
 		// Define uses (required items, produced items, destroyed items, create location, description, requires power on [optional], requires power cell [optional])
 		removeRubble = World.Instance.CreateUse(
@@ -276,6 +283,58 @@ public partial class Game : Node
 			"Although you're somewhat drained from the journey through the wasteland, you still manage to pry the door open. Phew!"
 		);
 		
+		stasisUnlock = World.Instance.CreateUse(
+			["Stasis Control Terminal"], [], [], ItemCreateLocation.Room,
+			stasisUnlockDescription
+		);
+		
+		// Uses for Stasis puzzle
+		String wrongPodDescription = "You search the corpse thouroughly, it did not contain the captain's keycard. The stasis pods close afterwards";
+		World.Instance.CreateUse(
+			["Stasis Pod 1"], [], [], ItemCreateLocation.Player,
+			wrongPodDescription, requiresStasisUnlock: true 
+		);
+		World.Instance.CreateUse(
+			["Stasis Pod 2"], [], [], ItemCreateLocation.Player,
+			wrongPodDescription, requiresStasisUnlock: true 
+		);
+		World.Instance.CreateUse(
+			["Stasis Pod 3"], [], [], ItemCreateLocation.Player,
+			wrongPodDescription, requiresStasisUnlock: true 
+		);
+		World.Instance.CreateUse(
+			["Stasis Pod 4"], [], [], ItemCreateLocation.Player,
+			wrongPodDescription, requiresStasisUnlock: true 
+		);
+		getKeycard = World.Instance.CreateUse(
+			["Stasis Pod 5"], ["Captain's Keycard"], [], ItemCreateLocation.Player,
+			"You search the corpse and find the captain's keycard.", requiresStasisUnlock: true 
+		);
+		World.Instance.CreateUse(
+			["Stasis Pod 6"], [], [], ItemCreateLocation.Player,
+			wrongPodDescription, requiresStasisUnlock: true 
+		);
+		World.Instance.CreateUse(
+			["Stasis Pod 7"], [], [], ItemCreateLocation.Player,
+			wrongPodDescription, requiresStasisUnlock: true 
+		);
+		World.Instance.CreateUse(
+			["Stasis Pod 8"], [], [], ItemCreateLocation.Player,
+			wrongPodDescription, requiresStasisUnlock: true 
+		);
+		World.Instance.CreateUse(
+			["Stasis Pod 9"], [], [], ItemCreateLocation.Player,
+			wrongPodDescription, requiresStasisUnlock: true 
+		);
+		World.Instance.CreateUse(
+			["Stasis Pod 10"], [], [], ItemCreateLocation.Player,
+			wrongPodDescription, requiresStasisUnlock: true 
+		);
+		World.Instance.CreateUse(
+			["Stasis Pod 10"], [], [], ItemCreateLocation.Player,
+			wrongPodDescription, requiresStasisUnlock: true 
+		);
+		
 		// Define input actions (required item, producedItems, create location, description on correct input, description on wrong input, required input)
 		World.Instance.CreateInputAction(
 			"Code Lock", [], ItemCreateLocation.Room,
@@ -297,6 +356,7 @@ public partial class Game : Node
 		World.Instance.AddItemToRoom("Ladder", "Elevator Shaft"); // Hidden item
 		World.Instance.AddItemToRoom("Bolt Holes", "Elevator Shaft"); // Hidden item
 		World.Instance.AddItemToRoom("Mummified Corpse", "Kitchen Alcove");
+		World.Instance.AddItemToRoom("Stasis Control Terminal", "Stasis Control Room");
 		
 		// Pods for stasis puzzle
 		World.Instance.AddItemToRoom("Stasis Pod 1", "Stasis Chamber");

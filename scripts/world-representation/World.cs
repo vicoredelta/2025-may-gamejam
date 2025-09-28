@@ -14,6 +14,7 @@ public class World
 	public bool IsPowerOn { get; set; } = false;
 	public bool CellIsPlaced { get; set; } = false;
 	public int ShipPower { get; set; } = 0;
+	public bool StasisPodsUnlocked { get; set; } = false;
 	
 	public Room CreateRoom(String name, String description, String firstTimeDescription = "")
 	{
@@ -69,7 +70,7 @@ public class World
 	
 	public UseAction CreateUse(String[] requiredItems, String[] producedItems,
 		String[] destroyedItems, ItemCreateLocation createLocation,
-		String description, bool requiresPower = false, bool requiresCell = false)
+		String description, bool requiresPower = false, bool requiresCell = false, bool requiresStasisUnlock = false)
 	{
 		List<ItemType> reqItems = new List<ItemType>();
 		List<ItemType> prdItems = new List<ItemType>();
@@ -91,7 +92,7 @@ public class World
 		}
 		
 		UseAction use = new UseAction(description, reqItems, prdItems,
-			dstItems, createLocation, requiresPower, requiresCell);
+			dstItems, createLocation, requiresPower, requiresCell, requiresStasisUnlock);
 		
 		Player.Instance.AddUseAction(use);
 			

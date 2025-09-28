@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public abstract class ItemAction
 {	
-	protected String Description;
+	public String Description;
 	protected List<ItemType> ProducedItems = new List<ItemType>();
 	protected List<ItemType> DestroyedItems = new List<ItemType>();
 	protected List<ItemType> ItemsLostFromInventory = new List<ItemType>();
@@ -14,6 +14,7 @@ public abstract class ItemAction
 	public List<ItemType> RequiredItems { get; } = new List<ItemType>();
 	public bool RequiresPower{ get; protected set; }
 	public bool RequiresCell{ get; protected set; }
+	public bool RequiresStasisUnlock{ get; protected set; }
 	
 	public abstract CommandResult Execute(String inputText);
 }

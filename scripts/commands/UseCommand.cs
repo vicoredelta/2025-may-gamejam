@@ -32,6 +32,11 @@ public class UseCommand : Command
 					return new CommandResult(this, "Nothing happens. Maybe it needs power?");
 				}
 				
+				if (foundUse.RequiresStasisUnlock && !World.Instance.StasisPodsUnlocked)
+				{
+					return new CommandResult(this, "The stasis pods are locked.");
+				}
+				
 				if (foundUse.RequiresCell && !World.Instance.CellIsPlaced)
 				{
 					return new CommandResult(this, "Nothing happens. There is no power cell in place to interact with.");
