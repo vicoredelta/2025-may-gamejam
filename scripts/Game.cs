@@ -101,7 +101,7 @@ public partial class Game : Node
 		);
 		
 		World.Instance.CreateRoom("Stasis Chamber",
-		"There are ten stasis pods lined up, each carrying a long since passed away passenger."
+		"There are ten [color=7b84ff]stasis pods[/color], each carrying a long since passed away passenger. They are numbered  1 to 10."
 		);
 		
 		World.Instance.CreateRoom("Stasis Control Room",
@@ -218,6 +218,27 @@ public partial class Game : Node
 		greenTablets = World.Instance.CreateItemType("Green Tablets", ["Green", "Green Tablet"], 
 		"A handful of blue stone tablets. They carry a medium current, mildly irritating to the touch.", true);
 		
+		World.Instance.CreateItemType("Stasis Pod 1", ["Pod 1", "1"], 
+		"A stasis pod containing a long since passed away passenger.", false, false);
+		World.Instance.CreateItemType("Stasis Pod 2", ["Pod 2", "2"], 
+		"A stasis pod containing a long since passed away passenger.", false, false);
+		World.Instance.CreateItemType("Stasis Pod 3", ["Pod 3", "3"], 
+		"A stasis pod containing a long since passed away passenger.", false, false);
+		World.Instance.CreateItemType("Stasis Pod 4", ["Pod 4", "4"], 
+		"A stasis pod containing a long since passed away passenger.", false, false);
+		World.Instance.CreateItemType("Stasis Pod 5", ["Pod 5", "5"], 
+		"A stasis pod containing a long since passed away passenger.", false, false);
+		World.Instance.CreateItemType("Stasis Pod 6", ["Pod 6", "6"], 
+		"A stasis pod containing a long since passed away passenger.", false, false);
+		World.Instance.CreateItemType("Stasis Pod 7", ["Pod 7", "7"], 
+		"A stasis pod containing a long since passed away passenger.", false, false);
+		World.Instance.CreateItemType("Stasis Pod 8", ["Pod 8", "8"], 
+		"A stasis pod containing a long since passed away passenger.", false, false);
+		World.Instance.CreateItemType("Stasis Pod 9", ["Pod 9", "9"], 
+		"A stasis pod containing a long since passed away passenger.", false, false);
+		World.Instance.CreateItemType("Stasis Pod 10", ["Pod 10", "10"], 
+		"A stasis pod containing a long since passed away passenger.", false, false);
+		
 		// Define uses (required items, produced items, destroyed items, create location, description, requires power on [optional], requires power cell [optional])
 		removeRubble = World.Instance.CreateUse(
 			["Rubble"], ["Storage"], ["Rubble"], ItemCreateLocation.Room,
@@ -276,6 +297,18 @@ public partial class Game : Node
 		World.Instance.AddItemToRoom("Ladder", "Elevator Shaft"); // Hidden item
 		World.Instance.AddItemToRoom("Bolt Holes", "Elevator Shaft"); // Hidden item
 		World.Instance.AddItemToRoom("Mummified Corpse", "Kitchen Alcove");
+		
+		// Pods for stasis puzzle
+		World.Instance.AddItemToRoom("Stasis Pod 1", "Stasis Chamber");
+		World.Instance.AddItemToRoom("Stasis Pod 2", "Stasis Chamber");
+		World.Instance.AddItemToRoom("Stasis Pod 3", "Stasis Chamber");
+		World.Instance.AddItemToRoom("Stasis Pod 4", "Stasis Chamber");
+		World.Instance.AddItemToRoom("Stasis Pod 5", "Stasis Chamber");
+		World.Instance.AddItemToRoom("Stasis Pod 6", "Stasis Chamber");
+		World.Instance.AddItemToRoom("Stasis Pod 7", "Stasis Chamber");
+		World.Instance.AddItemToRoom("Stasis Pod 8", "Stasis Chamber");
+		World.Instance.AddItemToRoom("Stasis Pod 9", "Stasis Chamber");
+		World.Instance.AddItemToRoom("Stasis Pod 10", "Stasis Chamber");
 		
 		// 'Self' is a hidden item, added to every room individually
 		World.Instance.AddItemToRoom("Self", "Breached Entrance");

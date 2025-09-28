@@ -11,7 +11,6 @@ public partial class Game : Node
 		if (Player.Instance.CurrentRoom.Name == "Stasis Chamber" &&
 			result.Command == LookCommand.Instance && result.LookedAt == null)
 		{
-			GD.Print("Test");
 			EmitSignal(SignalName.SetStasisImageVisibility, true);
 		}
 		else
