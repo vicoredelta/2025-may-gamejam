@@ -447,11 +447,34 @@ public partial class Game : Node
 			AudioManager.Instance.PlaySFX("pickup_0");
 		}
 		
-		// Example to do something on specific pick up
+		// Pickup sounds
 		if (result.Command == TakeCommand.Instance && result.ItemsObtained.Contains(redTablets))
 		{
-			// Do thing
+			AudioManager.Instance.PlaySFXFor("pickup_3", 0.8f);
 		}
+		if (result.Command == TakeCommand.Instance && result.ItemsObtained.Contains(greenTablets))
+		{
+			AudioManager.Instance.PlaySFXFor("pickup_3", 0.8f);
+		}
+		if (result.Command == TakeCommand.Instance && result.ItemsObtained.Contains(blueTablets))
+		{
+			AudioManager.Instance.PlaySFXFor("pickup_3", 0.8f);
+		}
+		
+		// Room ambience swaps
+		if (result.Command == MoveCommand.Instance && Player.Instance.CurrentRoom.Name == "Heart Chamber")
+		{
+			AudioManager.Instance.PlaybgAmbience("loop_0");
+		}
+		if (result.Command == MoveCommand.Instance && Player.Instance.CurrentRoom.Name == "Elevator Shaft")
+		{
+			AudioManager.Instance.PlaybgAmbience("loop_1");
+		}
+		if (result.Command == MoveCommand.Instance && Player.Instance.CurrentRoom.Name == "Cramped Hallway")
+		{
+			AudioManager.Instance.PlaybgAmbience("loop_4");
+		}
+		
 		
 		// Update inventory screen 
 		EmitSignal(SignalName.UpdateInventory);
