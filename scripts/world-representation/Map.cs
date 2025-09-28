@@ -60,7 +60,7 @@ public partial class Map : Node
 					opacity = 1.0f;
 				} else if (visited)
 				{
-					opacity = 0.5f;
+					opacity = 0.75f;
 				}
 				SetOpacity(sprite, opacity);
 			}
