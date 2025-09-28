@@ -17,9 +17,6 @@ public partial class Game : Node
 	UseAction useBlueTablets;
 	UseAction useGreenTablets;
 	int invalidCommandCount = 0;
-	int redTabletUseCount = 0;
-	int blueTabletUseCount = 0;
-	int greenTabletUseCount = 0;
 	
 	[Signal]
 	public delegate void TextOutputEventHandler();
@@ -103,6 +100,14 @@ public partial class Game : Node
 		"You walk into a [color=efad42]small alcove[/color]. There's a stove and a number of broken kitchenware scattered around the room."
 		);
 		
+		World.Instance.CreateRoom("Stasis Chamber",
+		"This room is very, uh, stacy."
+		);
+		
+		World.Instance.CreateRoom("Stasis Control Room",
+		"The stasis cells are controlled from this room."
+		);
+		
 		// Set starting room
 		World.Instance.SetCurrentRoom("Breached Entrance");
 		
@@ -113,6 +118,8 @@ public partial class Game : Node
 		World.Instance.ConnectRooms("Heart Chamber", "Elevator Shaft", Direction.West);
 		World.Instance.ConnectRooms("Heart Chamber", "Strange Panels", Direction.East);
 		World.Instance.ConnectRooms("Strange Panels", "Kitchen Alcove", Direction.South);
+		World.Instance.ConnectRooms("Kitchen Alcove", "Stasis Chamber", Direction.East);
+		World.Instance.ConnectRooms("Stasis Chamber", "Stasis Control Room", Direction.East);
 		
 		// Define every unique type of item (item name, name aliases, item description, can be picked up, is visible [optional], icon path [optional])
 		
@@ -362,75 +369,7 @@ public partial class Game : Node
 		// Use specific happenings
 		//
 		
-		if (result.UseAction == attachPowerCell)
-		{
-			World.Instance.CellIsPlaced = true;
-			//console.Description = "Some kind of console. You hear the hum of its fan working beneath the casing.";
-		}
-		
-		// Generator puzzle
-		if (result.UseAction == useBlueTablets || result.UseAction == useRedTablets || result.UseAction == useGreenTablets)
-		{
-			if (result.UseAction == useBlueTablets)
-			{
-				if (blueTabletUseCount++ < 2)
-				{
-					World.Instance.ShipPower += 20;
-					OutputText("Ship power is increased by 20 units. Current level is " + World.Instance.ShipPower+ ".");
-				}
-				else
-				{
-					OutputText("This type of tablets currently won't provide more power. Try a different one!");
-				}
-			}
-			else if (result.UseAction == useRedTablets)
-			{
-				if (redTabletUseCount++ < 2)
-				{
-					World.Instance.ShipPower += 30;
-					OutputText("Ship power is increased by 30 units. Current level is " + World.Instance.ShipPower+ ".");
-				}
-				else
-				{
-					OutputText("This type of tablets currently won't provide more power. Try a different one!");
-				}
-			}
-			else if (result.UseAction == useGreenTablets)
-			{
-				if (greenTabletUseCount++ < 2)
-				{
-					World.Instance.ShipPower += 15;
-					OutputText("Ship power is increased by 15 units. Current level is " + World.Instance.ShipPower+ ".");
-				}
-				else
-				{
-					OutputText("This type of tablets currently won't provide more power. Try a different one!");
-				}
-			}
-			
-			if (World.Instance.ShipPower > 100)
-			{
-				World.Instance.ShipPower = 0;
-				OutputText("As power increases to over 100 units the system short circuits and power level is reset to 0.");
-				greenTabletUseCount = 0;
-				redTabletUseCount = 0;
-				blueTabletUseCount = 0;
-			}
-			else if (World.Instance.ShipPower == 100)
-			{
-				World.Instance.IsPowerOn = true;
-				AudioManager.Instance.PlaySFX("event_powercell");
-				OutputText("As power level reaches exactly 100 units power to the ship is completely restored.");
-				Player.Instance.Take(redTablets);
-				Player.Instance.Take(blueTablets);
-				Player.Instance.Take(greenTablets);
-				Player.Instance.CurrentRoom.Take(redTablets);
-				Player.Instance.CurrentRoom.Take(blueTablets);
-				Player.Instance.CurrentRoom.Take(greenTablets);
-			}
-			
-			OutputText("\n");
-		}
+		GeneratorPuzzle(result);
 		
 		if (result.UseAction == openDoor)
 		{
