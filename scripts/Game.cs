@@ -481,18 +481,23 @@ public partial class Game : Node
 			AudioManager.Instance.PlaySFX("pickup_0");
 		}
 		
-		// Pickup sounds
+		// Pickup sounds (track, startTime, endTime)
 		if (result.Command == TakeCommand.Instance && result.ItemsObtained.Contains(redTablets))
 		{
-			AudioManager.Instance.PlaySFXFor("pickup_3", 0.8f);
+			AudioManager.Instance.PlaySFX("pickup_3",0f, 0.8f);
 		}
 		if (result.Command == TakeCommand.Instance && result.ItemsObtained.Contains(greenTablets))
 		{
-			AudioManager.Instance.PlaySFXFor("pickup_3", 0.8f);
+			AudioManager.Instance.PlaySFX("pickup_3",0f, 0.8f);
 		}
 		if (result.Command == TakeCommand.Instance && result.ItemsObtained.Contains(blueTablets))
 		{
-			AudioManager.Instance.PlaySFXFor("pickup_3", 0.8f);
+			AudioManager.Instance.PlaySFX("pickup_3",0f, 0.8f);
+		}
+		if (result.UseAction != null && result.UseAction.RequiredItems.Count == 1
+			&& result.UseAction.RequiredItems[0].Name.Contains("Pod"))
+		{
+			AudioManager.Instance.PlaySFX("event_unlock_0",0.9f);
 		}
 		
 		// Room ambience swaps

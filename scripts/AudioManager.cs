@@ -25,6 +25,7 @@ public partial class AudioManager : Node
 		sfxLibrary["event_powercell"] = GD.Load<AudioStream>("res://assets/audio/sfx_event_powercell_0.ogg");
 		sfxLibrary["keycard_correct_2"] = GD.Load<AudioStream>("res://assets/audio/sfx_event_keycard_2.ogg");
 		sfxLibrary["item_multitool"] = GD.Load<AudioStream>("res://assets/audio/sfx_item_multitool_0.ogg");
+		sfxLibrary["event_unlock_0"] = GD.Load<AudioStream>("res://assets/audio/sfx_event_unlock_0.ogg");
 		sfxLibrary["pickup_0"] = GD.Load<AudioStream>("res://assets/audio/sfx_pickup_0.ogg");
 		sfxLibrary["pickup_1"] = GD.Load<AudioStream>("res://assets/audio/sfx_pickup_1.ogg");
 		sfxLibrary["pickup_2"] = GD.Load<AudioStream>("res://assets/audio/sfx_pickup_2.ogg");
@@ -55,28 +56,27 @@ public partial class AudioManager : Node
 		}
 	}
 	
-	public void PlaySFX (string name)
+	
+	public async void PlaySFX(string name,float startTime = 0f, float duration = -1f)
 	{
 		if (sfxLibrary.TryGetValue(name, out AudioStream sfx))
 		{
 			SFXPlayer.Stream = sfx;
 			SFXPlayer.Play();
-		}
-		else
-		{
-			GD.PrintErr($" '{name}' not found!");
-		}
-	}
-	public async void PlaySFXFor(string name, float duration)
-	{
-		if (sfxLibrary.TryGetValue(name, out AudioStream sfx))
-		{
-			SFXPlayer.Stream = sfx;
-			SFXPlayer.Play();
+			SFXPlayer.Seek(startTime);
+			
+			if (duration > 0f)
+			{
+			float endTime = startTime + duration;
 
-			await ToSignal(GetTree().CreateTimer(duration), SceneTreeTimer.SignalName.Timeout);
-
-			SFXPlayer.Stop();
+			// Poll until we reach the stop time
+	   		while (SFXPlayer.GetPlaybackPosition() < endTime)
+			{
+		   		await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+			}
+				SFXPlayer.Stop();
+			}
+			
 		}
 		else
 		{

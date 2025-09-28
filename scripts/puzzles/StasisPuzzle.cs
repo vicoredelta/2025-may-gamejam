@@ -26,6 +26,7 @@ public partial class Game : Node
 			{
 				stasisUnlock.Description = "The pods are already unlocked.";
 				World.Instance.StasisPodsUnlocked = true;
+				AudioManager.Instance.PlaySFX("event_unlock_0",0.3f, 0.55f);
 			}
 		}
 		
