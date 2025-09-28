@@ -20,7 +20,7 @@ public class LookCommand : Command
 		if (list.Count > 0)
 		{
 			// Output description of item if an item was specified
-			return new CommandResult(this, list[0].Description);
+			return new CommandResult(this, list[0].Description, list[0]);
 		}
 		else if (words.Length > 0)
 		{

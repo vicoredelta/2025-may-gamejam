@@ -32,7 +32,7 @@ public class TakeCommand : Command
 			else
 			{
 				Player.Instance.Add(Player.Instance.CurrentRoom.Take(itemFound));
-				return new CommandResult("You pick up the " + itemFound.Name.ToLower() + ".", itemFound);
+				return new CommandResult(this, "You pick up the " + itemFound.Name.ToLower() + ".", itemFound);
 			}
 		}
 	}

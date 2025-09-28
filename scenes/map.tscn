@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://b4o68g4jvup3j"]
+[gd_scene load_steps=8 format=3 uid="uid://b4o68g4jvup3j"]
 
 [ext_resource type="Script" uid="uid://ci1jy75un2vyy" path="res://scripts/world-representation/Map.cs" id="2_0cso3"]
 [ext_resource type="Texture2D" uid="uid://d2itebp8dcjyj" path="res://assets/tileset_frame_0.png" id="2_2klcf"]
@@ -6,6 +6,7 @@
 [ext_resource type="FontFile" uid="uid://bp277mpbyjl8y" path="res://assets/fonts/Jersey25-Regular.ttf" id="5_2klcf"]
 [ext_resource type="Texture2D" uid="uid://c44wdn6e1ip17" path="res://assets/locked_door.png" id="5_2lpho"]
 [ext_resource type="Texture2D" uid="uid://c0aq3ebju2ona" path="res://assets/open_door.png" id="6_nakos"]
+[ext_resource type="PackedScene" uid="uid://bdym4plguipgw" path="res://scenes/stasis_chamber_image.tscn" id="7_nakos"]
 
 [node name="Map" type="Node2D"]
 editor_description = "Root node in the map scene.
@@ -121,3 +122,7 @@ position = Vector2(-49, -3.8147e-06)
 rotation = 4.71239
 scale = Vector2(1.5, 1.5)
 texture = ExtResource("6_nakos")
+
+[node name="StasisChamberImage" parent="." instance=ExtResource("7_nakos")]
+visible = false
+scale = Vector2(0.74, 0.52)

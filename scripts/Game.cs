@@ -17,9 +17,6 @@ public partial class Game : Node
 	UseAction useBlueTablets;
 	UseAction useGreenTablets;
 	int invalidCommandCount = 0;
-	int redTabletUseCount = 0;
-	int blueTabletUseCount = 0;
-	int greenTabletUseCount = 0;
 	
 	[Signal]
 	public delegate void TextOutputEventHandler();
@@ -103,6 +100,14 @@ public partial class Game : Node
 		"You walk into a [color=efad42]small alcove[/color]. There's a stove and a number of broken kitchenware scattered around the room."
 		);
 		
+		World.Instance.CreateRoom("Stasis Chamber",
+		"There are ten [color=7b84ff]stasis pods[/color], each carrying a long since passed away passenger. They are numbered  1 to 10."
+		);
+		
+		World.Instance.CreateRoom("Stasis Control Room",
+		"The stasis cells are controlled from this room."
+		);
+		
 		// Set starting room
 		World.Instance.SetCurrentRoom("Breached Entrance");
 		
@@ -113,6 +118,8 @@ public partial class Game : Node
 		World.Instance.ConnectRooms("Heart Chamber", "Elevator Shaft", Direction.West);
 		World.Instance.ConnectRooms("Heart Chamber", "Strange Panels", Direction.East);
 		World.Instance.ConnectRooms("Strange Panels", "Kitchen Alcove", Direction.South);
+		World.Instance.ConnectRooms("Breached Entrance", "Stasis Chamber", Direction.East);	// Temporaryily put Stasis Chamber close to entrance so we can easily test it
+		World.Instance.ConnectRooms("Stasis Chamber", "Stasis Control Room", Direction.East);
 		
 		// Define every unique type of item (item name, name aliases, item description, can be picked up, is visible [optional], icon path [optional])
 		
@@ -204,12 +211,33 @@ public partial class Game : Node
 		"A storage box, with a simple [color=7b84ff]electronic lock[/color]. " +
 		"The box is made of some heat resistant, lightweight metal. We still haven't been able to replicate anything like it.",
 		false);
-		redTablets = World.Instance.CreateItemType("Red Tablets", [],
+		redTablets = World.Instance.CreateItemType("Red Tablets", ["Red", "Red Tablet"],
 		"A handful of red stone tablets. They carry an uncomfortably high current.", true);
-		blueTablets = World.Instance.CreateItemType("Blue Tablets", [],
+		blueTablets = World.Instance.CreateItemType("Blue Tablets", ["Blue", "Blue Tablet"],
 		"A handful of blue stone tablets. They carry a medium current, mildly irritating to the touch.", true);
-		greenTablets = World.Instance.CreateItemType("Green Tablets", [], 
+		greenTablets = World.Instance.CreateItemType("Green Tablets", ["Green", "Green Tablet"], 
 		"A handful of blue stone tablets. They carry a medium current, mildly irritating to the touch.", true);
+		
+		World.Instance.CreateItemType("Stasis Pod 1", ["Pod 1", "1"], 
+		"A stasis pod containing a long since passed away passenger.", false, false);
+		World.Instance.CreateItemType("Stasis Pod 2", ["Pod 2", "2"], 
+		"A stasis pod containing a long since passed away passenger.", false, false);
+		World.Instance.CreateItemType("Stasis Pod 3", ["Pod 3", "3"], 
+		"A stasis pod containing a long since passed away passenger.", false, false);
+		World.Instance.CreateItemType("Stasis Pod 4", ["Pod 4", "4"], 
+		"A stasis pod containing a long since passed away passenger.", false, false);
+		World.Instance.CreateItemType("Stasis Pod 5", ["Pod 5", "5"], 
+		"A stasis pod containing a long since passed away passenger.", false, false);
+		World.Instance.CreateItemType("Stasis Pod 6", ["Pod 6", "6"], 
+		"A stasis pod containing a long since passed away passenger.", false, false);
+		World.Instance.CreateItemType("Stasis Pod 7", ["Pod 7", "7"], 
+		"A stasis pod containing a long since passed away passenger.", false, false);
+		World.Instance.CreateItemType("Stasis Pod 8", ["Pod 8", "8"], 
+		"A stasis pod containing a long since passed away passenger.", false, false);
+		World.Instance.CreateItemType("Stasis Pod 9", ["Pod 9", "9"], 
+		"A stasis pod containing a long since passed away passenger.", false, false);
+		World.Instance.CreateItemType("Stasis Pod 10", ["Pod 10", "10"], 
+		"A stasis pod containing a long since passed away passenger.", false, false);
 		
 		// Define uses (required items, produced items, destroyed items, create location, description, requires power on [optional], requires power cell [optional])
 		removeRubble = World.Instance.CreateUse(
@@ -224,8 +252,8 @@ public partial class Game : Node
 		
 		openStorageBox = World.Instance.CreateUse(
 			["Wracker", "Storage"], ["Red Tablets", "Blue Tablets", "Green Tablets"], ["Storage"], ItemCreateLocation.Room,
-			"With a click and a chime the lock is undone and the box lid opens to reveal a large assortment of coloured [color=38a868]tablets[/color]. " + 
-			"The box contains red, green, and blue tablets."
+			"With a click and a chime the lock is undone and the box lid opens to reveal a large assortment of coloured tablets. " + 
+			"The box contains [color=38a868]red[/color], [color=38a868]green[/color], and [color=38a868]blue tablets[/color]."
 		);
 		
 		useRedTablets = World.Instance.CreateUse(
@@ -269,6 +297,18 @@ public partial class Game : Node
 		World.Instance.AddItemToRoom("Ladder", "Elevator Shaft"); // Hidden item
 		World.Instance.AddItemToRoom("Bolt Holes", "Elevator Shaft"); // Hidden item
 		World.Instance.AddItemToRoom("Mummified Corpse", "Kitchen Alcove");
+		
+		// Pods for stasis puzzle
+		World.Instance.AddItemToRoom("Stasis Pod 1", "Stasis Chamber");
+		World.Instance.AddItemToRoom("Stasis Pod 2", "Stasis Chamber");
+		World.Instance.AddItemToRoom("Stasis Pod 3", "Stasis Chamber");
+		World.Instance.AddItemToRoom("Stasis Pod 4", "Stasis Chamber");
+		World.Instance.AddItemToRoom("Stasis Pod 5", "Stasis Chamber");
+		World.Instance.AddItemToRoom("Stasis Pod 6", "Stasis Chamber");
+		World.Instance.AddItemToRoom("Stasis Pod 7", "Stasis Chamber");
+		World.Instance.AddItemToRoom("Stasis Pod 8", "Stasis Chamber");
+		World.Instance.AddItemToRoom("Stasis Pod 9", "Stasis Chamber");
+		World.Instance.AddItemToRoom("Stasis Pod 10", "Stasis Chamber");
 		
 		// 'Self' is a hidden item, added to every room individually
 		World.Instance.AddItemToRoom("Self", "Breached Entrance");
@@ -362,75 +402,9 @@ public partial class Game : Node
 		// Use specific happenings
 		//
 		
-		if (result.UseAction == attachPowerCell)
-		{
-			World.Instance.CellIsPlaced = true;
-			//console.Description = "Some kind of console. You hear the hum of its fan working beneath the casing.";
-		}
-		
-		// Generator puzzle
-		if (result.UseAction == useBlueTablets || result.UseAction == useRedTablets || result.UseAction == useGreenTablets)
-		{
-			if (result.UseAction == useBlueTablets)
-			{
-				if (blueTabletUseCount++ < 2)
-				{
-					World.Instance.ShipPower += 20;
-					OutputText("Ship power is increased by 20 units. Current level is " + World.Instance.ShipPower+ ".");
-				}
-				else
-				{
-					OutputText("This type of tablets currently won't provide more power. Try a different one!");
-				}
-			}
-			else if (result.UseAction == useRedTablets)
-			{
-				if (redTabletUseCount++ < 2)
-				{
-					World.Instance.ShipPower += 30;
-					OutputText("Ship power is increased by 30 units. Current level is " + World.Instance.ShipPower+ ".");
-				}
-				else
-				{
-					OutputText("This type of tablets currently won't provide more power. Try a different one!");
-				}
-			}
-			else if (result.UseAction == useGreenTablets)
-			{
-				if (greenTabletUseCount++ < 2)
-				{
-					World.Instance.ShipPower += 15;
-					OutputText("Ship power is increased by 15 units. Current level is " + World.Instance.ShipPower+ ".");
-				}
-				else
-				{
-					OutputText("This type of tablets currently won't provide more power. Try a different one!");
-				}
-			}
-			
-			if (World.Instance.ShipPower > 100)
-			{
-				World.Instance.ShipPower = 0;
-				OutputText("As power increases to over 100 units the system short circuits and power level is reset to 0.");
-				greenTabletUseCount = 0;
-				redTabletUseCount = 0;
-				blueTabletUseCount = 0;
-			}
-			else if (World.Instance.ShipPower == 100)
-			{
-				World.Instance.IsPowerOn = true;
-				AudioManager.Instance.PlaySFX("event_powercell");
-				OutputText("As power level reaches exactly 100 units power to the ship is completely restored.");
-				Player.Instance.Take(redTablets);
-				Player.Instance.Take(blueTablets);
-				Player.Instance.Take(greenTablets);
-				Player.Instance.CurrentRoom.Take(redTablets);
-				Player.Instance.CurrentRoom.Take(blueTablets);
-				Player.Instance.CurrentRoom.Take(greenTablets);
-			}
-			
-			OutputText("\n");
-		}
+		// Handle puzzles
+		GeneratorPuzzle(result);
+		StasisPuzzle(result);
 		
 		if (result.UseAction == openDoor)
 		{

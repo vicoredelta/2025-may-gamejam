@@ -15,6 +15,12 @@ public partial class Map : Node
 		SetRoom(destinationRoom, visitedStatusForAllRooms);
 	}
 	
+	public void SetStasisImageVisibility(bool isVisible)
+	{
+		Sprite2D node = GetNode<Sprite2D>("StasisChamberImage");
+		node.Visible = isVisible;
+	}
+	
 	public override void _Ready()
 	{
 		RoomHolder = GetNode<Node2D>("MapBoundary/MapHolder/RoomHolder/");

@@ -12,6 +12,7 @@ public struct CommandResult
 	public Direction Direction { get; } = Direction.InvalidDirection;	// Indicates direction in case of a 'move' command
 	public UseAction UseAction { get; } = null;
 	public bool Success { get; } = false;								// Indicates wheter the attempted command was sucessfull
+	public ItemType LookedAt { get; } = null; 							// Indicates which item was looked at, in case of a look command
 	
 	public CommandResult() { }
 	
@@ -33,11 +34,12 @@ public struct CommandResult
 		}
 	}
 	
-	public CommandResult(String text, ItemType itemType)
+	public CommandResult(IExecutable command, String text, ItemType itemType)
 	{
-		Command = TakeCommand.Instance;
+		Command = command;
 		Text = text;
-		ItemsObtained.Add(itemType);
+		if (command == TakeCommand.Instance) ItemsObtained.Add(itemType);
+		if (command == LookCommand.Instance) LookedAt = itemType;
 		Success = true;
 	}
 	
