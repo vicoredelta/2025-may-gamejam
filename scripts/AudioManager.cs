@@ -26,6 +26,10 @@ public partial class AudioManager : Node
 		sfxLibrary["keycard_correct_2"] = GD.Load<AudioStream>("res://assets/audio/sfx_event_keycard_2.ogg");
 		sfxLibrary["item_multitool"] = GD.Load<AudioStream>("res://assets/audio/sfx_item_multitool_0.ogg");
 		sfxLibrary["pickup_0"] = GD.Load<AudioStream>("res://assets/audio/sfx_pickup_0.ogg");
+		sfxLibrary["pickup_1"] = GD.Load<AudioStream>("res://assets/audio/sfx_pickup_1.ogg");
+		sfxLibrary["pickup_2"] = GD.Load<AudioStream>("res://assets/audio/sfx_pickup_2.ogg");
+		sfxLibrary["pickup_3"] = GD.Load<AudioStream>("res://assets/audio/sfx_pickup_3.ogg");
+		sfxLibrary["pickup_4"] = GD.Load<AudioStream>("res://assets/audio/sfx_pickup_4.ogg");
 
 		// Dictionary with background sound (bgs) used by the game
 		bgAmbienceLibrary["loop_0"] = GD.Load<AudioStream>("res://assets/audio/bgs_ambience_loop_0.ogg");
@@ -57,6 +61,22 @@ public partial class AudioManager : Node
 		{
 			SFXPlayer.Stream = sfx;
 			SFXPlayer.Play();
+		}
+		else
+		{
+			GD.PrintErr($" '{name}' not found!");
+		}
+	}
+	public async void PlaySFXFor(string name, float duration)
+	{
+		if (sfxLibrary.TryGetValue(name, out AudioStream sfx))
+		{
+			SFXPlayer.Stream = sfx;
+			SFXPlayer.Play();
+
+			await ToSignal(GetTree().CreateTimer(duration), SceneTreeTimer.SignalName.Timeout);
+
+			SFXPlayer.Stop();
 		}
 		else
 		{

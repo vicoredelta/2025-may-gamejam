@@ -8,7 +8,5 @@ bgAmbiencePlayer = NodePath("bgAmbiencePlayer")
 SFXPlayer = NodePath("SFXPlayer")
 
 [node name="bgAmbiencePlayer" type="AudioStreamPlayer" parent="."]
-volume_db = -20.0
 
 [node name="SFXPlayer" type="AudioStreamPlayer" parent="."]
-volume_db = -16.0
