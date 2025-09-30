@@ -534,11 +534,11 @@ public partial class Game : Node
 		{
 			AudioManager.Instance.PlaySFX("pickup_3",0f, 0.8f);
 		}
-		if (result.Command == UseCommand.Instance && result.UseAction.RequiredItems[0].Name.Contains("Rods"))
+		if (result.Command == UseCommand.Instance && result.Success && result.UseAction.RequiredItems[0].Name.Contains("Rods"))
 		{
 			AudioManager.Instance.PlaySFX("event_keycard_0",0f, 0.7f);
 		}
-		if (result.Command == UseCommand.Instance && result.UseAction.RequiredItems[0].Name.Contains("Cell"))
+		if (result.Command == UseCommand.Instance && result.Success && result.UseAction.RequiredItems[0].Name.Contains("Cell"))
 		{
 			AudioManager.Instance.PlaySFX("pickup_0",0f, 0.4f);
 		}
