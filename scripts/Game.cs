@@ -6,16 +6,16 @@ using Godot.Collections;
 public partial class Game : Node
 {
 	ItemType console;
-	ItemType redTablets;
-	ItemType blueTablets;
-	ItemType greenTablets;
+	ItemType redRods;
+	ItemType blueRods;
+	ItemType greenRods;
 	UseAction attachPowerCell;
 	UseAction openDoor;
 	UseAction openStorageBox;
 	UseAction removeRubble;
-	UseAction useRedTablets;
-	UseAction useBlueTablets;
-	UseAction useGreenTablets;
+	UseAction useRedRods;
+	UseAction useBlueRods;
+	UseAction useGreenRods;
 	UseAction stasisUnlock;
 	UseAction getKeycard;
 	int invalidCommandCount = 0;
@@ -97,7 +97,7 @@ public partial class Game : Node
 		
 		World.Instance.CreateRoom("Kitchen Alcove",
 		"A small compartment for preparing food. You can't see anything resembling cold storage, " +
-		"so preserving food might've been to advanced even for the ancients. What a peculiar culture. " +
+		"so preserving food might've been too advanced even for the ancients. What a peculiar culture. " +
 		"There is only one door, to the [color=7b84ff]north[/color].",
 		"You walk into a [color=efad42]small alcove[/color]. There's a stove and a number of broken kitchenware scattered around the room."
 		);
@@ -152,8 +152,12 @@ public partial class Game : Node
 		"You can see the outside from the hole you entered through. Ripples of heat shimmer cover the red and yellow landscape.",
 		false, false);
 		
-		World.Instance.CreateItemType("Down", [], // Room: Breached Entrance
+		World.Instance.CreateItemType("Down", [], // In every room
 		"The floor doesn't give off any murderous intent.",
+		false, false);
+		
+		World.Instance.CreateItemType("Up", [], // In every room
+		"The ceiling. Thankfully taller than you.",
 		false, false);
 		
 		World.Instance.CreateItemType("Wasteland", [], // Room: Breached Entrance
@@ -198,7 +202,7 @@ public partial class Game : Node
 		"You spot bolt holes in the wall where a ladder should be.",
 		false, false);
 		
-		World.Instance.CreateItemType("Bolt Holes", [], // Room: Elevator Shaft
+		World.Instance.CreateItemType("Bolt Holes", ["Hole"], // Room: Elevator Shaft
 		"Holes in the wall of the elevator shaft, were a maintenance ladder used to be. " +
 		"The bolt holes are of no use to you now.",
 		false, false);
@@ -216,16 +220,20 @@ public partial class Game : Node
 		"A small note with the letters '[color=7b84ff]CXXIII[/color]' written on it.",
 		false);
 		
-		World.Instance.CreateItemType("Storage", [], // Room: Heart Chamber
+		World.Instance.CreateItemType("Storage", ["Storage Box", "Box", "Electronic Lock"], // Room: Heart Chamber
 		"A storage box, with a simple [color=7b84ff]electronic lock[/color]. " +
 		"The box is made of some heat resistant, lightweight metal. We still haven't been able to replicate anything like it.",
 		false);
-		redTablets = World.Instance.CreateItemType("Red Tablets", ["Red", "Red Tablet"],
-		"A handful of red stone tablets. They carry an uncomfortably high current.", true);
-		blueTablets = World.Instance.CreateItemType("Blue Tablets", ["Blue", "Blue Tablet"],
-		"A handful of blue stone tablets. They carry a medium current, mildly irritating to the touch.", true);
-		greenTablets = World.Instance.CreateItemType("Green Tablets", ["Green", "Green Tablet"], 
-		"A handful of blue stone tablets. They carry a medium current, mildly irritating to the touch.", true);
+		
+		redRods = World.Instance.CreateItemType("Red Rods", ["Red", "Red Rod"],
+		"A handful of red stone rods. They carry an uncomfortably high current.", 
+		true, "res://assets/item_rod_red.png");
+		blueRods = World.Instance.CreateItemType("Blue Rods", ["Blue", "Blue Rod"],
+		"A handful of blue stone rods. They carry a medium current, mildly irritating to the touch.",
+		true, "res://assets/item_rod_blue.png");
+		greenRods = World.Instance.CreateItemType("Green Rods", ["Green", "Green Rod"], 
+		"A handful of green stone rods. They carry a low current.",
+		true, "res://assets/item_rod_green.png");
 		
 		// Items for stasis puzzle
 		World.Instance.CreateItemType("Stasis Control Terminal", ["Terminal"], 
@@ -265,24 +273,24 @@ public partial class Game : Node
 		);
 		
 		openStorageBox = World.Instance.CreateUse(
-			["Wracker", "Storage"], ["Red Tablets", "Blue Tablets", "Green Tablets"], ["Storage"], ItemCreateLocation.Room,
-			"With a click and a chime the lock is undone and the box lid opens to reveal a large assortment of coloured tablets. " + 
-			"The box contains [color=38a868]red[/color], [color=38a868]green[/color], and [color=38a868]blue tablets[/color]."
+			["Wracker", "Storage"], ["Red Rods", "Blue Rods", "Green Rods"], ["Storage"], ItemCreateLocation.Room,
+			"With a click and a chime the lock is undone and the box lid opens to reveal a large assortment of coloured rods. " + 
+			"The box contains [color=38a868]red[/color], [color=38a868]green[/color], and [color=38a868]blue rods[/color]."
 		);
 		
-		useRedTablets = World.Instance.CreateUse(
-			["Red Tablets", "Console"], [], [], ItemCreateLocation.Room,
-			"You use one of the red tablets to supply some power to the ship.", requiresCell: true
+		useRedRods = World.Instance.CreateUse(
+			["Red Rods", "Console"], [], [], ItemCreateLocation.Room,
+			"You use one of the red rods to supply some power to the ship.", requiresCell: true
 		);
 		
-		useBlueTablets = World.Instance.CreateUse(
-			["Blue Tablets", "Console"], [], [], ItemCreateLocation.Room,
-			"You use one of the blue tablets to supply some power to the ship.", requiresCell: true
+		useBlueRods = World.Instance.CreateUse(
+			["Blue Rods", "Console"], [], [], ItemCreateLocation.Room,
+			"You use one of the blue rods to supply some power to the ship.", requiresCell: true
 		);
 		
-		useGreenTablets = World.Instance.CreateUse(
-			["Green Tablets", "Console"], [], [], ItemCreateLocation.Room,
-			"You use one of the green tablets to supply some power to the ship.", requiresCell: true
+		useGreenRods = World.Instance.CreateUse(
+			["Green Rods", "Console"], [], [], ItemCreateLocation.Room,
+			"You use one of the green rods to supply some power to the ship.", requiresCell: true
 		);
 		
 		openDoor = World.Instance.CreateUse(
@@ -352,7 +360,6 @@ public partial class Game : Node
 		// Add items to rooms
 		World.Instance.AddItemToRoom("Carcass", "Breached Entrance");
 		World.Instance.AddItemToRoom("Outside", "Breached Entrance"); // Hidden item
-		World.Instance.AddItemToRoom("Down", "Breached Entrance"); // Hidden item
 		World.Instance.AddItemToRoom("Wasteland", "Breached Entrance"); // Hidden item
 		World.Instance.AddItemToRoom("Debris", "Cramped Hallway");
 		World.Instance.AddItemToRoom("Wall", "Cramped Hallway"); // Hidden item
@@ -378,7 +385,14 @@ public partial class Game : Node
 		World.Instance.AddItemToRoom("Stasis Pod 9", "Stasis Pods");
 		World.Instance.AddItemToRoom("Stasis Pod 10", "Stasis Pods");
 		
-		// 'Self' is a hidden item, added to every room individually
+		// Add items as obstacles between rooms (item, room, direction to block)
+		World.Instance.AddItemAsObstacle("Door", "Breached Entrance", Direction.North);
+		World.Instance.AddItemAsObstacle("Code Lock", "Heart Chamber", Direction.East);
+		
+		// Add items to player inventory
+		AddStartingItems(["Wracker", "Stolen Power Cell"]);
+		
+				// 'Self' is a hidden item, added to every room individually
 		World.Instance.AddItemToRoom("Self", "Breached Entrance");
 		World.Instance.AddItemToRoom("Self", "Cramped Hallway");
 		World.Instance.AddItemToRoom("Self", "Heart Chamber");
@@ -386,13 +400,30 @@ public partial class Game : Node
 		World.Instance.AddItemToRoom("Self", "Captain's Quarters");
 		World.Instance.AddItemToRoom("Self", "Strange Panels");
 		World.Instance.AddItemToRoom("Self", "Kitchen Alcove");
+		World.Instance.AddItemToRoom("Self", "Stasis Pods");
+		World.Instance.AddItemToRoom("Self", "Stasis Control Room");
 		
-		// Add items as obstacles between rooms (item, room, direction to block)
-		World.Instance.AddItemAsObstacle("Door", "Breached Entrance", Direction.North);
-		World.Instance.AddItemAsObstacle("Code Lock", "Heart Chamber", Direction.East);
+		// 'Down' is a hidden item, added to every room individually
+		World.Instance.AddItemToRoom("Down", "Breached Entrance");
+		World.Instance.AddItemToRoom("Down", "Cramped Hallway");
+		World.Instance.AddItemToRoom("Down", "Heart Chamber");
+		World.Instance.AddItemToRoom("Down", "Elevator Shaft");
+		World.Instance.AddItemToRoom("Down", "Captain's Quarters");
+		World.Instance.AddItemToRoom("Down", "Strange Panels");
+		World.Instance.AddItemToRoom("Down", "Kitchen Alcove");
+		World.Instance.AddItemToRoom("Down", "Stasis Pods");
+		World.Instance.AddItemToRoom("Down", "Stasis Control Room");
 		
-		// Add items to player inventory
-		AddStartingItems(["Wracker", "Stolen Power Cell"]);
+		// 'Up' is a hidden item, added to every room individually
+		World.Instance.AddItemToRoom("Up", "Breached Entrance");
+		World.Instance.AddItemToRoom("Up", "Cramped Hallway");
+		World.Instance.AddItemToRoom("Up", "Heart Chamber");
+		World.Instance.AddItemToRoom("Up", "Elevator Shaft");
+		World.Instance.AddItemToRoom("Up", "Captain's Quarters");
+		World.Instance.AddItemToRoom("Up", "Strange Panels");
+		World.Instance.AddItemToRoom("Up", "Kitchen Alcove");
+		World.Instance.AddItemToRoom("Up", "Stasis Pods");
+		World.Instance.AddItemToRoom("Up", "Stasis Control Room");
 		
 		// Generate room tiles in minimap
 		foreach (TileCoordinate coord in Player.Instance.CurrentRoom.GenerateTileCoordinates())
@@ -490,19 +521,19 @@ public partial class Game : Node
 		}
 		
 		// Pickup sounds (track, startTime, endTime)
-		if (result.Command == TakeCommand.Instance && result.ItemsObtained.Contains(redTablets))
+		if (result.Command == TakeCommand.Instance && result.ItemsObtained.Contains(redRods))
 		{
 			AudioManager.Instance.PlaySFX("pickup_3",0f, 0.8f);
 		}
-		if (result.Command == TakeCommand.Instance && result.ItemsObtained.Contains(greenTablets))
+		if (result.Command == TakeCommand.Instance && result.ItemsObtained.Contains(greenRods))
 		{
 			AudioManager.Instance.PlaySFX("pickup_3",0f, 0.8f);
 		}
-		if (result.Command == TakeCommand.Instance && result.ItemsObtained.Contains(blueTablets))
+		if (result.Command == TakeCommand.Instance && result.ItemsObtained.Contains(blueRods))
 		{
 			AudioManager.Instance.PlaySFX("pickup_3",0f, 0.8f);
 		}
-		if (result.Command == UseCommand.Instance && result.UseAction.RequiredItems[0].Name.Contains("Tablets"))
+		if (result.Command == UseCommand.Instance && result.UseAction.RequiredItems[0].Name.Contains("Rods"))
 		{
 			AudioManager.Instance.PlaySFX("event_keycard_0",0f, 0.7f);
 		}
