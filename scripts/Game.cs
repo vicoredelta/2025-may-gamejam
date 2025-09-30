@@ -82,7 +82,7 @@ public partial class Game : Node
 		"The [color=efad42]Captain's Quarters[/color]. Must have been cozy, once upon a time. " +
 		"The room's only door is to the [color=7b84ff]south[/color].",
 		"You walk into room with eerily out-of-place ornaments. " +
-		"Perhaps this was the [color=efad42]captain's quarters[/color], some two thousand years ago. " +
+		"Perhaps this was the [color=efad42]captain's quarters[/color], some five thousand years ago. " +
 		"There are no other doors than the one you entered through."
 		);
 		
@@ -273,8 +273,9 @@ public partial class Game : Node
 		);
 		
 		openStorageBox = World.Instance.CreateUse(
-			["Wracker", "Storage"], ["Red Rods", "Blue Rods", "Green Rods"], ["Storage"], ItemCreateLocation.Room,
-			"With a click and a chime the lock is undone and the box lid opens to reveal a large assortment of coloured rods. " + 
+			["Wracker", "Storage"], ["Red Rods", "Blue Rods", "Green Rods"], ["Storage"], ItemCreateLocation.Room,		
+			"With a click and a whirr the lock is undone. The box lid opens to reveal a set of charging rods (stone tubes " +
+			"that carry magical currents) ordered in different colours. You'll need some to fully connect the power cell to the console. " + 
 			"The box contains [color=38a868]red[/color], [color=38a868]green[/color], and [color=38a868]blue rods[/color]."
 		);
 		
