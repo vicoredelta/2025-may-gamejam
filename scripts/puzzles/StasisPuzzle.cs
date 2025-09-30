@@ -10,7 +10,7 @@ public partial class Game : Node
 	
 	public void StasisPuzzle(CommandResult result)
 	{
-		if (Player.Instance.CurrentRoom.Name == "Stasis Chamber" &&
+		if (Player.Instance.CurrentRoom.Name == "Stasis Pods" &&
 			result.Command == LookCommand.Instance && result.LookedAt == null)
 		{
 			EmitSignal(SignalName.SetStasisImageVisibility, true);

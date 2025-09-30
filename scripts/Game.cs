@@ -102,8 +102,11 @@ public partial class Game : Node
 		"You walk into a [color=efad42]small alcove[/color]. There's a stove and a number of broken kitchenware scattered around the room."
 		);
 		
-		World.Instance.CreateRoom("Stasis Chamber",
-		"There are ten [color=7b84ff]stasis pods[/color], each carrying a long since passed away passenger. They are numbered  1 to 10."
+		World.Instance.CreateRoom("Stasis Pods",
+		"There are ten [color=7b84ff]stasis pods[/color], each carrying a long since passed away passenger. They are numbered  1 to 10.",
+		"The room is long and slim with large mechanical pods along the western wall. "+
+		"The pods have a faint glow to them and eminate a slight chill, likely due to the power being restored. "+
+		"There is an open door on the [color=7b84ff]eastern[/color] wall."
 		);
 		
 		World.Instance.CreateRoom("Stasis Control Room",
@@ -116,12 +119,12 @@ public partial class Game : Node
 		// Define connections between rooms (room 1, room 2, direction when moving from room 1 to room 2)
 		World.Instance.ConnectRooms("Breached Entrance", "Cramped Hallway", Direction.North);
 		World.Instance.ConnectRooms("Cramped Hallway", "Heart Chamber", Direction.North);
-		World.Instance.ConnectRooms("Heart Chamber", "Captain's Quarters", Direction.North);
+		World.Instance.ConnectRooms("Heart Chamber", "Stasis Pods", Direction.North);
 		World.Instance.ConnectRooms("Heart Chamber", "Elevator Shaft", Direction.West);
 		World.Instance.ConnectRooms("Heart Chamber", "Strange Panels", Direction.East);
 		World.Instance.ConnectRooms("Strange Panels", "Kitchen Alcove", Direction.South);
-		World.Instance.ConnectRooms("Breached Entrance", "Stasis Chamber", Direction.East);	// Temporaryily put Stasis Chamber close to entrance so we can easily test it
-		World.Instance.ConnectRooms("Stasis Chamber", "Stasis Control Room", Direction.East);
+		World.Instance.ConnectRooms("Stasis Pods", "Stasis Control Room", Direction.North);
+		World.Instance.ConnectRooms("Stasis Pods", "Captain's Quarters", Direction.East);
 		
 		// Define every unique type of item (item name, name aliases, item description, can be picked up, is visible [optional], icon path [optional])
 		
@@ -147,6 +150,10 @@ public partial class Game : Node
 		
 		World.Instance.CreateItemType("Outside", [], // Room: Breached Entrance
 		"You can see the outside from the hole you entered through. Ripples of heat shimmer cover the red and yellow landscape.",
+		false, false);
+		
+		World.Instance.CreateItemType("Down", [], // Room: Breached Entrance
+		"The floor doesn't give off any murderous intent.",
 		false, false);
 		
 		World.Instance.CreateItemType("Wasteland", [], // Room: Breached Entrance
@@ -179,7 +186,7 @@ public partial class Game : Node
 		false);
 		
 		World.Instance.CreateItemType("Mummified Corpse", ["Corpse"], // Room: Kitchen Alcove
-		"You see the [color=efad42]mummified remains[/color] of an unknown person, their bones and shriveled skin mixed with debris. " +
+		"You see the [color=efad42]mummified remains[/color] of an unknown person, their shriveled skin and mixed with debris. " +
 		"Was this person part of the crew, or a looter?",
 		false);
 		
@@ -222,27 +229,27 @@ public partial class Game : Node
 		
 		// Items for stasis puzzle
 		World.Instance.CreateItemType("Stasis Control Terminal", ["Terminal"], 
-		"The stasis pod locking mechanism is controlled from here.", false);
+		"A stasis pod containing the remains of a passenger, long since passed away.", false);
 		World.Instance.CreateItemType("Stasis Pod 1", ["Pod 1", "1"], 
-		"A stasis pod containing a long since passed away passenger.", false, false);
+		"A stasis pod containing the remains of a passenger, long since passed away.", false, false);
 		World.Instance.CreateItemType("Stasis Pod 2", ["Pod 2", "2"], 
-		"A stasis pod containing a long since passed away passenger.", false, false);
+		"A stasis pod containing the remains of a passenger, long since passed away.", false, false);
 		World.Instance.CreateItemType("Stasis Pod 3", ["Pod 3", "3"], 
-		"A stasis pod containing a long since passed away passenger.", false, false);
+		"A stasis pod containing the remains of a passenger, long since passed away.", false, false);
 		World.Instance.CreateItemType("Stasis Pod 4", ["Pod 4", "4"], 
-		"A stasis pod containing a long since passed away passenger.", false, false);
+		"A stasis pod containing the remains of a passenger, long since passed away.", false, false);
 		World.Instance.CreateItemType("Stasis Pod 5", ["Pod 5", "5"], 
-		"A stasis pod containing a long since passed away passenger.", false, false);
+		"A stasis pod containing the remains of a passenger, long since passed away.", false, false);
 		World.Instance.CreateItemType("Stasis Pod 6", ["Pod 6", "6"], 
-		"A stasis pod containing a long since passed away passenger.", false, false);
+		"A stasis pod containing the remains of a passenger, long since passed away.", false, false);
 		World.Instance.CreateItemType("Stasis Pod 7", ["Pod 7", "7"], 
-		"A stasis pod containing a long since passed away passenger.", false, false);
+		"A stasis pod containing the remains of a passenger, long since passed away.", false, false);
 		World.Instance.CreateItemType("Stasis Pod 8", ["Pod 8", "8"], 
-		"A stasis pod containing a long since passed away passenger.", false, false);
+		"A stasis pod containing the remains of a passenger, long since passed away.", false, false);
 		World.Instance.CreateItemType("Stasis Pod 9", ["Pod 9", "9"], 
-		"A stasis pod containing a long since passed away passenger.", false, false);
+		"A stasis pod containing the remains of a passenger, long since passed away.", false, false);
 		World.Instance.CreateItemType("Stasis Pod 10", ["Pod 10", "10"], 
-		"A stasis pod containing a long since passed away passenger.", false, false);
+		"A stasis pod containing the remains of a passenger, long since passed away.", false, false);
 		World.Instance.CreateItemType("Captain's Keycard", ["Keycard"], 
 		"The keycard belonging to the captain of this ship.", true);
 		
@@ -345,6 +352,7 @@ public partial class Game : Node
 		// Add items to rooms
 		World.Instance.AddItemToRoom("Carcass", "Breached Entrance");
 		World.Instance.AddItemToRoom("Outside", "Breached Entrance"); // Hidden item
+		World.Instance.AddItemToRoom("Down", "Breached Entrance"); // Hidden item
 		World.Instance.AddItemToRoom("Wasteland", "Breached Entrance"); // Hidden item
 		World.Instance.AddItemToRoom("Debris", "Cramped Hallway");
 		World.Instance.AddItemToRoom("Wall", "Cramped Hallway"); // Hidden item
@@ -359,16 +367,16 @@ public partial class Game : Node
 		World.Instance.AddItemToRoom("Stasis Control Terminal", "Stasis Control Room");
 		
 		// Pods for stasis puzzle
-		World.Instance.AddItemToRoom("Stasis Pod 1", "Stasis Chamber");
-		World.Instance.AddItemToRoom("Stasis Pod 2", "Stasis Chamber");
-		World.Instance.AddItemToRoom("Stasis Pod 3", "Stasis Chamber");
-		World.Instance.AddItemToRoom("Stasis Pod 4", "Stasis Chamber");
-		World.Instance.AddItemToRoom("Stasis Pod 5", "Stasis Chamber");
-		World.Instance.AddItemToRoom("Stasis Pod 6", "Stasis Chamber");
-		World.Instance.AddItemToRoom("Stasis Pod 7", "Stasis Chamber");
-		World.Instance.AddItemToRoom("Stasis Pod 8", "Stasis Chamber");
-		World.Instance.AddItemToRoom("Stasis Pod 9", "Stasis Chamber");
-		World.Instance.AddItemToRoom("Stasis Pod 10", "Stasis Chamber");
+		World.Instance.AddItemToRoom("Stasis Pod 1", "Stasis Pods");
+		World.Instance.AddItemToRoom("Stasis Pod 2", "Stasis Pods");
+		World.Instance.AddItemToRoom("Stasis Pod 3", "Stasis Pods");
+		World.Instance.AddItemToRoom("Stasis Pod 4", "Stasis Pods");
+		World.Instance.AddItemToRoom("Stasis Pod 5", "Stasis Pods");
+		World.Instance.AddItemToRoom("Stasis Pod 6", "Stasis Pods");
+		World.Instance.AddItemToRoom("Stasis Pod 7", "Stasis Pods");
+		World.Instance.AddItemToRoom("Stasis Pod 8", "Stasis Pods");
+		World.Instance.AddItemToRoom("Stasis Pod 9", "Stasis Pods");
+		World.Instance.AddItemToRoom("Stasis Pod 10", "Stasis Pods");
 		
 		// 'Self' is a hidden item, added to every room individually
 		World.Instance.AddItemToRoom("Self", "Breached Entrance");
