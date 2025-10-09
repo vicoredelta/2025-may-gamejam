@@ -86,7 +86,6 @@ scale = Vector2(1.5, 1.5)
 texture = ExtResource("5_nakos")
 
 [node name="NorthArrowRedTooltip" type="Label" parent="NorthArrowRed"]
-visible = false
 offset_left = -8.0
 offset_top = 4.0
 offset_right = 9.0
@@ -106,7 +105,6 @@ scale = Vector2(1.5, 1.5)
 texture = ExtResource("5_nakos")
 
 [node name="SouthArrowRedTooltip" type="Label" parent="SouthArrowRed"]
-visible = false
 offset_left = -7.99997
 offset_top = 4.00004
 offset_right = 9.00003
@@ -126,7 +124,6 @@ scale = Vector2(1.5, 1.5)
 texture = ExtResource("5_nakos")
 
 [node name="EastArrowRedTooltip" type="Label" parent="EastArrowRed"]
-visible = false
 offset_left = -7.99999
 offset_top = 4.0001
 offset_right = 9.00001
@@ -146,7 +143,6 @@ scale = Vector2(1.5, 1.5)
 texture = ExtResource("5_nakos")
 
 [node name="WestArrowRedTooltip" type="Label" parent="WestArrowRed"]
-visible = false
 offset_left = -8.0
 offset_top = 4.0
 offset_right = 9.0
@@ -166,7 +162,6 @@ scale = Vector2(1.5, 1.5)
 texture = ExtResource("6_nakos")
 
 [node name="SouthArrowGreenTooltip" type="Label" parent="SouthArrowGreen"]
-visible = false
 offset_left = -7.99997
 offset_top = 4.00005
 offset_right = 9.00003
@@ -203,7 +198,6 @@ scale = Vector2(1.5, 1.5)
 texture = ExtResource("6_nakos")
 
 [node name="EastArrowGreenTooltip" type="Label" parent="EastArrowGreen"]
-visible = false
 offset_left = -7.99998
 offset_top = 4.00009
 offset_right = 9.00002
