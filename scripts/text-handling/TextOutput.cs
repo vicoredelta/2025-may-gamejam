@@ -6,7 +6,17 @@ public partial class TextOutput : RichTextLabel
 	TextOutput()
 	{
 		// The strings below appear when the game boots up for the first time.
-		AppendText("Few know of the [color=efad42]antique spacecraft[/color] you stand before. It " +
+		AppendText("[color=efad42]Raid on the Sarcophagus Engine[/color]\n" +
+			"a text adventure game by Chen Space Program\n\n" +
+			
+			"You are currently reading from the output window. You can type commands " +
+			"into the input window at the bottom of the screen. " +
+			"Typing commands is your only way to explore the game world. " +
+			"If you need assistance, type '[color=de6ba5]help[/color]' or click on the ? icon.\n\n" +
+			
+			"==========================================================\n\n" +
+			
+			"Few know of the [color=efad42]antique spacecraft[/color] you stand before. It " +
 			"crash-landed from its derelict orbit years ago, into an arid " +
 			"basin, far from civilisation. Looters who tried their luck on " +
 			"its spoils had returned empty-handed – or dead. They lacked the " +

@@ -4,8 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://d2itebp8dcjyj" path="res://assets/tileset_frame_0.png" id="2_2klcf"]
 [ext_resource type="PackedScene" uid="uid://beedews6es7ag" path="res://scenes/player_map_marker.tscn" id="3_gldc4"]
 [ext_resource type="FontFile" uid="uid://bp277mpbyjl8y" path="res://assets/fonts/Jersey25-Regular.ttf" id="5_2klcf"]
-[ext_resource type="Texture2D" uid="uid://c44wdn6e1ip17" path="res://assets/locked_door.png" id="5_2lpho"]
-[ext_resource type="Texture2D" uid="uid://c0aq3ebju2ona" path="res://assets/open_door.png" id="6_nakos"]
+[ext_resource type="Texture2D" uid="uid://blperi00g7jcl" path="res://assets/map_door_locked.png" id="5_nakos"]
+[ext_resource type="Texture2D" uid="uid://ephmunnlpovd" path="res://assets/map_door_open.png" id="6_nakos"]
 [ext_resource type="PackedScene" uid="uid://bdym4plguipgw" path="res://scenes/stasis_chamber_image.tscn" id="7_nakos"]
 
 [node name="Map" type="Node2D"]
@@ -78,50 +78,159 @@ horizontal_alignment = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="NorthArrowRed" type="Sprite2D" parent="."]
+editor_description = "A 2D node, which renders a texture.
+Used to display the locked_door texture."
+visible = false
 position = Vector2(-1, -50)
 scale = Vector2(1.5, 1.5)
-texture = ExtResource("5_2lpho")
+texture = ExtResource("5_nakos")
+
+[node name="NorthArrowRedTooltip" type="Label" parent="NorthArrowRed"]
+visible = false
+offset_left = -8.0
+offset_top = 4.0
+offset_right = 9.0
+offset_bottom = 15.0
+tooltip_text = "The way north is blocked."
+mouse_filter = 1
+mouse_default_cursor_shape = 16
+theme_override_font_sizes/font_size = 1
 
 [node name="SouthArrowRed" type="Sprite2D" parent="."]
+editor_description = "A 2D node, which renders a texture.
+Used to display the locked_door texture."
+visible = false
 position = Vector2(1.00006, 48.0001)
 rotation = 3.14159
 scale = Vector2(1.5, 1.5)
-texture = ExtResource("5_2lpho")
+texture = ExtResource("5_nakos")
+
+[node name="SouthArrowRedTooltip" type="Label" parent="SouthArrowRed"]
+visible = false
+offset_left = -7.99997
+offset_top = 4.00004
+offset_right = 9.00003
+offset_bottom = 15.0
+tooltip_text = "The way south is blocked."
+mouse_filter = 1
+mouse_default_cursor_shape = 16
+theme_override_font_sizes/font_size = 1
 
 [node name="EastArrowRed" type="Sprite2D" parent="."]
+editor_description = "A 2D node, which renders a texture.
+Used to display the locked_door texture."
+visible = false
 position = Vector2(49.0001, -3.8147e-06)
 rotation = 1.5708
 scale = Vector2(1.5, 1.5)
-texture = ExtResource("5_2lpho")
+texture = ExtResource("5_nakos")
+
+[node name="EastArrowRedTooltip" type="Label" parent="EastArrowRed"]
+visible = false
+offset_left = -7.99999
+offset_top = 4.0001
+offset_right = 9.00001
+offset_bottom = 15.0001
+tooltip_text = "The way east is blocked."
+mouse_filter = 1
+mouse_default_cursor_shape = 16
+theme_override_font_sizes/font_size = 1
 
 [node name="WestArrowRed" type="Sprite2D" parent="."]
+editor_description = "A 2D node, which renders a texture.
+Used to display the locked_door texture."
+visible = false
 position = Vector2(-49, -3.8147e-06)
 rotation = 4.71239
 scale = Vector2(1.5, 1.5)
-texture = ExtResource("5_2lpho")
+texture = ExtResource("5_nakos")
+
+[node name="WestArrowRedTooltip" type="Label" parent="WestArrowRed"]
+visible = false
+offset_left = -8.0
+offset_top = 4.0
+offset_right = 9.0
+offset_bottom = 15.0
+tooltip_text = "The way west is blocked."
+mouse_filter = 1
+mouse_default_cursor_shape = 16
+theme_override_font_sizes/font_size = 1
 
 [node name="SouthArrowGreen" type="Sprite2D" parent="."]
+editor_description = "A 2D node, which renders a texture.
+Used to display the open_door texture."
+visible = false
 position = Vector2(1.00006, 48.0001)
 rotation = 3.14159
 scale = Vector2(1.5, 1.5)
 texture = ExtResource("6_nakos")
 
+[node name="SouthArrowGreenTooltip" type="Label" parent="SouthArrowGreen"]
+visible = false
+offset_left = -7.99997
+offset_top = 4.00005
+offset_right = 9.00003
+offset_bottom = 15.0
+tooltip_text = "You may go south."
+mouse_filter = 1
+mouse_default_cursor_shape = 16
+theme_override_font_sizes/font_size = 1
+
 [node name="NorthArrowGreen" type="Sprite2D" parent="."]
+editor_description = "A 2D node, which renders a texture.
+Used to display the open_door texture."
 position = Vector2(-1, -50)
 scale = Vector2(1.5, 1.5)
 texture = ExtResource("6_nakos")
 
+[node name="NorthArrowGreenTooltip" type="Label" parent="NorthArrowGreen"]
+offset_left = -8.0
+offset_top = 4.0
+offset_right = 9.0
+offset_bottom = 15.0
+tooltip_text = "You may go north."
+mouse_filter = 1
+mouse_default_cursor_shape = 16
+theme_override_font_sizes/font_size = 1
+
 [node name="EastArrowGreen" type="Sprite2D" parent="."]
+editor_description = "A 2D node, which renders a texture.
+Used to display the open_door texture."
+visible = false
 position = Vector2(49.0001, -3.8147e-06)
 rotation = 1.5708
 scale = Vector2(1.5, 1.5)
 texture = ExtResource("6_nakos")
 
+[node name="EastArrowGreenTooltip" type="Label" parent="EastArrowGreen"]
+visible = false
+offset_left = -7.99998
+offset_top = 4.00009
+offset_right = 9.00002
+offset_bottom = 15.0001
+tooltip_text = "You may go east."
+mouse_filter = 1
+mouse_default_cursor_shape = 16
+theme_override_font_sizes/font_size = 1
+
 [node name="WestArrowGreen" type="Sprite2D" parent="."]
+editor_description = "A 2D node, which renders a texture.
+Used to display the open_door texture."
+visible = false
 position = Vector2(-49, -3.8147e-06)
 rotation = 4.71239
 scale = Vector2(1.5, 1.5)
 texture = ExtResource("6_nakos")
+
+[node name="WestArrowGreenTooltip" type="Label" parent="WestArrowGreen"]
+offset_left = -8.0
+offset_top = 4.0
+offset_right = 9.0
+offset_bottom = 15.0
+tooltip_text = "You may go west."
+mouse_filter = 1
+mouse_default_cursor_shape = 16
+theme_override_font_sizes/font_size = 1
 
 [node name="StasisChamberImage" parent="." instance=ExtResource("7_nakos")]
 visible = false

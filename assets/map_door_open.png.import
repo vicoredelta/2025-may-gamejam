@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c44wdn6e1ip17"
-path="res://.godot/imported/locked_door.png-8bbf5105a8a4e9a73c1f03837d337141.ctex"
+uid="uid://ephmunnlpovd"
+path="res://.godot/imported/map_door_open.png-613859a5faf0d7815af3daaa41a37669.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/locked_door.png"
-dest_files=["res://.godot/imported/locked_door.png-8bbf5105a8a4e9a73c1f03837d337141.ctex"]
+source_file="res://assets/map_door_open.png"
+dest_files=["res://.godot/imported/map_door_open.png-613859a5faf0d7815af3daaa41a37669.ctex"]
 
 [params]
 

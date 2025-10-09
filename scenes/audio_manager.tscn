@@ -3,10 +3,19 @@
 [ext_resource type="Script" uid="uid://tf3m5e18mj6v" path="res://scripts/AudioManager.cs" id="1_jisk1"]
 
 [node name="AudioManager" type="Node" node_paths=PackedStringArray("bgAmbiencePlayer", "SFXPlayer")]
+editor_description = "Root node of the audio_manager scene.
+
+Contains AudioStreamPlayer nodes that represent individual audio channels."
 script = ExtResource("1_jisk1")
 bgAmbiencePlayer = NodePath("bgAmbiencePlayer")
 SFXPlayer = NodePath("SFXPlayer")
 
 [node name="bgAmbiencePlayer" type="AudioStreamPlayer" parent="."]
+editor_description = "A general node for audio streams.
+
+This node is used for the \"ambience\" audio channel."
 
 [node name="SFXPlayer" type="AudioStreamPlayer" parent="."]
+editor_description = "A general node for audio streams.
+
+This node is used for the \"SFX\" (special effects) audio channel."

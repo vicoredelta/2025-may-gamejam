@@ -6,7 +6,7 @@ using System.Linq;
 public static class Parser
 {
 	// Command aliases
-	static String[] _creditsAlias = ["author", "authors", "credits", "csp", "dev", "devs", "developer", "developers"];
+	static String[] _creditsAlias = ["author", "authors", "credits", "csp", "dev", "devs", "developer", "developers", "whodunit"];
 	static String[] _helpAlias = ["advice", "guide", "help", "hint", "manual", "tutorial"];
 	static String[] _inputAlias = ["input", "entry", "write"];
 	static String[] _lookAlias = ["check", "examine", "inspect", "look", "observe", "see", "view"];

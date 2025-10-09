@@ -18,7 +18,8 @@ config/features=PackedStringArray("4.4", "C#", "Forward Plus")
 boot_splash/show_image=false
 boot_splash/use_filter=false
 config/icon="uid://bh4uihjivf8of"
-config/windows_native_icon="res://assets/sprite_ui_map_player_0.ico"
+config/windows_native_icon="res://assets/sprite_ui_map_player_1.ico"
+boot_splash/windows_native_icon="res://assets/sprite_ui_map_player_1.ico"
 
 [autoload]
 

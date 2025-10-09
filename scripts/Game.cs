@@ -18,6 +18,8 @@ public partial class Game : Node
 	UseAction useGreenRods;
 	UseAction stasisUnlock;
 	UseAction getKeycard;
+	UseAction salvageCupboard;
+	UseAction defeatHole;
 	int invalidCommandCount = 0;
 	
 	[Signal]
@@ -70,7 +72,7 @@ public partial class Game : Node
 		World.Instance.CreateRoom("Elevator Shaft",
 		"An elevator shaft. What remains of the elevator itself lies about two floors down. " +
 		"There's no maintenance ladder either. You could probably survive the fall, " +
-		"possibly even without breaking any bones, but how would you get up again? " +
+		"possibly even without breaking any bones, but you see no way to get back up. " +
 		"Your only option, for now, is to head back from where you came.",
 		"As you approach a wide open [color=efad42]elevator shaft[/color], an awful stench belches from the depths. " +
 		"At the bottom of the shaft, you spot a cruelly contorted body, lying under a broken [color=7b84ff]ladder[/color]. " +
@@ -96,8 +98,12 @@ public partial class Game : Node
 		);
 		
 		World.Instance.CreateRoom("Kitchen Alcove",
-		"A small compartment for preparing food. You can't see anything resembling cold storage, " +
-		"so preserving food might've been too advanced even for the ancients. What a peculiar culture. " +
+		"It's easy to identify this room as a kitchen. " +
+		"The worktops, [color=7b84ff]cupboards[/color], and the hearth are arranged in an evidently timeless layout. " +
+		"Any food that would've been left in the crash has been scavenged by animals. " +
+		"There's no sign of cold storage to preserve food, either." +
+		"You surmise that the space-travelling ancients might've lived off of simple foods like nuts and dried meats. " +
+		"But the more you think about it, the more unreasonable that premise appears.\n" +
 		"There is only one door, to the [color=7b84ff]north[/color].",
 		"You walk into a [color=efad42]small alcove[/color]. There's a stove and a number of broken kitchenware scattered around the room."
 		);
@@ -109,8 +115,8 @@ public partial class Game : Node
 		"There is an open door on the [color=7b84ff]eastern[/color] wall."
 		);
 		
-		World.Instance.CreateRoom("Stasis Control Room",
-		"The stasis cells are controlled from this room."
+		World.Instance.CreateRoom("Aviator's Pulpit",
+		"The stasis pods are controlled from this room."
 		);
 		
 		// Set starting room
@@ -123,15 +129,15 @@ public partial class Game : Node
 		World.Instance.ConnectRooms("Heart Chamber", "Elevator Shaft", Direction.West);
 		World.Instance.ConnectRooms("Heart Chamber", "Strange Panels", Direction.East);
 		World.Instance.ConnectRooms("Strange Panels", "Kitchen Alcove", Direction.South);
-		World.Instance.ConnectRooms("Stasis Pods", "Stasis Control Room", Direction.North);
+		World.Instance.ConnectRooms("Stasis Pods", "Aviator's Pulpit", Direction.North);
 		World.Instance.ConnectRooms("Stasis Pods", "Captain's Quarters", Direction.East);
 		
 		// Define every unique type of item (item name, name aliases, item description, can be picked up, is visible [optional], icon path [optional])
 		
 		World.Instance.CreateItemType("Wracker", [], // Starting inventory
-		"It's a [color=38a868]wracker[/color], a transforming multitool. You've rigged it for bypassing " +
-		"older, low-leveled passwords and locks. It's almost brand new, " + 
-		"but the attached gemstone has been with your family for generations.",
+		"It's a [color=38a868]wracker[/color], an electronic device used for interpreting magical signals. " +
+		"You've rigged it for bypassing older, low-leveled passwords and locks. It's almost brand new, " + 
+		"but the attached gemstone has been in your family for generations.",
 		true, "res://assets/item_multitool_0.png");
 		
 		World.Instance.CreateItemType("Stolen Power Cell", ["Power Cell"], // Starting inventory
@@ -150,14 +156,6 @@ public partial class Game : Node
 		
 		World.Instance.CreateItemType("Outside", [], // Room: Breached Entrance
 		"You can see the outside from the hole you entered through. Ripples of heat shimmer cover the red and yellow landscape.",
-		false, false);
-		
-		World.Instance.CreateItemType("Down", [], // In every room
-		"The floor doesn't give off any murderous intent.",
-		false, false);
-		
-		World.Instance.CreateItemType("Up", [], // In every room
-		"The ceiling. Thankfully taller than you.",
 		false, false);
 		
 		World.Instance.CreateItemType("Wasteland", [], // Room: Breached Entrance
@@ -184,45 +182,8 @@ public partial class Game : Node
 		"a [color=38a868]power cell[/color] might fit.",
 		false);
 		
-		World.Instance.CreateItemType("Corpse", [], // Room: Elevator Shaft
-		"The corpse of a looter, presumably. You can't make out any distinct features, but it appears to be an adult. " +
-		"Judging by the stench, they likely died about a week ago.",
-		false);
-		
-		World.Instance.CreateItemType("Mummified Corpse", ["Corpse"], // Room: Kitchen Alcove
-		"You see the [color=efad42]mummified remains[/color] of an unknown person, their shriveled skin and mixed with debris. " +
-		"Was this person part of the crew, or a looter?",
-		false);
-		
-		World.Instance.CreateItemType("Self", [], // Should be in every room
-		"You take a moment to feel yourself wasting away. Better get moving.",
-		false, false);
-		
-		World.Instance.CreateItemType("Ladder", [], // Room: Elevator Shaft
-		"You spot bolt holes in the wall where a ladder should be.",
-		false, false);
-		
-		World.Instance.CreateItemType("Bolt Holes", ["Hole"], // Room: Elevator Shaft
-		"Holes in the wall of the elevator shaft, were a maintenance ladder used to be. " +
-		"The bolt holes are of no use to you now.",
-		false, false);
-		
-		World.Instance.CreateItemType("Body", [], // Room: Elevator Shaft
-		"The corpse of a looter, presumably. You can't make out any distinct features, but it appears to be an adult. " +
-		"Judging by the stench, they likely died about a week ago.",
-		false, false);
-		
 		World.Instance.CreateItemType("Code Lock", ["Lock"], // Room: Heart Chamber
 		"A metal door with a keypad terminal is blocking the way east.",
-		false);
-		
-		World.Instance.CreateItemType("Note", [], // Room: Captain's Quarters
-		"A small note with the letters '[color=7b84ff]CXXIII[/color]' written on it.",
-		false);
-		
-		World.Instance.CreateItemType("Storage", ["Storage Box", "Box", "Electronic Lock"], // Room: Heart Chamber
-		"A storage box, with a simple [color=7b84ff]electronic lock[/color]. " +
-		"The box is made of some heat resistant, lightweight metal. We still haven't been able to replicate anything like it.",
 		false);
 		
 		redRods = World.Instance.CreateItemType("Red Rods", ["Red", "Red Rod"],
@@ -234,6 +195,73 @@ public partial class Game : Node
 		greenRods = World.Instance.CreateItemType("Green Rods", ["Green", "Green Rod"], 
 		"A handful of green stone rods. They carry a low current.",
 		true, "res://assets/item_rod_green.png");
+		
+		World.Instance.CreateItemType("Heart Ceiling", ["Up"], // Room: Heart Chamber
+		"The ceiling is dome-shaped. It might have been beautifully painted once.",
+		false, false);
+		
+		World.Instance.CreateItemType("Corpse", ["Body", "Looter", "Stench"], // Room: Elevator Shaft
+		"The corpse of a looter, presumably. You can't make out any distinct features, but it appears to be an adult. " +
+		"Judging by the stench, they likely died about a week ago.",
+		false);
+		
+		World.Instance.CreateItemType("Ladder", [], // Room: Elevator Shaft
+		"You spot bolt holes in the wall where a ladder should be.",
+		false, false);
+		
+		World.Instance.CreateItemType("Bolt Holes", ["Hole", "Holes"], // Room: Elevator Shaft
+		"Holes in the wall of the elevator shaft, were a maintenance ladder used to be. " +
+		"The bolt holes are of no use to you now.",
+		false, false);
+		
+		World.Instance.CreateItemType("Note", [], // Room: Captain's Quarters
+		"A small note with the letters '[color=7b84ff]CXXIII[/color]' written on it.",
+		false);
+		
+		World.Instance.CreateItemType("Storage", ["Storage Box", "Box", "Electronic Lock"], // Room: Heart Chamber
+		"A storage box, with a simple [color=7b84ff]electronic lock[/color]. " +
+		"The box is made of some heat resistant, lightweight metal. We still haven't been able to replicate anything like it.",
+		false);
+		
+		World.Instance.CreateItemType("Mummified Corpse", ["Corpse", "Mummy"], // Room: Kitchen Alcove
+		"You see the [color=efad42]mummified remains[/color] of an unknown person, their shriveled skin and mixed with debris. " +
+		"Was this person part of the crew, or a looter?",
+		false);
+		
+		World.Instance.CreateItemType("Cupboard", ["Cupboards"], // Room: Kitchen Alcove
+		"While the storage itself doesn't even have crumbs left in it, the long and flat surfaces are excellent salvage quality -- "+
+		"presuming you had any intention to take it apart. The stone material is sturdy yet shockingly light which would make it easy to carry around.",
+		false);
+		
+		World.Instance.CreateItemType("Stone Board", ["Board", "Boards"], // Room: Kitchen Alcove
+		"A stone board!",
+		true);
+		
+		World.Instance.CreateItemType("Salvaged Cupboard", ["Cupboard", "Cupboards"], // Room: Kitchen Alcove
+		"There's nothing else in the room worth salvaging.",
+		false, false);
+		
+		World.Instance.CreateItemType("Defeated Pit", ["Pit", "Hole", "Stone Board", "Board"], // Room: Stasis Pods
+		"Looks safe.",
+		false, false);
+		
+		World.Instance.CreateItemType("Dark Pit", ["Hole", "Pit"], // Room: Stasis Pods
+		"A large [color=7b84ff]hole[/color] obstructs the way [color=7b84ff]north[/color]. " +
+		"Attempting to jump it would either lead to a lethal fall, or being pierced by the can-opener " +
+		"serrated edge surrounding it. Perhaps it'd just be easier to find something to use as a bridge across it.",
+		false);
+		
+		World.Instance.CreateItemType("Down", ["Floor"], // In every room
+		"The floor doesn't give off any murderous intent.",
+		false, false);
+		
+		World.Instance.CreateItemType("Up", ["Ceiling"], // In every room
+		"The ceiling. Thankfully taller than you.",
+		false, false);
+		
+		World.Instance.CreateItemType("Self", [], // Should be in every room
+		"You take a moment to feel yourself wasting away. Better get moving.",
+		false, false);
 		
 		// Items for stasis puzzle
 		World.Instance.CreateItemType("Stasis Control Terminal", ["Terminal"], 
@@ -304,6 +332,20 @@ public partial class Game : Node
 			stasisUnlockDescription
 		);
 		
+		salvageCupboard = World.Instance.CreateUse(
+			["Cupboard"], ["Stone Board", "Salvaged Cupboard"], ["Cupboard"], ItemCreateLocation.Room,
+			"You reach into your bag which has an assortment of tools for this sort of job. With experienced hands, " +
+			"you make short work of the cupboard and manage to dislodge one of its large [color=38a868]boards[/color]. " +
+			"Though made of stone, the board is lightweight enough to carry with you."
+		);
+		
+		defeatHole = World.Instance.CreateUse(
+			["Dark Pit", "Stone Board"], ["Defeated Pit"], ["Dark Pit", "Stone Board"], ItemCreateLocation.Room,
+			"Securing the large door across the hole is done with a bit of cumbersome work, " +
+			"but without much hassle. Putting your weight on top of it doesn't cause it to creak or bend. " +
+			"Success! The room [color=7b84ff]north[/color] now is accessible."
+		);
+		
 		// Uses for Stasis puzzle
 		String wrongPodDescription = "You search the corpse thouroughly, it did not contain the captain's keycard. The stasis pods close afterwards";
 		World.Instance.CreateUse(
@@ -368,11 +410,11 @@ public partial class Game : Node
 		World.Instance.AddItemToRoom("Rubble", "Heart Chamber");
 		World.Instance.AddItemToRoom("Note", "Captain's Quarters");
 		World.Instance.AddItemToRoom("Corpse", "Elevator Shaft");
-		World.Instance.AddItemToRoom("Body", "Elevator Shaft"); // Hidden item
 		World.Instance.AddItemToRoom("Ladder", "Elevator Shaft"); // Hidden item
 		World.Instance.AddItemToRoom("Bolt Holes", "Elevator Shaft"); // Hidden item
 		World.Instance.AddItemToRoom("Mummified Corpse", "Kitchen Alcove");
-		World.Instance.AddItemToRoom("Stasis Control Terminal", "Stasis Control Room");
+		World.Instance.AddItemToRoom("Cupboard", "Kitchen Alcove");
+		World.Instance.AddItemToRoom("Stasis Control Terminal", "Aviator's Pulpit");
 		
 		// Pods for stasis puzzle
 		World.Instance.AddItemToRoom("Stasis Pod 1", "Stasis Pods");
@@ -389,6 +431,7 @@ public partial class Game : Node
 		// Add items as obstacles between rooms (item, room, direction to block)
 		World.Instance.AddItemAsObstacle("Door", "Breached Entrance", Direction.North);
 		World.Instance.AddItemAsObstacle("Code Lock", "Heart Chamber", Direction.East);
+		World.Instance.AddItemAsObstacle("Dark Pit", "Stasis Pods", Direction.North);
 		
 		// Add items to player inventory
 		AddStartingItems(["Wracker", "Stolen Power Cell"]);
@@ -402,7 +445,7 @@ public partial class Game : Node
 		World.Instance.AddItemToRoom("Self", "Strange Panels");
 		World.Instance.AddItemToRoom("Self", "Kitchen Alcove");
 		World.Instance.AddItemToRoom("Self", "Stasis Pods");
-		World.Instance.AddItemToRoom("Self", "Stasis Control Room");
+		World.Instance.AddItemToRoom("Self", "Aviator's Pulpit");
 		
 		// 'Down' is a hidden item, added to every room individually
 		World.Instance.AddItemToRoom("Down", "Breached Entrance");
@@ -413,25 +456,25 @@ public partial class Game : Node
 		World.Instance.AddItemToRoom("Down", "Strange Panels");
 		World.Instance.AddItemToRoom("Down", "Kitchen Alcove");
 		World.Instance.AddItemToRoom("Down", "Stasis Pods");
-		World.Instance.AddItemToRoom("Down", "Stasis Control Room");
+		World.Instance.AddItemToRoom("Down", "Aviator's Pulpit");
 		
 		// 'Up' is a hidden item, added to every room individually
 		World.Instance.AddItemToRoom("Up", "Breached Entrance");
 		World.Instance.AddItemToRoom("Up", "Cramped Hallway");
-		World.Instance.AddItemToRoom("Up", "Heart Chamber");
+		World.Instance.AddItemToRoom("Heart Ceiling", "Heart Chamber"); // 'Up' is an alias in the Heart Chamber
 		World.Instance.AddItemToRoom("Up", "Elevator Shaft");
 		World.Instance.AddItemToRoom("Up", "Captain's Quarters");
 		World.Instance.AddItemToRoom("Up", "Strange Panels");
 		World.Instance.AddItemToRoom("Up", "Kitchen Alcove");
 		World.Instance.AddItemToRoom("Up", "Stasis Pods");
-		World.Instance.AddItemToRoom("Up", "Stasis Control Room");
+		World.Instance.AddItemToRoom("Up", "Aviator's Pulpit");
 		
 		// Generate room tiles in minimap
 		foreach (TileCoordinate coord in Player.Instance.CurrentRoom.GenerateTileCoordinates())
 		{
 			EmitSignal(SignalName.GenerateMapTile, coord.Name, coord.Position);	
 		}
-		//sets minimap visibility
+		// Sets minimap visibility
 		var visitedStatus = World.Instance.GetVisitedStatusForAllRooms();
 		var godotDict = new Godot.Collections.Dictionary<string, bool>();
 
@@ -517,6 +560,11 @@ public partial class Game : Node
 		}
 		
 		if (result.UseAction == removeRubble)
+		{
+			AudioManager.Instance.PlaySFX("pickup_0");
+		}
+		
+			if (result.UseAction == salvageCupboard)
 		{
 			AudioManager.Instance.PlaySFX("pickup_0");
 		}
